@@ -19,7 +19,7 @@
                     <td><a [routerLink]="'/account/orders/' + order.id">#{{ order.id }}</a></td>
                     <td>{{ order.date }}</td>
                     <td>{{ order.status }}</td>
-                    <td>{{ order.total|currencyFormat }} for {{ order.quantity }} item(s)</td>
+                    <td>{{ order.total|currencyCLP }} for {{ order.quantity }} item(s)</td>
                 </tr>
                 </tbody>
             </table>

@@ -54,11 +54,11 @@
 
             <div class="product__prices">
                 <ng-container *ngIf="product.compareAtPrice">
-                    <span class="product__new-price">{{ product.price|currencyFormat }}</span>{{ ' ' }}
-                    <span class="product__old-price">{{ product.compareAtPrice|currencyFormat }}</span>
+                    <span class="product__new-price">{{ product.price|currencyCLP }}</span>{{ ' ' }}
+                    <span class="product__old-price">{{ product.compareAtPrice|currencyCLP }}</span>
                 </ng-container>
                 <ng-container *ngIf="!product.compareAtPrice">
-                    {{ product.price|currencyFormat }}
+                    {{ product.price|currencyCLP }}
                 </ng-container>
             </div>
             <!-- .product__options -->
@@ -71,7 +71,7 @@
                                 <input type="radio" name="color">
                                 <span></span>
                             </label>
-                            <label class="input-radio-color__item" style="color: #ffd333;" data-toggle="tooltip" title="Yellow">
+                            <label class="input-radio-color__item" style="color: #3366cc;" data-toggle="tooltip" title="Yellow">
                                 <input type="radio" name="color">
                                 <span></span>
                             </label>

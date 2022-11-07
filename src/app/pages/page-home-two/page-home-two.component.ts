@@ -129,6 +129,8 @@ export class PageHomeTwoComponent implements OnInit, OnDestroy {
         (group as ProductsCarouselGroup).products$.pipe(
             tap(() => carousel.loading = false),
             takeUntil(merge(this.destroy$, carousel.abort$)),
-        ).subscribe(x => carousel.products = x);
+        ).subscribe(x => {
+            carousel.products = x
+        });
     }
 }

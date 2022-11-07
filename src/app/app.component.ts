@@ -57,10 +57,10 @@ export class AppComponent implements OnInit {
         // with the arguments of the built-in pipe "currency"
         // https://angular.io/api/common/CurrencyPipe
         this.currency.options = {
-            code: 'USD',
-            // display: 'symbol',
-            // digitsInfo: '1.2-2',
-            // locale: 'en-US'
+            code: 'CLP',
+            display: 'symbol-narrow',
+            // digitsInfo: '0',
+            // locale: 'fr-FR'
         };
 
         this.router.events.subscribe((event) => {

@@ -212,7 +212,7 @@ function getColorCode(slug: string): string {
         case 'black': return '#262626';
         case 'red':  return '#ff4040';
         case 'orange': return '#ff8126';
-        case 'yellow': return '#ffd333';
+        case 'yellow': return '#3366cc';
         case 'pear-green': return '#becc1f';
         case 'green': return '#8fcc14';
         case 'emerald': return '#47cc5e';

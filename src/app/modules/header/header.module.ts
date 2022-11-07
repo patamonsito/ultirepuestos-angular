@@ -19,6 +19,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { NavComponent } from './components/nav/nav.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
 
+import { BlocksModule } from '../blocks/blocks.module';
 @NgModule({
     declarations: [
         // components
@@ -38,7 +39,8 @@ import { TopbarComponent } from './components/topbar/topbar.component';
         CommonModule,
         RouterModule,
         // modules
-        SharedModule
+        SharedModule,
+        BlocksModule
     ],
     exports: [
         // components

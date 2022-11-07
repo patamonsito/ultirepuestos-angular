@@ -14,6 +14,8 @@ export class BlockSlideshowComponent {
         nav: false,
         dots: true,
         loop: true,
+        autoplay: true,
+        autoplayTimeout: 3000,
         responsive: {
             0: {items: 1}
         },
@@ -22,25 +24,25 @@ export class BlockSlideshowComponent {
 
     slides = [
         {
-            title: 'Big choice of<br>Plumbing products',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>Etiam pharetra laoreet dui quis molestie.',
-            image_classic: 'assets/images/slides/slide-1.jpg',
-            image_full: 'assets/images/slides/slide-1-full.jpg',
-            image_mobile: 'assets/images/slides/slide-1-mobile.jpg'
+            title: 'Somos Multimarca',
+            text: 'Nos especializamos en muchas marcas para ofrecerte un catalogo muy amplio.',
+            image_classic: 'https://i.imgur.com/PrJ5vyn.jpg',
+            image_full: 'https://i.imgur.com/PrJ5vyn.jpg',
+            image_mobile: 'https://i.imgur.com/x8EOWBU.jpg'
         },
         {
-            title: 'Screwdrivers<br>Professional Tools',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>Etiam pharetra laoreet dui quis molestie.',
-            image_classic: 'assets/images/slides/slide-2.jpg',
-            image_full: 'assets/images/slides/slide-2-full.jpg',
-            image_mobile: 'assets/images/slides/slide-2-mobile.jpg'
+            title: 'Repuestos Originales y Alternativos',
+            text: 'Compra sin salir de casa, cotiza con nosotros.',
+            image_classic: 'https://i.imgur.com/9seYqkv.jpg',
+            image_full: 'https://i.imgur.com/9seYqkv.jpg',
+            image_mobile: 'https://i.imgur.com/dBmYCCa.jpg'
         },
         {
-            title: 'One more<br>Unique header',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>Etiam pharetra laoreet dui quis molestie.',
-            image_classic: 'assets/images/slides/slide-3.jpg',
-            image_full: 'assets/images/slides/slide-3-full.jpg',
-            image_mobile: 'assets/images/slides/slide-3-mobile.jpg'
+            title: 'Paga con tus tajetas de debito o credito',
+            text: 'Aceptamos todo metodo de pago.',
+            image_classic: 'https://i.imgur.com/aeMTwKT.jpg',
+            image_full: 'https://i.imgur.com/aeMTwKT.jpg',
+            image_mobile: 'https://i.imgur.com/mtKwcpl.jpg'
         }
     ];
 

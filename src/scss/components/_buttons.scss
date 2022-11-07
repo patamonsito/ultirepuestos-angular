@@ -140,7 +140,7 @@ $local-transition-duration: .1s;
 
 .btn-primary {
     @include local-button-variant(
-        $btn-primary-bg-color,        $btn-primary-font-color,        $btn-primary-icon-color,
+        $btn-primary-bg-color,        white,        $btn-primary-icon-color,
         $btn-primary-hover-bg-color,  $btn-primary-hover-font-color,  $btn-primary-hover-icon-color,
         $btn-primary-active-bg-color, $btn-primary-active-font-color, $btn-primary-active-icon-color
     );

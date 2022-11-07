@@ -42,11 +42,11 @@
                         <li *ngFor="let option of item.cartItem.options">{{ option.name }}: {{ option.value }}</li>
                     </ul>
                 </td>
-                <td class="cart-table__column cart-table__column--price" data-title="Price">{{ item.cartItem.product.price|currencyFormat }}</td>
+                <td class="cart-table__column cart-table__column--price" data-title="Price">{{ item.cartItem.product.price|currencyCLP }}</td>
                 <td class="cart-table__column cart-table__column--quantity" data-title="Quantity">
                     <app-input-number [formControl]="item.quantityControl" [min]="1"></app-input-number>
                 </td>
-                <td class="cart-table__column cart-table__column--total" data-title="Total">{{ item.cartItem.product.price * item.quantity|currencyFormat }}</td>
+                <td class="cart-table__column cart-table__column--total" data-title="Total">{{ item.cartItem.product.price * item.quantity|currencyCLP }}</td>
                 <td class="cart-table__column cart-table__column--remove">
                     <button type="button" class="btn btn-light btn-sm btn-svg-icon" (click)="remove(item.cartItem)" [ngClass]="{'btn-loading': removedItems.includes(item.cartItem)}">
                         <app-icon name="cross-12" size="12"></app-icon>
@@ -78,14 +78,14 @@
                             <thead *ngIf="(cart.totals$|async)?.length" class="cart__totals-header">
                             <tr>
                                 <th>Subtotal</th>
-                                <td>{{ cart.subtotal$|async|currencyFormat }}</td>
+                                <td>{{ cart.subtotal$|async|currencyCLP }}</td>
                             </tr>
                             </thead>
                             <tbody *ngIf="(cart.totals$|async)?.length" class="cart__totals-body">
                             <tr *ngFor="let total of cart.totals$|async">
                                 <th>{{ total.title }}</th>
                                 <td>
-                                    {{ total.price|currencyFormat }}
+                                    {{ total.price|currencyCLP }}
                                     <div *ngIf="total.type === 'shipping'" class="cart__calc-shipping"><a href="" (click)="$event.preventDefault()">Calculate Shipping</a></div>
                                 </td>
                             </tr>
@@ -93,7 +93,7 @@
                             <tfoot class="cart__totals-footer">
                             <tr>
                                 <th>Total</th>
-                                <td>{{ cart.total$|async|currencyFormat }}</td>
+                                <td>{{ cart.total$|async|currencyCLP }}</td>
                             </tr>
                             </tfoot>
                         </table>

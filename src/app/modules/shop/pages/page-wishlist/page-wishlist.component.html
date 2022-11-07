@@ -50,7 +50,7 @@
                 <td class="wishlist__column wishlist__column--stock">
                     <div class="badge badge-success">In Stock</div>
                 </td>
-                <td class="wishlist__column wishlist__column--price">{{ product.price|currencyFormat }}</td>
+                <td class="wishlist__column wishlist__column--price">{{ product.price|currencyCLP }}</td>
                 <td class="wishlist__column wishlist__column--tocart">
                     <button type="button" class="btn btn-primary btn-sm" (click)="addToCart(product)" [ngClass]="{'btn-loading': addedToCartProducts.includes(product)}">Add To Cart</button>
                 </td>

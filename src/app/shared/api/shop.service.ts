@@ -272,7 +272,7 @@ export class ShopService {
         //     params.limit = limit.toString();
         // }
         //
-        // return this.http.get<Product[]>('https://example.com/api/shop/products/featured.json', {params});
+        // return this.http.post<Product[]>('http://137.184.198.84:3000/api/ofertas', {});
 
         // This is for demonstration purposes only. Remove it and use the code above.
         return getFeatured(categorySlug, limit);

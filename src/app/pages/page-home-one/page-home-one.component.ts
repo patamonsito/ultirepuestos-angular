@@ -46,6 +46,7 @@ export class PageHomeOneComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.bestsellers$ = this.shop.getBestsellers(7);
         this.brands$ = this.shop.getPopularBrands();
+        console.log(this.brands$)
         this.popularCategories$ = this.shop.getCategoriesBySlug([
             'power-tools',
             'hand-tools',

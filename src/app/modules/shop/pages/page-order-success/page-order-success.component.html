@@ -22,7 +22,7 @@
                     </li>
                     <li class="order-success__meta-item">
                         <span class="order-success__meta-title">Total:</span>
-                        <span class="order-success__meta-value">{{ order.total|currencyFormat }}</span>
+                        <span class="order-success__meta-value">{{ order.total|currencyCLP }}</span>
                     </li>
                     <li class="order-success__meta-item">
                         <span class="order-success__meta-title">Payment method:</span>
@@ -62,23 +62,23 @@
                                 </div>
                             </td>
                             <td class="order-list__column-quantity" data-title="Qty:">{{ item.quantity }}</td>
-                            <td class="order-list__column-total">{{ item.total|currencyFormat }}</td>
+                            <td class="order-list__column-total">{{ item.total|currencyCLP }}</td>
                         </tr>
                         </tbody>
                         <tbody *ngIf="order.additionalLines.length > 0" class="order-list__subtotals">
                         <tr>
                             <th class="order-list__column-label" colspan="3">Subtotal</th>
-                            <td class="order-list__column-total">{{ order.subtotal|currencyFormat }}</td>
+                            <td class="order-list__column-total">{{ order.subtotal|currencyCLP }}</td>
                         </tr>
                         <tr *ngFor="let line of order.additionalLines">
                             <th class="order-list__column-label" colspan="3">{{ line.label }}</th>
-                            <td class="order-list__column-total">{{ line.total|currencyFormat }}</td>
+                            <td class="order-list__column-total">{{ line.total|currencyCLP }}</td>
                         </tr>
                         </tbody>
                         <tfoot class="order-list__footer">
                         <tr>
                             <th class="order-list__column-label" colspan="3">Total</th>
-                            <td class="order-list__column-total">{{ order.total|currencyFormat }}</td>
+                            <td class="order-list__column-total">{{ order.total|currencyCLP }}</td>
                         </tr>
                         </tfoot>
                     </table>

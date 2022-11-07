@@ -1,6 +1,6 @@
 <div class="search__body">
     <form [formGroup]="form" class="search__form">
-        <select
+        <!-- <select
             *ngIf="location === 'header'"
             class="search__categories"
             aria-label="Category"
@@ -13,12 +13,12 @@
                 [value]="category.slug"
                 [innerHTML]="getCategoryName(category)"
             ></option>
-        </select>
+        </select> -->
         <input
             class="search__input"
             name="search"
-            placeholder="Search over 10,000 products"
-            aria-label="Site search"
+            placeholder="Buscador rapido"
+            aria-label="Buscar"
             type="text"
             autocomplete="off"
             formControlName="query"
@@ -56,7 +56,7 @@
                     <div class="suggestions__item-meta">SKU: {{ product.sku }}</div>
                 </div>
                 <div class="suggestions__item-price">
-                    {{ product.price|currencyFormat }}
+                    {{ product.price|currencyCLP }}
                 </div>
 
                 <div *ngIf="location === 'header'" class="suggestions__item-actions">

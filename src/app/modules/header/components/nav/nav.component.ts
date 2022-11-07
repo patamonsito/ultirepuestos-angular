@@ -19,7 +19,7 @@ export type NavStickyMode = 'alwaysOnTop' | 'pullToShow';
     styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit, OnDestroy, AfterViewInit {
-    @Input() departments = true;
+    @Input() departments = false;
     @Input() logo = false;
     @Input() search = false;
     @Input() stickyMode: NavStickyMode | false = false;

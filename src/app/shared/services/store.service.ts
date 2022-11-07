@@ -4,10 +4,10 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class StoreService {
-    address = '715 Fake Street, New York 10021 USA';
-    email = 'stroyka@example.com';
-    phone = ['(800) 060-0730', '(800) 060-0730'];
-    hours = 'Mon-Sat 10:00pm - 7:00pm';
+    address = 'Merced 838, oficina 117, Santiago';
+    email = 'contacto@ulti.cl';
+    phone = ['+56 9 8687 4327', '+56 9 4105 4479'];
+    hours = 'Lun-Vie 9:00 - 18:00';
 
     get primaryPhone(): string|null {
         return this.phone.length > 0 ? this.phone[0] : null;

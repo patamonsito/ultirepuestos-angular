@@ -9,8 +9,8 @@
 .site-header {
     position: relative;
     z-index: 100;
-    background: $header-bg;
-    color: $header-font-color;
+    background: #234fa7;
+    color: #fff;
 }
 .site-header__middle {
     display: flex;
@@ -46,7 +46,7 @@
 
     @include direction {
         text-align: $inline-end;
-        #{$margin-inline-start}: 80px;
+        #{$margin-inline-start}: 1rem;
     }
 }
 .site-header__phone-title {

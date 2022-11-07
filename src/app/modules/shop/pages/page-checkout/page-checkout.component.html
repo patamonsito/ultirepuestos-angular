@@ -128,23 +128,23 @@
                             <tbody class="checkout__totals-products">
                             <tr *ngFor="let item of cart.items$|async">
                                 <td>{{ item.product.name }} × {{ item.quantity }}</td>
-                                <td>{{ item.product.price * item.quantity|currencyFormat }}</td>
+                                <td>{{ item.product.price * item.quantity|currencyCLP }}</td>
                             </tr>
                             </tbody>
                             <tbody *ngIf="(cart.totals$|async)?.length" class="checkout__totals-subtotals">
                             <tr>
                                 <th>Subtotal</th>
-                                <td>{{ cart.subtotal$|async|currencyFormat }}</td>
+                                <td>{{ cart.subtotal$|async|currencyCLP }}</td>
                             </tr>
                             <tr *ngFor="let total of cart.totals$|async">
                                 <th>{{ total.title }}</th>
-                                <td>{{ total.price|currencyFormat }}</td>
+                                <td>{{ total.price|currencyCLP }}</td>
                             </tr>
                             </tbody>
                             <tfoot class="checkout__totals-footer">
                             <tr>
                                 <th>Total</th>
-                                <td>{{ cart.total$|async|currencyFormat }}</td>
+                                <td>{{ cart.total$|async|currencyCLP }}</td>
                             </tr>
                             </tfoot>
                         </table>

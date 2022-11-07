@@ -8,9 +8,9 @@
 
 .nav-panel {
     height: $nav-panel-height;
-    background: $nav-panel-bg;
+    background: #1e3d7a;
     box-shadow: $nav-panel-shadow;
-    color: $nav-panel-font-color;
+    color: white;
     will-change: position;
     backface-visibility: hidden;
     transform: translate3d(0, 0, 0);

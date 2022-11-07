@@ -8,7 +8,7 @@ import { isPlatformBrowser } from '@angular/common';
 interface CartTotal {
     title: string;
     price: number;
-    type: 'shipping'|'fee'|'tax'|'other';
+    type: 'shipping'|'fee'|'tax'|'other' | 'IVA' | 'Descuento';
 }
 
 interface CartData {
@@ -138,14 +138,14 @@ export class CartService {
         const totals: CartTotal[] = [];
 
         totals.push({
-            title: 'Shipping',
-            price: 25,
-            type: 'shipping'
+            title: 'Descuento',
+            price: 0,
+            type: 'Descuento'
         });
         totals.push({
-            title: 'Tax',
-            price: subtotal * 0.20,
-            type: 'tax'
+            title: 'IVA',
+            price: subtotal * 0.19,
+            type: 'IVA'
         });
 
         const total = subtotal + totals.reduce((acc, eachTotal) => acc + eachTotal.price, 0);

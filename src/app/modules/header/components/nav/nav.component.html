@@ -29,12 +29,16 @@
                 </a>
             </div>
 
-            <div *ngIf="departments" class="nav-panel__departments">
+            <!-- <div *ngIf="departments" class="nav-panel__departments">
                 <app-header-departments></app-header-departments>
-            </div>
+            </div> -->
 
             <!-- .nav-links -->
             <app-header-links class="nav-panel__nav-links nav-links"></app-header-links>
+            
+        <div class="site-header__search">
+            <app-search location="header"></app-search>
+        </div>
             <!-- .nav-links / end -->
 
             <div class="nav-panel__indicators">

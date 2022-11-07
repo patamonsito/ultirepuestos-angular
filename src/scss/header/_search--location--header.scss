@@ -31,6 +31,7 @@ $local-suggestion-transition: .2s;
     .search__form {
         height: $header-search-height;
         display: flex;
+        color: black
     }
     .search__border {
         position: absolute;
@@ -75,30 +76,32 @@ $local-suggestion-transition: .2s;
     .search__input {
         border: none;
         padding: 0 17px;
-        background: transparent;
+        background: white;
         width: 1px;
         flex-grow: 1;
         font-size: 15px;
         transition: color .15s;
-        color: $header-search-input-default-font-color;
+        color: black;
 
         &::placeholder {
-            color: $header-search-input-default-placeholder;
+            color: black;
+            fill: black;
+            outline: none;
         }
         & ~ .search__border {
-            background: $header-search-input-default-bg;
-            box-shadow: $header-search-input-default-shadow;
+            // background: $header-search-input-default-bg;
+            box-shadow: none;
         }
     }
     .search__input:hover {
-        color: $header-search-input-hover-font-color;
+        color: black;
 
         &::placeholder {
-            color: $header-search-input-hover-placeholder;
+            color: black;
         }
         & ~ .search__border {
-            background: $header-search-input-hover-bg;
-            box-shadow: $header-search-input-hover-shadow;
+            // background: $header-search-input-hover-bg;
+            // box-shadow: $header-search-input-hover-shadow;
         }
         & ~ .search__button {
             fill: $header-search-input-hover-icon-color;
@@ -110,27 +113,27 @@ $local-suggestion-transition: .2s;
     }
     @include local-input-focus-state {
         outline: none;
-        color: $header-search-input-focus-font-color;
+        // color: $header-search-input-focus-font-color;
 
         &::placeholder {
-            color: $header-search-input-focus-placeholder;
+            // color: $header-search-input-focus-placeholder;
         }
         & ~ .search__border {
-            background: $header-search-input-focus-bg;
-            box-shadow: $header-search-input-focus-shadow;
+            // background: $header-search-input-focus-bg;
+            // box-shadow: $header-search-input-focus-shadow;
         }
         & ~ .search__button {
-            fill: $header-search-input-focus-icon-color;
+            // fill: $header-search-input-focus-icon-color;
 
             &:hover {
-                fill: $header-search-input-focus-icon-hover-color;
+                // fill: $header-search-input-focus-icon-hover-color;
             }
         }
     }
     .search__button {
         border: none;
         padding: 0;
-        background: transparent;
+        background-color: white;
         flex-grow: 0;
         width: $header-search-height;
         cursor: pointer;
@@ -157,9 +160,9 @@ $local-suggestion-transition: .2s;
             position: absolute;
             box-shadow: $header-search-suggestions-shadow;
             background: $header-search-suggestions-bg;
-            left: -$local-expand;
-            top: -$local-expand;
-            width: calc(100% + #{$local-expand * 2});
+            left: 0;
+            top: 0;
+            width: 100%;
             padding-top: $header-search-height + $local-expand + $local-padding-top;
             padding-bottom: $local-padding-bottom;
             border-radius: 2px;

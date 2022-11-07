@@ -36,13 +36,14 @@ import { RatingComponent } from './components/rating/rating.component';
 import { SearchComponent } from './components/search/search.component';
 import { ShareButtonsComponent } from './components/share-buttons/share-buttons.component';
 import { SocialLinksComponent } from './components/social-links/social-links.component';
+import { IconLogoPc } from './components/icon-logo-pc/icon.component';
 
 // pipes
 import { AbsoluteUrlPipe } from './pipes/absolute-url.pipe';
 import { ColorTypePipe } from './pipes/color-type.pipe';
 import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
 import { ProductGalleryComponent } from './components/product-gallery/product-gallery.component';
-
+import { currencyCLP } from './pipes/currency-clp.pipe'
 
 @NgModule({
     declarations: [
@@ -72,11 +73,13 @@ import { ProductGalleryComponent } from './components/product-gallery/product-ga
         SearchComponent,
         ShareButtonsComponent,
         SocialLinksComponent,
+        IconLogoPc,
         // pipes
         AbsoluteUrlPipe,
         ColorTypePipe,
         CurrencyFormatPipe,
         ProductGalleryComponent,
+        currencyCLP,
     ],
     imports: [
         // modules (angular)
@@ -116,11 +119,13 @@ import { ProductGalleryComponent } from './components/product-gallery/product-ga
         RatingComponent,
         SearchComponent,
         SocialLinksComponent,
+        IconLogoPc,
         // pipes
         AbsoluteUrlPipe,
         ColorTypePipe,
         CurrencyFormatPipe,
         ShareButtonsComponent,
+        currencyCLP
     ]
 })
 export class SharedModule { }

@@ -22,23 +22,23 @@
                 <tbody class="card-table__body card-table__body--merge-rows">
                 <tr *ngFor="let item of order.items">
                     <td>{{ item.name }} × {{ item.quantity }}</td>
-                    <td>{{ item.total|currencyFormat }}</td>
+                    <td>{{ item.total|currencyCLP }}</td>
                 </tr>
                 </tbody>
                 <tbody *ngIf="order.additionalLines.length > 0" class="card-table__body card-table__body--merge-rows">
                 <tr>
                     <th>Subtotal</th>
-                    <td>{{ order.subtotal|currencyFormat }}</td>
+                    <td>{{ order.subtotal|currencyCLP }}</td>
                 </tr>
                 <tr *ngFor="let line of order.additionalLines">
                     <th>{{ line.label }}</th>
-                    <td>{{ line.total|currencyFormat }}</td>
+                    <td>{{ line.total|currencyCLP }}</td>
                 </tr>
                 </tbody>
                 <tfoot>
                 <tr>
                     <th>Total</th>
-                    <td>{{ order.total|currencyFormat }}</td>
+                    <td>{{ order.total|currencyCLP }}</td>
                 </tr>
                 </tfoot>
             </table>

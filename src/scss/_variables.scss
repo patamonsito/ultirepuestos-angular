@@ -117,14 +117,14 @@
    // light
    $light-color:                    #fff                  !default;
    $light-opposite-color:           #3d464d               !default;
-   $light-opposite-muted-color:     #999                  !default;
+   $light-opposite-muted-color:     #99bbff                  !default;
    $light-opposite-alt-color:       #6c757d               !default;
    $light-divider-color:            #ebebeb               !default;
    // dark
    $dark-color:                     $light-opposite-color !default;
    $dark-opposite-color:            $light-color          !default;
    // accent
-   $accent-color:                   #ffd333               !default;
+   $accent-color:                   #3366cc               !default;
    $accent-opposite-color:          $light-opposite-color !default;
    //links
    $link-color:                     #1a66ff               !default;
@@ -206,7 +206,7 @@
       $topbar-dropdown-hover-bg:          #ebebeb                      !default;
       $topbar-dropdown-hover-font-color:  $light-opposite-color        !default;
       $topbar-dropdown-hover-value-color: $topbar-dropdown-value-color !default;
-      $topbar-dropdown-hover-arrow-color: #999                         !default;
+      $topbar-dropdown-hover-arrow-color: #99bbff                         !default;
 
    // ----------------------------------------
    // -- .search--location--header
@@ -217,7 +217,7 @@
       $header-search-input-default-bg:               transparent                                               !default;
       $header-search-input-default-border-color:     #e5e5e5                                                   !default;
       $header-search-input-default-shadow:           0 0 0 2px $header-search-input-default-border-color inset !default;
-      $header-search-input-default-placeholder:      #999                                                      !default;
+      $header-search-input-default-placeholder:      #99bbff                                                      !default;
       $header-search-input-default-font-color:       inherit                                                   !default;
       $header-search-input-default-icon-color:       #bfbfbf                                                   !default;
       $header-search-input-default-icon-hover-color: $accent-color                                             !default;
@@ -278,7 +278,7 @@
       // search input focus
       $mobile-header-search-input-focus-bg:                 #fff                                                 !default;
       $mobile-header-search-input-focus-shadow:             0 1px 5px rgba(#000, .2)                             !default;
-      $mobile-header-search-input-focus-placeholder:        #999                                                 !default;
+      $mobile-header-search-input-focus-placeholder:        #99bbff                                                 !default;
       $mobile-header-search-input-focus-font-color:         $mobile-header-search-input-hover-font-color         !default;
       $mobile-header-search-input-focus-icon-color:         $mobile-header-search-input-hover-icon-color         !default;
       $mobile-header-search-input-focus-icon-hover-color:   $mobile-header-search-input-hover-icon-hover-color   !default;
@@ -294,7 +294,7 @@
          $offcanvas-search-bg:                   #fff                      !default;
          $offcanvas-search-shadow:               0 1px 7px rgba(#000, .25) !default;
          $offcanvas-search-divider-color:        #ebebeb                   !default;
-         $offcanvas-search-placeholder-color:    #999                      !default;
+         $offcanvas-search-placeholder-color:    #99bbff                      !default;
          $offcanvas-search-button-default-color: #b3b3b3                   !default;
          $offcanvas-search-button-hover-color:   $light-opposite-color     !default;
 
@@ -373,9 +373,9 @@
       $mobilemenu-divider-color:              #ebebeb                 !default;
       $mobilemenu-header-height:              $nav-panel-height       !default;
       $mobilemenu-font-color:                 $light-opposite-color   !default;
-      $mobilemenu-font-muted-color:           #999                    !default;
+      $mobilemenu-font-muted-color:           #99bbff                    !default;
       $mobilemenu-deep-links-bg:              #f7f7f7                 !default;
-      $mobilemenu-close-button-default-color: #999                    !default;
+      $mobilemenu-close-button-default-color: #99bbff                    !default;
       $mobilemenu-close-button-hover-color:   $light-opposite-color   !default;
 
    // ----------------------------------------
@@ -387,7 +387,7 @@
       $dropcart-font-color:                 $light-opposite-color       !default;
       $dropcart-font-muted-color:           $light-opposite-muted-color !default;
       $dropcart-divider-color:              $light-divider-color        !default;
-      $dropcart-close-button-default-color: #999                        !default;
+      $dropcart-close-button-default-color: #99bbff                        !default;
       $dropcart-close-button-hover-color:   $light-opposite-color       !default;
 
    // ----------------------------------------
@@ -534,7 +534,7 @@
       $block-header-filter-active-shadow:  0 0 0 2px $accent-color inset             !default;
 
       $block-header-arrow-default-bg:      #f2f2f2                                   !default;
-      $block-header-arrow-default-color:   #999                                      !default;
+      $block-header-arrow-default-color:   #99bbff                                      !default;
       $block-header-arrow-hover-bg:        $accent-color                             !default;
       $block-header-arrow-hover-color:     $accent-opposite-color                    !default;
       $block-header-arrow-active-bg:       lighten($block-header-arrow-hover-bg, 8%) !default;
@@ -768,7 +768,7 @@
       $rating-legend-font-color:         #b3b3b3                           !default;
       $rating-star-default-color:        #ccc                              !default;
       $rating-star-default-stroke-color: rgba(#000, .08)                   !default;
-      $rating-star-active-color:         #ffd333                           !default;
+      $rating-star-active-color:         #3366cc                           !default;
       $rating-star-active-stroke-color:  $rating-star-default-stroke-color !default;
 
    // ----------------------------------------
@@ -825,9 +825,9 @@
    // ----------------------------------------
    // -- .typography
    // ----------------------------------------
-      $typography-figcaption-color: #999 !default;
+      $typography-figcaption-color: #99bbff !default;
       $typography-hr-color:         #ccc !default;
-      $typography-cite-color:       #999 !default;
+      $typography-cite-color:       #99bbff !default;
 
 
 // ----------------------------------------

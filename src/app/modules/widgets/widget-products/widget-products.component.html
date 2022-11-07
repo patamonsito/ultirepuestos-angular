@@ -15,11 +15,11 @@
                 </div>
                 <div class="widget-products__prices">
                     <ng-container *ngIf="product.compareAtPrice">
-                        <span class="widget-products__new-price">{{ product.price|currencyFormat }}</span>{{ ' ' }}
-                        <span class="widget-products__old-price">{{ product.compareAtPrice|currencyFormat }}</span>
+                        <span class="widget-products__new-price">{{ product.price|currencyCLP }}</span>{{ ' ' }}
+                        <span class="widget-products__old-price">{{ product.compareAtPrice|currencyCLP }}</span>
                     </ng-container>
                     <ng-container *ngIf="!product.compareAtPrice">
-                        {{ product.price|currencyFormat }}
+                        {{ product.price|currencyCLP }}
                     </ng-container>
                 </div>
             </div>

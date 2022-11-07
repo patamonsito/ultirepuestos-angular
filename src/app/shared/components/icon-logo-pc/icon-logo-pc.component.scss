@@ -1,0 +1,15 @@
+:host {
+    display: block;
+}
+.st0{fill:#FFFFFF;
+    animation: myfirst 5s infinite;
+    animation-direction: alternate;}
+  
+      
+  @keyframes myfirst {
+    0%   {fill: #FFE7C7; left: 0px; top: 0px;}
+    25%  {fill: #FFFFC7; left: 0px; top: 0px;}
+    50%  {fill: #D7FFC7; left: 0px; top: 0px;}
+    75%  {fill: #C7FFE6; left: 0px; top: 0px;}
+    100% {fill: #DDC7FF; left: 0px; top: 0px;}
+  }

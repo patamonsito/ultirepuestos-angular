@@ -65,24 +65,24 @@ export class PageHomeOneComponent implements OnInit, OnDestroy {
             products: [],
             groups: [
                 {
-                    name: 'All',
+                    name: 'Todo',
                     current: true,
                     products$: this.shop.getFeaturedProducts(null, 8),
                 },
                 {
-                    name: 'Power Tools',
+                    name: 'Parachoques',
                     current: false,
-                    products$: this.shop.getFeaturedProducts('power-tools', 8),
+                    products$: this.shop.getFeaturedProducts('parachoque', 8),
                 },
                 {
-                    name: 'Hand Tools',
+                    name: 'Amortiguadores',
                     current: false,
-                    products$: this.shop.getFeaturedProducts('hand-tools', 8),
+                    products$: this.shop.getFeaturedProducts('amortiguador', 8),
                 },
                 {
-                    name: 'Plumbing',
+                    name: 'Anticongelantes',
                     current: false,
-                    products$: this.shop.getFeaturedProducts('plumbing', 8),
+                    products$: this.shop.getFeaturedProducts('Anticongelante', 8),
                 },
             ],
         };

@@ -29,7 +29,6 @@ export interface ProductAttribute {
 }
 
 export interface Product {
-    // Eliminar
     id: number;
     slug: string;
     name: string;

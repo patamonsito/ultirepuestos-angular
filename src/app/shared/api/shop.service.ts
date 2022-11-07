@@ -207,8 +207,9 @@ export class ShopService {
         //
         // return this.http.get<Product[]>('https://example.com/api/shop/products/bestsellers.json', {params});
 
+        return this.http.post<Product[]>('http://localhost:3000/api/productos-populares', {});
         // This is for demonstration purposes only. Remove it and use the code above.
-        return getBestsellers(limit);
+        // return getBestsellers(limit);
     }
 
     getTopRated(limit: number|null = null): Observable<Product[]> {
@@ -272,10 +273,11 @@ export class ShopService {
         //     params.limit = limit.toString();
         // }
         //
-        // return this.http.post<Product[]>('http://137.184.198.84:3000/api/ofertas', {});
+
+        return this.http.post<Product[]>('http://localhost:3000/api/ofertas', { Repuesto: categorySlug, Public: true });
 
         // This is for demonstration purposes only. Remove it and use the code above.
-        return getFeatured(categorySlug, limit);
+        // return getFeatured(categorySlug, limit);
     }
 
     getLatestProducts(categorySlug: string|null = null, limit: number|null = null): Observable<Product[]> {
@@ -299,6 +301,7 @@ export class ShopService {
         //
         // return this.http.get<Product[]>('https://example.com/api/shop/products/latest.json', {params});
 
+        return this.http.post<Product[]>('http://localhost:3000/api/productos-relacionados', { Repuesto: categorySlug });
         // This is for demonstration purposes only. Remove it and use the code above.
         return getLatestProducts(categorySlug, limit);
     }

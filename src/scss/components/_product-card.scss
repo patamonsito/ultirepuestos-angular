@@ -42,7 +42,7 @@
         background: $product-card-quickview-default-bg;
 
         &:not(.product-card__quickview--preload) {
-            color: $product-card-quickview-default-color;
+            color: #fff;
         }
 
         &:not(.product-card__quickview--preload):hover {

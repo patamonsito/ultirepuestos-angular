@@ -57,7 +57,7 @@ export class PageHomeTwoComponent implements OnInit, OnDestroy {
         this.columnTopRated$ = this.shop.getTopRated(3);
         this.columnSpecialOffers$ = this.shop.getSpecialOffers(3);
         this.columnBestsellers$ = this.shop.getBestsellers(3);
-
+        console.log(this.popularCategories$)
         this.featuredProducts = {
             abort$: new Subject<void>(),
             loading: false,

@@ -29,6 +29,10 @@ export interface ListOptions {
     filterValues?: SerializedFilterValues;
 }
 
+export interface Correo {
+    Correo: String
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -58,6 +62,11 @@ export class ShopService {
         return getShopCategory(slug);
     }
 
+
+    suscribirCorreo(correo: string){
+        return this.http.post('http://localhost:3000/api/suscribir', {Correo: correo});
+    }
+
     /**
      * Returns a category tree.
      *
@@ -79,10 +88,10 @@ export class ShopService {
         //     depth: depth.toString(),
         // };
         //
-        // return this.http.get<Category[]>('https://example.com/api/shop/categories.json', {params});
+        return this.http.post<Category[]>('http://localhost:3000/api/categorias', {});
 
         // This is for demonstration purposes only. Remove it and use the code above.
-        return getShopCategoriesTree(parent ? parent.slug : null, depth);
+        // return getShopCategoriesTree(parent ? parent.slug : null, depth);
     }
 
     /**
@@ -109,7 +118,8 @@ export class ShopService {
         // return this.http.get<Category[]>('https://example.com/api/shop/categories.json', {params});
 
         // This is for demonstration purposes only. Remove it and use the code above.
-        return getShopCategoriesBySlugs(slugs, depth);
+        return this.http.post<Category[]>('http://localhost:3000/api/categorias', {});
+        // return getShopCategoriesBySlugs(slugs, depth);
     }
 
     /**
@@ -211,6 +221,30 @@ export class ShopService {
         // This is for demonstration purposes only. Remove it and use the code above.
         // return getBestsellers(limit);
     }
+
+
+    getPopulateCustom(repuesto: string): Observable<Product[]> {
+        /**
+         * This is what your API endpoint might look like:
+         *
+         * https://example.com/api/shop/products/bestsellers.json?limit=3
+         *
+         * where:
+         * - limit = limit
+         */
+        // const params: {[param: string]: string} = {};
+        //
+        // if (limit) {
+        //     params.limit = limit.toString();
+        // }
+        //
+        // return this.http.get<Product[]>('https://example.com/api/shop/products/bestsellers.json', {params});
+
+        return this.http.post<Product[]>('http://localhost:3000/api/productos-populares', { Repuesto: repuesto});
+        // This is for demonstration purposes only. Remove it and use the code above.
+        // return getBestsellers(limit);
+    }
+
 
     getTopRated(limit: number|null = null): Observable<Product[]> {
         /**

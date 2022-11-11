@@ -49,9 +49,11 @@ export class ProductCardComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if ('product' in changes) {
-            this.featuredAttributes = !this.product ? [] : this.product.attributes.filter(x => x.featured);
-        }
+        // if ('product' in changes) {
+        //     this.featuredAttributes = !this.product ? [] : this.product.attributes.filter(x => x.featured);
+        // }
+
+        this.featuredAttributes = [];
     }
 
     addToCart(): void {

@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 
 // modules
 import { SharedModule } from '../../shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // components
 import { ContactsComponent } from './components/contacts/contacts.component';
@@ -20,14 +21,16 @@ import { TotopComponent } from './components/totop/totop.component';
         FooterComponent,
         LinksComponent,
         NewsletterComponent,
-        TotopComponent
+        TotopComponent,
     ],
     imports: [
         // modules (angular)
         CommonModule,
         RouterModule,
         // modules
-        SharedModule
+        SharedModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     exports: [
         FooterComponent

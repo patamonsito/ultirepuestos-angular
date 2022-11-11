@@ -1,19 +1,49 @@
 <div class="footer-newsletter">
-    <h5 class="footer-newsletter__title">Newsletter</h5>
+    <h5 class="footer-newsletter__title">Recibe Ofertas</h5>
     <div class="footer-newsletter__text">
-        Praesent pellentesque volutpat ex, vitae auctor lorem pulvinar mollis felis at lacinia.
+        Ingresa tu correo electronico para recibir ofertas.
     </div>
 
-    <form action="" class="footer-newsletter__form">
-        <label class="sr-only" for="footer-newsletter-address">Email Address</label>
-        <input type="text" class="footer-newsletter__form-input form-control" id="footer-newsletter-address" placeholder="Email Address...">
-
-        <button class="footer-newsletter__form-button btn btn-primary">Subscribe</button>
+    <form  [formGroup]="suscripcionForm" class="footer-newsletter__form">
+        <label class="sr-only" for="correo">Correo</label>
+        <input type="text" formControlName="correo" class="footer-newsletter__form-input form-control" id="correo" name="correo" placeholder="Ingrese su correo.">
+        <button class="footer-newsletter__form-button btn btn-primary" (click)="suscribirCorreo(template)">Suscribirse</button>
     </form>
-
+    <span *ngIf="correo?.touched && correo?.errors?.['email']" class="text-danger">
+        Correo Invalido.
+     </span>
     <div class="footer-newsletter__text footer-newsletter__text--social">
-        Follow us on social networks
+        Siguenos en nuestras Redes Sociales.
     </div>
 
     <app-social-links class="footer-newsletter__social-links" shape="circle"></app-social-links>
+
+
+    <ng-template #template>
+
+        <div class="quickview">
+            <button class="quickview__close" type="button" appClick (click)="modalRef && modalRef.hide()">
+                <app-icon name="cross-20" size="20"></app-icon>
+            </button>
+
+            <div class="row">
+                <div class="col-md-12 text-center aling-center">
+                    <img src="/assets/images/correo-register.png" alt="Correo registrado">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 text-center mx-2">
+                    <h4>{{ mensajeCorreo }}</h4>
+                    <div class="btn btn-success mx-2" (click)="modalRef && modalRef.hide()">OK</div>
+                </div>
+            </div>
+
+
+
+        </div>
+     </ng-template>
+
+
+
 </div>

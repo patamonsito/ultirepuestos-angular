@@ -18,17 +18,16 @@ export class RootService {
     }
 
     category(category: Partial<Category>): string {
+
+
         if (category.type === 'shop') {
             const basePath = this.shop();
-
-            if ('slug' in category) {
-                return `${basePath}/${category.slug}`;
-            }
-            if ('id' in category) {
-                return `${basePath}/${category.id}`;
+            try {
+                return `${basePath}/${category.slug?.toLocaleLowerCase()}`;
+            } catch (error) {
+                throw Error('Provide category with "path", "slug" or "id".');
             }
 
-            throw Error('Provide category with "path", "slug" or "id".');
         }
         if (category.type === 'blog') {
             return this.blog();

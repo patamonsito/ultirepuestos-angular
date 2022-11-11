@@ -52,14 +52,14 @@ export const mobileMenu: MobileMenuItem[] = [
         {type: 'link', label: 'Change Password', url: '/account/password'}
     ]},
 
-    {type: 'link', label: 'Blog', url: '/blog', children: [
-        {type: 'link', label: 'Blog Classic',         url: '/blog/category-classic'},
-        {type: 'link', label: 'Blog Grid',            url: '/blog/category-grid'},
-        {type: 'link', label: 'Blog List',            url: '/blog/category-list'},
-        {type: 'link', label: 'Blog Left Sidebar',    url: '/blog/category-left-sidebar'},
-        {type: 'link', label: 'Post Page',            url: '/blog/post-classic'},
-        {type: 'link', label: 'Post Without Sidebar', url: '/blog/post-full'}
-    ]},
+    // {type: 'link', label: 'Blog', url: '/blog', children: [
+    //     {type: 'link', label: 'Blog Classic',         url: '/blog/category-classic'},
+    //     {type: 'link', label: 'Blog Grid',            url: '/blog/category-grid'},
+    //     {type: 'link', label: 'Blog List',            url: '/blog/category-list'},
+    //     {type: 'link', label: 'Blog Left Sidebar',    url: '/blog/category-left-sidebar'},
+    //     {type: 'link', label: 'Post Page',            url: '/blog/post-classic'},
+    //     {type: 'link', label: 'Post Without Sidebar', url: '/blog/post-full'}
+    // ]},
 
     {type: 'link', label: 'Pages', url: '/site', children: [
         {type: 'link', label: 'About Us',             url: '/site/about-us'},

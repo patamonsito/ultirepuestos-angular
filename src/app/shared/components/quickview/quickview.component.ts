@@ -31,6 +31,7 @@ export class QuickviewComponent implements AfterViewInit, OnDestroy {
 
             this.product = product;
             this.modalRef = this.modalService.show(this.template, {class: 'modal-dialog-centered modal-xl'});
+            console.log(this.modalRef)
         });
     }
 

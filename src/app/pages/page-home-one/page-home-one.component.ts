@@ -55,9 +55,9 @@ export class PageHomeOneComponent implements OnInit, OnDestroy {
             'measurement',
             'clothes-and-ppe',
         ], 1);
-        this.columnTopRated$ = this.shop.getTopRated(3);
-        this.columnSpecialOffers$ = this.shop.getSpecialOffers(3);
-        this.columnBestsellers$ = this.shop.getBestsellers(3);
+        this.columnTopRated$ = this.shop.getPopulateCustom('Optico');
+        this.columnSpecialOffers$ = this.shop.getPopulateCustom('Bandeja suspension');
+        this.columnBestsellers$ = this.shop.getPopulateCustom('empaquetadura culata');
 
         this.featuredProducts = {
             abort$: new Subject<void>(),

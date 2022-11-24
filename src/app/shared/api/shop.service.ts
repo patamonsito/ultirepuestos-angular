@@ -381,4 +381,9 @@ export class ShopService {
         // This is for demonstration purposes only. Remove it and use the code above.
         return getSuggestions(query, limit, categorySlug);
     }
+
+
+    // getUser(query: string): Observable<Product[]> {
+    //     // return this.http.post<Product[]>('https://example.com/api/search/suggestions.json', {params});
+    // }
 }

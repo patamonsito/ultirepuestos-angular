@@ -2,7 +2,6 @@ import { Component, TemplateRef   } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ShopService } from 'src/app/shared/api/shop.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { tap } from 'rxjs/operators';
 
 @Component({
     selector: 'app-footer-newsletter',
@@ -37,6 +36,8 @@ export class NewsletterComponent {
             next: (res: any) => {
                 this.mensajeCorreo = res.message;
                 this.modalRef = this.modalService.show(template);
+                this.suscripcionForm.value.correo = '';
+                return;
             },
             error: (e) => console.error(e)
         })

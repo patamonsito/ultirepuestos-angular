@@ -1,21 +1,21 @@
 <div class="account-menu">
     <form class="account-menu__form">
-        <div class="account-menu__form-title">Log In to Your Account</div>
+        <div class="account-menu__form-title">Iniciar Sesión en tu Cuenta</div>
         <div class="form-group">
-            <label for="header-signin-email" class="sr-only">Email address</label>
-            <input id="header-signin-email" type="email" class="form-control form-control-sm" placeholder="Email address">
+            <label for="header-signin-email" class="sr-only">Correo</label>
+            <input id="header-signin-email" type="email" class="form-control form-control-sm" placeholder="Correo">
         </div>
         <div class="form-group">
-            <label for="header-signin-password" class="sr-only">Password</label>
+            <label for="header-signin-password" class="sr-only">Contraseña</label>
             <div class="account-menu__form-forgot">
-                <input id="header-signin-password" type="password" class="form-control form-control-sm" placeholder="Password">
-                <a href="" class="account-menu__form-forgot-link">Forgot?</a>
+                <input id="header-signin-password" type="password" class="form-control form-control-sm" placeholder="Contraseña">
+                <a href="" class="account-menu__form-forgot-link">La Olvidaste?</a>
             </div>
         </div>
         <div class="form-group account-menu__form-button">
-            <button type="submit" class="btn btn-primary btn-sm">Login</button>
+            <button type="submit" class="btn btn-primary btn-sm">Iniciar Sesión</button>
         </div>
-        <div class="account-menu__form-link"><a routerLink="/account/login" (click)="closeMenu.emit()">Create An Account</a></div>
+        <div class="account-menu__form-link"><a routerLink="/account/login" (click)="closeMenu.emit()">Registrarse</a></div>
     </form>
     <div class="account-menu__divider"></div>
     <a routerLink="/account/dashboard" class="account-menu__user" (click)="closeMenu.emit()">
@@ -29,13 +29,13 @@
     </a>
     <div class="account-menu__divider"></div>
     <ul class="account-menu__links">
-        <li><a routerLink="/account/profile" (click)="closeMenu.emit()">Edit Profile</a></li>
-        <li><a routerLink="/account/orders" (click)="closeMenu.emit()">Order History</a></li>
-        <li><a routerLink="/account/addresses" (click)="closeMenu.emit()">Addresses</a></li>
-        <li><a routerLink="/account/password" (click)="closeMenu.emit()">Password</a></li>
+        <li><a routerLink="/account/profile" (click)="closeMenu.emit()">Editar Perfil</a></li>
+        <li><a routerLink="/account/orders" (click)="closeMenu.emit()">Mis Ordenes</a></li>
+        <li><a routerLink="/account/addresses" (click)="closeMenu.emit()">Direcciones</a></li>
+        <li><a routerLink="/account/password" (click)="closeMenu.emit()">Cambiar Contraseña</a></li>
     </ul>
     <div class="account-menu__divider"></div>
     <ul class="account-menu__links">
-        <li><a routerLink="/account/login" (click)="closeMenu.emit()">Logout</a></li>
+        <li><a routerLink="/account/login" (click)="closeMenu.emit()">Cerrar Sesión</a></li>
     </ul>
 </div>

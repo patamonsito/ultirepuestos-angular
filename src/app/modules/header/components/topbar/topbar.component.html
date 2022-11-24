@@ -3,36 +3,30 @@
     <div class="topbar__container container">
         <div class="topbar__row">
             <div class="topbar__item topbar__item--link">
-                <a class="topbar-link" routerLink="/site/about-us">About Us</a>
+                <a class="topbar-link" routerLink="/site/about-us">Sobre Nosotros</a>
             </div>
             <div class="topbar__item topbar__item--link">
-                <a class="topbar-link" routerLink="/site/contact-us">Contacts</a>
+                <a class="topbar-link" routerLink="/site/contact-us">Contactanos</a>
             </div>
             <div class="topbar__item topbar__item--link">
-                <a class="topbar-link" routerLink="">Store Location</a>
-            </div>
-            <div class="topbar__item topbar__item--link">
-                <a class="topbar-link" routerLink="/shop/track-order">Track Order</a>
-            </div>
-            <div class="topbar__item topbar__item--link">
-                <a class="topbar-link" routerLink="/blog">Blog</a>
+                <a class="topbar-link" routerLink="/shop/track-order">Segimiento</a>
             </div>
             <div class="topbar__spring"></div>
             <div class="topbar__item">
                 <div class="topbar-dropdown" appDropdown="topbar-dropdown--opened" #accountDropdown="appDropdown">
                     <button class="topbar-dropdown__btn" type="button" (click)="accountDropdown.toggle()">
-                        My Account
+                        Mi Cuenta
                         <app-icon name="arrow-rounded-down-7x5" size="7x5"></app-icon>
                     </button>
 
                     <div class="topbar-dropdown__body">
                         <app-header-menu layout="topbar" (itemClick)="accountDropdown.close()" [items]="[
-                            {label: 'Dashboard',     url: '/account/dashboard'},
-                            {label: 'Edit Profile',  url: '/account/profile'},
-                            {label: 'Order History', url: '/account/orders'},
-                            {label: 'Addresses',     url: '/account/addresses'},
-                            {label: 'Password',      url: '/account/password'},
-                            {label: 'Logout',        url: '/account/login'}
+                            {label: 'Panel',     url: '/account/dashboard'},
+                            {label: 'Editar Perfil',  url: '/account/profile'},
+                            {label: 'Mis Ordenes', url: '/account/orders'},
+                            {label: 'Direcciones',     url: '/account/addresses'},
+                            {label: 'Contraseña',      url: '/account/password'},
+                            {label: 'Cerrar Sesion',        url: '/account/login'}
                         ]"></app-header-menu>
                     </div>
                 </div>
@@ -40,7 +34,7 @@
             <div class="topbar__item">
                 <div class="topbar-dropdown" appDropdown="topbar-dropdown--opened" #currencyDropdown="appDropdown">
                     <button class="topbar-dropdown__btn" type="button" (click)="currencyDropdown.toggle()">
-                        Currency: <span class="topbar__item-value">{{ currencyService.options.code }}</span>
+                        Moneda: <span class="topbar__item-value">{{ currencyService.options.code }}</span>
                         <app-icon name="arrow-rounded-down-7x5" size="7x5"></app-icon>
                     </button>
 
@@ -66,7 +60,7 @@
             <div class="topbar__item">
                 <div class="topbar-dropdown" appDropdown="topbar-dropdown--opened" #languageDropdown="appDropdown">
                     <button class="topbar-dropdown__btn" type="button" (click)="languageDropdown.toggle()">
-                        Language: <span class="topbar__item-value">EN</span>
+                        Idioma: <span class="topbar__item-value">ES</span>
                         <app-icon name="arrow-rounded-down-7x5" size="7x5"></app-icon>
                     </button>
 

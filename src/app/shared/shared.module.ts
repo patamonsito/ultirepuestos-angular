@@ -20,6 +20,8 @@ import { FakeSlidesDirective } from './directives/fake-slides.directive';
 import { OutsideTouchClickDirective } from './directives/outside-touch-click.directive';
 import { OwlPreventClickDirective } from './directives/owl-prevent-click.directive';
 import { TouchClickDirective } from './directives/touch-click.directive';
+import { AppFormatLetras } from './directives/solo-letras';
+import { AppFormatRut } from './directives/format-rut.directive';
 
 // components
 import { AlertComponent } from './components/alert/alert.component';
@@ -58,6 +60,8 @@ import { currencyCLP } from './pipes/currency-clp.pipe'
         OutsideTouchClickDirective,
         OwlPreventClickDirective,
         TouchClickDirective,
+        AppFormatLetras,
+        AppFormatRut,
         // components
         AlertComponent,
         IconComponent,
@@ -105,6 +109,8 @@ import { currencyCLP } from './pipes/currency-clp.pipe'
         OutsideTouchClickDirective,
         OwlPreventClickDirective,
         TouchClickDirective,
+        AppFormatLetras,
+        AppFormatRut,
         // components
         AlertComponent,
         IconComponent,

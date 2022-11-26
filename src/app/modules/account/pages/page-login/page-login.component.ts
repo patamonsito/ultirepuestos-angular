@@ -1,26 +1,118 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ShopService } from 'src/app/shared/api/shop.service';
+import { Usuario } from 'src/app/shared/interfaces/usuario';
+import { Validador } from 'src/app/shared/utils/validador.utils'
 
 @Component({
     selector: 'app-login',
     templateUrl: './page-login.component.html',
     styleUrls: ['./page-login.component.scss']
 })
-export class PageLoginComponent {
+export class PageLoginComponent implements OnInit{
 
-    loginForm = new FormGroup({
-      Correo: new FormControl('', [Validators.email]),
-      Contraseña: new FormControl('', [Validators.min(3), Validators.max(10)]),
-    });
+    formLogin: FormGroup = new FormGroup({});
 
-    registerForm = new FormControl({
-      Nombre: new FormControl('', [Validators.required, Validators.pattern('a-zA-ZñÑá-úÁ-Ú ')]),
-      Apellido: new FormControl('', [Validators.required, Validators.pattern('a-zA-ZñÑá-úÁ-Ú ')]),
-      Rut: new FormControl('', [Validators.required]),
-      Correo: new FormControl('', [Validators.required, Validators.email]),
-      Contraseña: new FormControl('', [Validators.required]),
-      ReContraseña: new FormControl('', [Validators.required])
-    })
+    formRegistro: FormGroup = new FormGroup({});
 
-    constructor() { }
-}
+    register: boolean = false;
+
+    reContraseniaValid: boolean = false;
+
+    constructor(private shopService: ShopService) { }
+
+    ngOnInit() {
+        this.formInit();
+    }
+
+    formInit(){
+      this.formLogin = new FormGroup({
+        Correo: new FormControl('', [Validators.required, Validators.email]),
+        Contraseña: new FormControl('', [Validators.required]),
+      });
+  
+      this.formRegistro = new FormGroup({
+        Nombre: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(15) ]),
+        Apellido: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(15)]),
+        Rut: new FormControl('', [Validators.required, Validador.validarRUT ]),
+        Correo: new FormControl('', [Validators.required, Validators.email]),
+        Telefono: new FormControl('+56', [Validators.required, Validators.minLength(12), Validators.maxLength(12)]),
+        Contraseña: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]),
+        ReContraseña: new FormControl('', [Validators.required])
+      })
+
+      console.log(this.formRegistro.get('Rut')?.errors)
+
+    }
+
+
+    verificarUsuario(){
+      console.log('Verificando...')
+    }
+
+    crearUsuario(){
+
+      let datos: Usuario = {
+        Nombre: this.formRegistro.get('Nombre')?.value,
+        Apellido: this.formRegistro.get('Apellido')?.value,
+        Rut: this.formRegistro.get('Rut')?.value,
+        Correo: this.formRegistro.get('Correo')?.value,
+        Telefono: this.formRegistro.get('Telefono')?.value,
+        Contraseña: this.formRegistro.get('Contraseña')?.value
+      }
+
+      datos.Rut =  datos.Rut.replace('-', '').replace('.', '').replace('.', '').replace('.', '').replace('.', '').slice(0, -1) + '-' + datos.Rut.slice(-1);
+
+
+      console.log(datos, 'datos')
+
+      // this.shopService.registrarUsuario(datos)
+      // .subscribe({
+      //   next: (x) => console.log('Respuesta del servidor: ' + x),
+      //   error: (err: Error) => console.error('Se produjo un error: ' + err),
+      //   complete: () => console.log('Siguiente operacion :3'),
+      // })
+    }
+
+    validarReContrasnia(){
+      if(this.formRegistro.get('ReContraseña')?.value){
+        this.reContraseniaValid = this.formRegistro.get('Contraseña')?.value == this.formRegistro.get('ReContraseña')?.value ? false : true;
+      }
+    }
+
+
+    //Registro
+    get nombre() {
+      return this.formRegistro.get('Nombre');
+    }
+    get apellido() {
+      return this.formRegistro.get('Apellido');
+    }
+    get rut() {
+      return this.formRegistro.get('Rut');
+    }
+    get correo() {
+      return this.formRegistro.get('Correo');
+    }
+
+    get telefono() {
+      return this.formRegistro.get('Telefono');
+    }
+
+    get contrasenia() {
+      return this.formRegistro.get('Contraseña');
+    }
+    get reContrasenia() {
+      return this.formRegistro.get('ReContraseña');
+    }
+
+    //Login
+    get correoLogin() {
+      return this.formLogin.get('Correo');
+    }
+  
+    get contraseniaLogin() {
+      return this.formLogin.get('Contraseña');
+    }
+
+  }

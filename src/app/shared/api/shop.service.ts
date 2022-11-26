@@ -4,6 +4,7 @@ import { Category } from '../interfaces/category';
 import { HttpClient } from '@angular/common/http';
 import { Brand } from '../interfaces/brand';
 import { Product } from '../interfaces/product';
+import { Usuario } from '../interfaces/usuario';
 import { ProductsList } from '../interfaces/list';
 import { SerializedFilterValues } from '../interfaces/filter';
 import {
@@ -47,6 +48,12 @@ export class ShopService {
      *
      * @param slug - Unique human-readable category identifier.
      */
+
+
+    registrarUsuario(body: Usuario){
+        return this.http.post('http://localhost:3000/api/crear-usuario', body);
+    }
+
     getCategory(slug: string): Observable<Category> {
         /**
          * This is what your API endpoint might look like:

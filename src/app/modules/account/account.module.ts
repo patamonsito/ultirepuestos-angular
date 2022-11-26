@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 
 // modules (angular)
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // modules
 import { AccountRoutingModule } from './account-routing.module';
 import { SharedModule } from '../../shared/shared.module';
-
+import { AppFormatTelefono } from 'src/app/shared/directives/telefono-validador';
 // components
 import { LayoutComponent } from './components/layout/layout.component';
 
@@ -37,6 +38,8 @@ import { PageEditAddressComponent } from './pages/page-edit-address/page-edit-ad
     imports: [
         // modules (angular)
         CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
         // modules
         AccountRoutingModule,
         SharedModule

@@ -6,23 +6,36 @@
 <div class="block">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 d-flex">
+            <div class="col-md-6 d-flex" *ngIf="register == false">
                 <div class="card flex-grow-1 mb-md-0">
                     <div class="card-body">
                         <h3 class="card-title">Inicar Sesión</h3>
-                        <form>
+                        <form (ngSubmit)="verificarUsuario()" [formGroup]="formLogin">
                             <div class="form-group">
                                 <label>Correo</label>
-                                <input type="email" class="form-control" placeholder="Correo">
+                                <input type="email" class="form-control" placeholder="Correo" formControlName="Correo" [ngClass]="correoLogin?.touched && correoLogin?.valid == false ? 'inputError' : ''">
+                                <div *ngIf="!correoLogin?.valid && correoLogin?.touched">
+                                    <span *ngIf="correoLogin?.errors?.['required']" class="text-invalid">
+                                        El Correo es Obligatorio
+                                    </span>
+                                    <span *ngIf="correoLogin?.errors?.['email']" class="text-invalid">
+                                        Correo Invalido
+                                    </span>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Contraseña</label>
-                                <input type="password" class="form-control" placeholder="Contraseña">
+                                <input type="password" class="form-control" placeholder="Contraseña" formControlName="Contraseña" [ngClass]="contraseniaLogin?.touched && contraseniaLogin?.valid == false ? 'inputError' : ''">
+                                <div *ngIf="!contraseniaLogin?.valid && contraseniaLogin?.touched">
+                                    <span *ngIf="contraseniaLogin?.errors?.['required']" class="text-invalid">
+                                        La Contraseña es Obligatoria
+                                    </span>
+                                </div>
                                 <small class="form-text text-muted">
                                     <a href="javascript:void(0)">Olvide mi Contraseña</a>
                                 </small>
                                 <small class="form-text text-muted">
-                                    <a href="javascript:void(0)">No tienes cuenta? Registrate.</a>
+                                    <a href="javascript:void(0)" (click)="register = true">No tienes cuenta? Registrate.</a>
                                 </small>
                             </div>
                             <div class="form-group">
@@ -42,44 +55,96 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 d-flex mt-4 mt-md-0">
+            <div class="col-md-6 d-flex mt-4 mt-md-0" *ngIf="register == true">
                 <div class="card flex-grow-1 mb-0">
                     <div class="card-body">
                         <h3 class="card-title">Registrarse</h3>
-                        <form>
+                        <form (ngSubmit)="crearUsuario()" [formGroup]="formRegistro">
                             <div class="form-group">
                                 <label>Nombre</label>
-                                <input type="text" class="form-control" placeholder="Inrese su Nombre">
+                                <input AppFormatLetras type="text" class="form-control" formControlName="Nombre"  maxlength="20" placeholder="Inrese su Nombre" [ngClass]="nombre?.touched && nombre?.valid == false ? 'inputError' : ''">
+                                <div *ngIf="!nombre?.valid && nombre?.touched">
+                                    <span *ngIf="nombre?.errors?.['required']" class="text-invalid">
+                                        El Nombre es Obligatorio
+                                    </span>
+                                    <span *ngIf="nombre?.errors?.['minlength']" class="text-invalid">
+                                        Su nombre debe tener minimo 3 caracteres
+                                    </span>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Apellido</label>
-                                <input type="text" class="form-control" placeholder="Ingrese su Apellido">
+                                <input AppFormatLetras type="text" class="form-control" formControlName="Apellido" placeholder="Ingrese su Apellido" [ngClass]="apellido?.touched && apellido?.valid == false ? 'inputError' : ''">
+                                <div *ngIf="!apellido?.valid && apellido?.touched">
+                                    <span *ngIf="apellido?.errors?.['required']" class="text-invalid">
+                                        El Apellido es Obligatorio
+                                    </span>
+                                    <span *ngIf="apellido?.errors?.['minlength']" class="text-invalid">
+                                        Su apellido debe tener minimo 2 caracteres
+                                    </span>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Rut</label>
-                                <input type="text" class="form-control" placeholder="12345678-9">
+                                <input AppFormatRut type="text" class="form-control" formControlName="Rut" placeholder="12345678-9" [ngClass]="rut?.touched && rut?.valid == false ? 'inputError' : ''">
+                                <div *ngIf="!rut?.valid && rut?.touched">
+                                    <span *ngIf="rut?.errors?.['required']" class="text-invalid">
+                                        El Rut es Obligatorio
+                                    </span>
+                                    <span *ngIf="rut?.errors?.['rut_invalido']" class="text-invalid">
+                                        El RUT ingresado no es válido. Por favor vuelva a ingresar el RUT
+                                    </span>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Correo</label>
-                                <input type="email" class="form-control" placeholder="Correo">
+                                <input type="email" class="form-control" formControlName="Correo" placeholder="Correo" [ngClass]="correo?.touched && correo?.valid == false ? 'inputError' : ''">
+                                <div *ngIf="!correo?.valid && correo?.touched">
+                                    <span *ngIf="correo?.errors?.['required']" class="text-invalid">
+                                        El Correo es Obligatorio
+                                    </span>
+                                    <span *ngIf="correo?.errors?.['email']" class="text-invalid">
+                                        El Correo es Invalido
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Telefono</label>
+                                <input AppFormatTelefono type="text" class="form-control" formControlName="Telefono"  minlength="12" maxlength="12" placeholder="+56912341234" [ngClass]="telefono?.touched && telefono?.valid == false ? 'inputError' : ''">
+                                <div *ngIf="!telefono?.valid && telefono?.touched">
+                                    <span *ngIf="telefono?.errors?.['required']" class="text-invalid">
+                                        El Telefono es Obligatorio
+                                    </span>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Contraseña</label>
-                                <input type="password" class="form-control" placeholder="Contraseña">
+                                <input type="password" class="form-control" formControlName="Contraseña" placeholder="Contraseña" minlength="5" maxlength="15" (keyup)="validarReContrasnia()" [ngClass]="contrasenia?.touched && contrasenia?.valid == false ? 'inputError' : ''">
+                                <div *ngIf="!contrasenia?.valid && contrasenia?.touched">
+                                    <span *ngIf="contrasenia?.errors?.['required']" class="text-invalid">
+                                        La Contraseña es Obligatoria
+                                    </span>
+                                    <span *ngIf="contrasenia?.errors?.['minlenght']" class="text-invalid">
+                                        Debe contener almenos 5 caracteres
+                                    </span>
+                                    <span *ngIf="contrasenia?.errors?.['maxlength']" class="text-invalid">
+                                        La contraseña excede el maximo permitido
+                                    </span>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Repite la Contraseña</label>
-                                <input type="password" class="form-control" placeholder="Contraseña">
+                                <input type="password" class="form-control" formControlName="ReContraseña" placeholder="Contraseña" minlength="5" maxlength="15" (keyup)="validarReContrasnia()" [ngClass]="reContrasenia?.touched && reContrasenia?.valid == false ? 'inputError' : ''">
+                                <div *ngIf="!reContrasenia?.valid && reContrasenia?.touched">
+                                    <span *ngIf="contraseniaLogin?.errors?.['required']" class="text-invalid">
+                                        Este campo es Obligatorio
+                                    </span>
+                                </div>
+                                <span *ngIf="reContraseniaValid" class="text-invalid">
+                                    La Contraseñas no son iguales
+                                </span>
                             </div>
-                            <div class="form-group">
-                                <label>Pregunta de seguridad</label>
-                                <input type="password" class="form-control" placeholder="Contraseña">
-                            </div>
-                            <div class="form-group">
-                                <label>Respuesta</label>
-                                <input type="text" class="form-control" placeholder="Ingrese Respuesta">
-                            </div>
-                            <button type="submit" class="btn btn-primary mt-2 mt-md-3 mt-lg-4">Register</button>
+                            <button type="submit" class="btn btn-primary mt-2 mt-md-3 mt-lg-4">Registrarse</button>
                         </form>
                     </div>
                 </div>

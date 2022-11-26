@@ -22,7 +22,7 @@ import { OwlPreventClickDirective } from './directives/owl-prevent-click.directi
 import { TouchClickDirective } from './directives/touch-click.directive';
 import { AppFormatLetras } from './directives/solo-letras';
 import { AppFormatRut } from './directives/format-rut.directive';
-
+import { AppFormatTelefono } from './directives/telefono-validador';
 // components
 import { AlertComponent } from './components/alert/alert.component';
 import { IconComponent } from './components/icon/icon.component';
@@ -62,6 +62,7 @@ import { currencyCLP } from './pipes/currency-clp.pipe'
         TouchClickDirective,
         AppFormatLetras,
         AppFormatRut,
+        AppFormatTelefono,
         // components
         AlertComponent,
         IconComponent,
@@ -111,6 +112,7 @@ import { currencyCLP } from './pipes/currency-clp.pipe'
         TouchClickDirective,
         AppFormatLetras,
         AppFormatRut,
+        AppFormatTelefono,
         // components
         AlertComponent,
         IconComponent,

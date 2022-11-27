@@ -52,6 +52,14 @@ export class PageLoginComponent implements OnInit{
 
     crearUsuario(){
 
+      if(this.formRegistro.invalid){
+        this.formRegistro.markAllAsTouched();
+        return;
+      }else if(this.formRegistro.get('Contraseña')?.value != this.formRegistro.get('ReContraseña')?.value){
+        this.reContraseniaValid = this.formRegistro.get('Contraseña')?.value == this.formRegistro.get('ReContraseña')?.value ? false : true;
+        return;
+      }
+      
       let datos: Usuario = {
         Nombre: this.formRegistro.get('Nombre')?.value,
         Apellido: this.formRegistro.get('Apellido')?.value,

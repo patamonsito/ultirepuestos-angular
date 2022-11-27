@@ -36,7 +36,7 @@ export class PageLoginComponent implements OnInit{
         Apellido: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(15)]),
         Rut: new FormControl('', [Validators.required, Validador.validarRUT ]),
         Correo: new FormControl('', [Validators.required, Validators.email]),
-        Telefono: new FormControl('+56', [Validators.required, Validators.minLength(12), Validators.maxLength(12)]),
+        Telefono: new FormControl('+56', [Validators.required, Validators.minLength(12)]),
         Contraseña: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]),
         ReContraseña: new FormControl('', [Validators.required])
       })

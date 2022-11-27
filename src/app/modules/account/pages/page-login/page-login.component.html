@@ -113,7 +113,10 @@
                                 <input AppFormatTelefono type="text" class="form-control" formControlName="Telefono"  minlength="12" maxlength="12" placeholder="+56912341234" [ngClass]="telefono?.touched && telefono?.valid == false ? 'inputError' : ''">
                                 <div *ngIf="!telefono?.valid && telefono?.touched">
                                     <span *ngIf="telefono?.errors?.['required']" class="text-invalid">
-                                        El Telefono es Obligatorio
+                                        El telefono es Obligatorio
+                                    </span>
+                                    <span *ngIf="telefono?.errors?.['minlenght']" class="text-invalid">
+                                        Telefono invalido, ejemplo: +56912341234
                                     </span>
                                 </div>
                             </div>

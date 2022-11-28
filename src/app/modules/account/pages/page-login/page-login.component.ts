@@ -3,6 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ShopService } from 'src/app/shared/api/shop.service';
 import { Usuario } from 'src/app/shared/interfaces/usuario';
 import { Validador } from 'src/app/shared/utils/validador.utils'
+import { SharingService } from 'src/app/core/services/sharing.services';
+import { Observable } from 'rxjs';
+
 
 @Component({
     selector: 'app-login',
@@ -19,7 +22,11 @@ export class PageLoginComponent implements OnInit{
 
     reContraseniaValid: boolean = false;
 
-    constructor(private shopService: ShopService) { }
+    Usuario$: Observable<Usuario>;
+
+    constructor(private shopService: ShopService, private sharingService: SharingService) { 
+      this.Usuario$ = sharingService.sharingObservable;
+    }
 
     ngOnInit() {
         this.formInit();
@@ -40,8 +47,6 @@ export class PageLoginComponent implements OnInit{
         Contraseña: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]),
         ReContraseña: new FormControl('', [Validators.required])
       })
-
-      console.log(this.formRegistro.get('Rut')?.errors)
 
     }
 
@@ -71,16 +76,14 @@ export class PageLoginComponent implements OnInit{
 
       datos.Rut =  datos.Rut.replace('-', '').replace('.', '').replace('.', '').replace('.', '').replace('.', '').slice(0, -1) + '-' + datos.Rut.slice(-1);
 
-
-      console.log(datos, 'datos')
-
-      // this.shopService.registrarUsuario(datos)
-      // .subscribe({
-      //   next: (x) => console.log('Respuesta del servidor: ' + x),
-      //   error: (err: Error) => console.error('Se produjo un error: ' + err),
-      //   complete: () => console.log('Siguiente operacion :3'),
-      // })
+      this.shopService.registrarUsuario(datos)
+      .subscribe({
+        next: (x) => console.log('Respuesta del servidor: ' + x),
+        error: (err: Error) => console.error('Se produjo un error: ' + err),
+        complete: () => console.log('Siguiente operacion :3'),
+      })
     }
+
 
     validarReContrasnia(){
       if(this.formRegistro.get('ReContraseña')?.value){

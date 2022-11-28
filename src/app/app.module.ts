@@ -31,7 +31,9 @@ import { PageHomeOneComponent } from './pages/page-home-one/page-home-one.compon
 import { PageHomeTwoComponent } from './pages/page-home-two/page-home-two.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { PageOffcanvasCartComponent } from './pages/page-offcanvas-cart/page-offcanvas-cart.component';
+import { CoreModule } from './core/core.module';
 
+import { SharingService } from 'src/app/core/services/sharing.services'
 
 @NgModule({
     declarations: [
@@ -60,9 +62,11 @@ import { PageOffcanvasCartComponent } from './pages/page-offcanvas-cart/page-off
         HeaderModule,
         MobileModule,
         SharedModule,
-        WidgetsModule
+        WidgetsModule,
+        CoreModule
     ],
     providers: [
+        SharingService
         // { provide: LOCALE_ID, useValue: 'it' }
     ],
     bootstrap: [AppComponent]

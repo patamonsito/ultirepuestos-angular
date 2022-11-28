@@ -59,6 +59,7 @@
                 <div class="card flex-grow-1 mb-0">
                     <div class="card-body">
                         <h3 class="card-title">Registrarse</h3>
+                        <p>probando {{ (Usuario$ | async)?.Nombre }}</p>
                         <form (ngSubmit)="crearUsuario()" [formGroup]="formRegistro">
                             <div class="form-group">
                                 <label>Nombre</label>
@@ -115,7 +116,7 @@
                                     <span *ngIf="telefono?.errors?.['required']" class="text-invalid">
                                         El telefono es Obligatorio
                                     </span>
-                                    <span *ngIf="telefono?.errors?.['minlenght']" class="text-invalid">
+                                    <span *ngIf="telefono?.errors?.['minlength'].actualLength != telefono?.errors?.['minlength'].requiredLength" class="text-invalid">
                                         Telefono invalido, ejemplo: +56912341234
                                     </span>
                                 </div>
@@ -127,7 +128,7 @@
                                     <span *ngIf="contrasenia?.errors?.['required']" class="text-invalid">
                                         La Contraseña es Obligatoria
                                     </span>
-                                    <span *ngIf="contrasenia?.errors?.['minlenght']" class="text-invalid">
+                                    <span *ngIf="contrasenia?.errors?.['minlength'].actualLength != contrasenia?.errors?.['minlength'].requiredLength" class="text-invalid">
                                         Debe contener almenos 5 caracteres
                                     </span>
                                     <span *ngIf="contrasenia?.errors?.['maxlength']" class="text-invalid">

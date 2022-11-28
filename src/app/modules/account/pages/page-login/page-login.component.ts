@@ -52,7 +52,9 @@ export class PageLoginComponent implements OnInit{
 
 
     verificarUsuario(){
-      console.log('Verificando...')
+      let email = this.formLogin.get("Correo")?.value;
+      let contraseña = this.formLogin.get("Contraseña")?.value; 
+      this.sharingService.iniciarSesion(email, contraseña)
     }
 
     crearUsuario(){

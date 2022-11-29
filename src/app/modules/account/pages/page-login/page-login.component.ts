@@ -5,7 +5,7 @@ import { Usuario } from 'src/app/shared/interfaces/usuario';
 import { Validador } from 'src/app/shared/utils/validador.utils'
 import { SharingService } from 'src/app/core/services/sharing.services';
 import { Observable } from 'rxjs';
-
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-login',
@@ -24,7 +24,9 @@ export class PageLoginComponent implements OnInit{
 
     Usuario$: Observable<Usuario>;
 
-    constructor(private shopService: ShopService, private sharingService: SharingService) { 
+    loginError: string = '';
+
+    constructor(private shopService: ShopService, private sharingService: SharingService, private router: Router) { 
       this.Usuario$ = sharingService.sharingObservable;
     }
 
@@ -52,9 +54,23 @@ export class PageLoginComponent implements OnInit{
 
 
     verificarUsuario(){
+      if(this.formLogin.invalid){
+        this.formLogin.markAllAsTouched();
+        return;
+      }
       let email = this.formLogin.get("Correo")?.value;
       let contraseña = this.formLogin.get("Contraseña")?.value; 
       this.sharingService.iniciarSesion(email, contraseña)
+      this.Usuario$.subscribe({
+        next: e => {
+          if(e.id){
+            this.loginError = '';
+            this.router.navigate(['/'])
+          }else{
+            this.loginError = 'Error al iniciar sesion, Verifique Correo y Contraseña.';
+          }
+        }
+      })
     }
 
     crearUsuario(){

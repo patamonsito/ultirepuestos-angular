@@ -7,7 +7,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // modules
 import { AccountRoutingModule } from './account-routing.module';
 import { SharedModule } from '../../shared/shared.module';
-import { AppFormatTelefono } from 'src/app/shared/directives/telefono-validador';
 // components
 import { LayoutComponent } from './components/layout/layout.component';
 

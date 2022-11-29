@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 // modules (angular)
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // modules
 import { SharedModule } from '../../shared/shared.module';
@@ -40,7 +41,9 @@ import { BlocksModule } from '../blocks/blocks.module';
         RouterModule,
         // modules
         SharedModule,
-        BlocksModule
+        BlocksModule,
+        ReactiveFormsModule,
+        FormsModule
     ],
     exports: [
         // components

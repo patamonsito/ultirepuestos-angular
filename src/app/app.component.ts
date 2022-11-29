@@ -7,7 +7,8 @@ import { NavigationEnd, Router } from '@angular/router';
 import { isPlatformBrowser, ViewportScroller } from '@angular/common';
 import { CurrencyService } from './shared/services/currency.service';
 import { filter, first } from 'rxjs/operators';
-
+import { SharingService } from './core/services/sharing.services';
+import { Usuario } from './shared/interfaces/usuario';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -16,6 +17,7 @@ import { filter, first } from 'rxjs/operators';
 export class AppComponent implements OnInit {
     constructor(
         @Inject(PLATFORM_ID) private platformId: any,
+        private sharingService: SharingService,
         private router: Router,
         private toastr: ToastrService,
         private cart: CartService,
@@ -25,6 +27,9 @@ export class AppComponent implements OnInit {
         private scroller: ViewportScroller,
         private currency: CurrencyService
     ) {
+       let data: any = localStorage.getItem('Usuario')
+       sharingService.sharingObservableData = JSON.parse(data)
+        
         if (isPlatformBrowser(this.platformId)) {
             this.zone.runOutsideAngular(() => {
                 this.router.events.pipe(filter(event => event instanceof NavigationEnd), first()).subscribe(() => {

@@ -5,4 +5,13 @@ export interface Usuario {
     Nombre: string,
     Rut: string,
     Telefono: string
+    Autos?: any,
+    Avatar?: any,
+    Compras?: any,
+    CuponesDisponibles?: any,
+    CuponesUsados?: any,
+    Direcciones?: any,
+    Favoritos?: any,
+    id?: string,
+    message?: string
 }

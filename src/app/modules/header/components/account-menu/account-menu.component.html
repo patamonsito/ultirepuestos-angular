@@ -1,41 +1,142 @@
 <div class="account-menu">
-    <form class="account-menu__form">
+    <form
+        class="account-menu__form"
+        (ngSubmit)="verificarUsuario()"
+        [formGroup]="formLogin"
+        *ngIf="!(Usuario$|async)?.id"
+    >
         <div class="account-menu__form-title">Iniciar Sesión en tu Cuenta</div>
         <div class="form-group">
             <label for="header-signin-email" class="sr-only">Correo</label>
-            <input id="header-signin-email" type="email" class="form-control form-control-sm" placeholder="Correo">
-        </div>
-        <div class="form-group">
-            <label for="header-signin-password" class="sr-only">Contraseña</label>
-            <div class="account-menu__form-forgot">
-                <input id="header-signin-password" type="password" class="form-control form-control-sm" placeholder="Contraseña">
-                <a href="" class="account-menu__form-forgot-link">La Olvidaste?</a>
+            <input
+                id="header-signin-email"
+                type="email"
+                class="form-control form-control-sm"
+                placeholder="Correo"
+                formControlName="Correo"
+                [ngClass]="
+                    correoLogin?.touched && correoLogin?.valid == false
+                        ? 'inputError'
+                        : ''
+                "
+            />
+            <div *ngIf="!correoLogin?.valid && correoLogin?.touched">
+                <span
+                    *ngIf="correoLogin?.errors?.['required']"
+                    class="text-invalid"
+                >
+                    El Correo es Obligatorio
+                </span>
+                <span
+                    *ngIf="correoLogin?.errors?.['email']"
+                    class="text-invalid"
+                >
+                    Correo Invalido
+                </span>
             </div>
         </div>
+        <div class="form-group">
+            <label
+                for="header-signin-password"
+                class="sr-only"
+                [ngClass]="
+                    contraseniaLogin?.touched &&
+                    contraseniaLogin?.valid == false
+                        ? 'inputError'
+                        : ''
+                "
+                >Contraseña</label
+            >
+            <div class="account-menu__form-forgot">
+                <input
+                    id="header-signin-password"
+                    type="password"
+                    class="form-control form-control-sm"
+                    formControlName="Contraseña"
+                    placeholder="Contraseña"
+                />
+                <a href="" class="account-menu__form-forgot-link"
+                    >La Olvidaste?</a
+                >
+            </div>
+            <div *ngIf="!contraseniaLogin?.valid && contraseniaLogin?.touched">
+                <span
+                    *ngIf="contraseniaLogin?.errors?.['required']"
+                    class="text-invalid"
+                >
+                    La Contraseña es Obligatoria
+                </span>
+            </div>
+        </div>
+        
+        <span
+            *ngIf="loginError"
+            class="text-invalid"
+        >
+            {{loginError}}
+        </span>
         <div class="form-group account-menu__form-button">
-            <button type="submit" class="btn btn-primary btn-sm">Iniciar Sesión</button>
+            <button type="submit" class="btn btn-primary btn-sm">
+                Iniciar Sesión
+            </button>
         </div>
-        <div class="account-menu__form-link"><a routerLink="/account/login" (click)="closeMenu.emit()">Registrarse</a></div>
+        <div class="account-menu__form-link">
+            <a routerLink="/account/login" (click)="closeMenu.emit()"
+                >Registrarse</a
+            >
+        </div>
     </form>
-    <div class="account-menu__divider"></div>
-    <a routerLink="/account/dashboard" class="account-menu__user" (click)="closeMenu.emit()">
-        <div class="account-menu__user-avatar">
-            <img src="assets/images/avatars/avatar-3.jpg" alt="">
-        </div>
-        <div class="account-menu__user-info">
-            <div class="account-menu__user-name">Helena Garcia</div>
-            <div class="account-menu__user-email">stroyka@example.com</div>
-        </div>
-    </a>
-    <div class="account-menu__divider"></div>
-    <ul class="account-menu__links">
-        <li><a routerLink="/account/profile" (click)="closeMenu.emit()">Editar Perfil</a></li>
-        <li><a routerLink="/account/orders" (click)="closeMenu.emit()">Mis Ordenes</a></li>
-        <li><a routerLink="/account/addresses" (click)="closeMenu.emit()">Direcciones</a></li>
-        <li><a routerLink="/account/password" (click)="closeMenu.emit()">Cambiar Contraseña</a></li>
-    </ul>
-    <div class="account-menu__divider"></div>
-    <ul class="account-menu__links">
-        <li><a routerLink="/account/login" (click)="closeMenu.emit()">Cerrar Sesión</a></li>
-    </ul>
+    
+    <div *ngIf="(Usuario$|async)?.id">
+        <div class="account-menu__divider"></div>
+        <a
+            routerLink="/account/dashboard"
+            class="account-menu__user"
+            (click)="closeMenu.emit()"
+        >
+            <div class="account-menu__user-avatar">
+                <img src="assets/images/avatars/avatar-3.jpg" alt="" />
+            </div>
+            <div class="account-menu__user-info">
+                <div class="account-menu__user-name">
+                    {{ (Usuario$ | async)?.Nombre }} {{ (Usuario$ | async)?.Apellido }}
+                </div>
+                <div class="account-menu__user-email">
+                    {{ (Usuario$ | async)?.Correo }}
+                </div>
+            </div>
+        </a>
+        <div class="account-menu__divider"></div>
+        <ul class="account-menu__links">
+            <li>
+                <a routerLink="/account/profile" (click)="closeMenu.emit()"
+                    >Editar Perfil</a
+                >
+            </li>
+            <li>
+                <a routerLink="/account/orders" (click)="closeMenu.emit()"
+                    >Mis Ordenes</a
+                >
+            </li>
+            <li>
+                <a routerLink="/account/addresses" (click)="closeMenu.emit()"
+                    >Direcciones</a
+                >
+            </li>
+            <li>
+                <a routerLink="/account/password" (click)="closeMenu.emit()"
+                    >Cambiar Contraseña</a
+                >
+            </li>
+        </ul>
+        <div class="account-menu__divider"></div>
+        <ul class="account-menu__links">
+            <li>
+                <a href="javascript:void(0)" (click)="cerrarSesion()"
+                    >Cerrar Sesión</a
+                >
+            </li>
+        </ul>
+    </div>
+
 </div>

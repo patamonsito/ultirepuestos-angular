@@ -26,18 +26,41 @@ export class SharingService {
 
     iniciarSesion(email: string, contraseña: string) {
         let body = {
-            email,
-            contraseña,
+            Correo: email,
+            Contraseña: contraseña,
         };
 
         this.http
             .post('http://localhost:3000/api/user-login', body)
             .subscribe({
                 error: (err) => console.log(err),
-                next: (data) => {
-                    console.log(data);
+                next: (data: any) => {
                     localStorage.setItem('Usuario', JSON.stringify(data));
+                    if(!data?.id){
+                        this.sharingObservablePrivate.next({
+                            Apellido: '',
+                            Contraseña: '',
+                            Correo: '',
+                            Nombre: '',
+                            Rut: '',
+                            Telefono: '',
+                        })
+                    }else{
+                        this.sharingObservablePrivate.next(data)
+                    }
                 },
             });
+    }
+
+    cerrarSesion(){
+        localStorage.removeItem('Usuario');
+        this.sharingObservablePrivate.next({
+            Apellido: '',
+            Contraseña: '',
+            Correo: '',
+            Nombre: '',
+            Rut: '',
+            Telefono: '',
+        })
     }
 }

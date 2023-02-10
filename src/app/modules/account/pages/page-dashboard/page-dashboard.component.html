@@ -2,40 +2,38 @@
     <div class="dashboard__profile card profile-card">
         <div class="card-body profile-card__body">
             <div class="profile-card__avatar">
-                <img src="./assets/images/avatars/avatar-3.jpg" alt="">
+                <img [src]="'http://localhost:3000/'+(Usuario$|async)?.Avatar" alt="">
             </div>
-            <div class="profile-card__name">Helena Garcia</div>
-            <div class="profile-card__email">stroyka@example.com</div>
+            <div class="profile-card__name">{{(Usuario$|async)?.Nombre + ' ' + (Usuario$|async)?.Apellido }}</div>
+            <div class="profile-card__email">{{(Usuario$|async)?.Correo}}</div>
             <div class="profile-card__edit">
-                <a routerLink="../profile" class="btn btn-secondary btn-sm">Edit Profile</a>
+                <a routerLink="../profile" class="btn btn-secondary btn-sm">Editar Perfil</a>
             </div>
         </div>
     </div>
     <div class="dashboard__address card address-card address-card--featured">
-        <div class="address-card__badge" *ngIf="address.default">Default Address</div>
+        <div class="address-card__badge" *ngIf="address.Default">Dirección de Envío</div>
         <div class="address-card__body">
-            <div class="address-card__name">{{ address.firstName + ' ' + address.lastName}}</div>
+            <div class="address-card__name">{{ address.Nombre + ' ' + address.Apellido}}</div>
             <div class="address-card__row">
-                {{ address.country }}<br>
-                {{ address.postcode }}, {{ address.city }}<br>
-                {{ address.address }}
+                {{ address?.Region }}, {{ address?.Comuna }}<br />
+                {{ address?.Calle }} {{ address?.Numero }}<br />
+                <span *ngIf="address?.Piso">
+                    Dep: {{ address?.Piso }}
+                </span>
             </div>
             <div class="address-card__row">
-                <div class="address-card__row-title">Phone Number</div>
-                <div class="address-card__row-content">{{ address.phone }}</div>
-            </div>
-            <div class="address-card__row">
-                <div class="address-card__row-title">Email Address</div>
-                <div class="address-card__row-content">{{ address.email }}</div>
+                <div class="address-card__row-title">Telefono</div>
+                <div class="address-card__row-content">{{ address?.Telefono | telefono }}</div>
             </div>
             <div class="address-card__footer">
-                <a routerLink="/account/addresses/5">Edit Address</a>
+                <a [routerLink]="'/account/addresses/'+address?._id">Editar Dirección</a>
             </div>
         </div>
     </div>
     <div class="dashboard__orders card">
         <div class="card-header">
-            <h5>Recent Orders</h5>
+            <h5>Ultimas Compras</h5>
         </div>
         <div class="card-divider"></div>
         <div class="card-table">

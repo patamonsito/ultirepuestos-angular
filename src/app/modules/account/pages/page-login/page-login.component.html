@@ -112,18 +112,6 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Telefono</label>
-                                <input AppFormatTelefono type="text" class="form-control" formControlName="Telefono"  minlength="12" maxlength="12" placeholder="+56912341234" [ngClass]="telefono?.touched && telefono?.valid == false ? 'inputError' : ''">
-                                <div *ngIf="!telefono?.valid && telefono?.touched">
-                                    <span *ngIf="telefono?.errors?.['required']" class="text-invalid">
-                                        El telefono es Obligatorio
-                                    </span>
-                                    <span *ngIf="telefono?.errors?.['minlength'].actualLength != telefono?.errors?.['minlength'].requiredLength" class="text-invalid">
-                                        Telefono invalido, ejemplo: +56912341234
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label>Contraseña</label>
                                 <input type="password" class="form-control" formControlName="Contraseña" placeholder="Contraseña" minlength="5" maxlength="15" (keyup)="validarReContrasnia()" [ngClass]="contrasenia?.touched && contrasenia?.valid == false ? 'inputError' : ''">
                                 <div *ngIf="!contrasenia?.valid && contrasenia?.touched">
@@ -142,7 +130,7 @@
                                 <label>Repite la Contraseña</label>
                                 <input type="password" class="form-control" formControlName="ReContraseña" placeholder="Contraseña" minlength="5" maxlength="15" (keyup)="validarReContrasnia()" [ngClass]="reContrasenia?.touched && reContrasenia?.valid == false ? 'inputError' : ''">
                                 <div *ngIf="!reContrasenia?.valid && reContrasenia?.touched">
-                                    <span *ngIf="contraseniaLogin?.errors?.['required']" class="text-invalid">
+                                    <span *ngIf="reContrasenia?.errors?.['required']" class="text-invalid">
                                         Este campo es Obligatorio
                                     </span>
                                 </div>

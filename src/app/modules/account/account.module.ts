@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 // modules (angular)
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 // modules
 import { AccountRoutingModule } from './account-routing.module';
@@ -39,6 +40,7 @@ import { PageEditAddressComponent } from './pages/page-edit-address/page-edit-ad
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
+        AlertModule.forRoot(),
         // modules
         AccountRoutingModule,
         SharedModule

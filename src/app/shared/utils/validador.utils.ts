@@ -3,6 +3,11 @@ import { AbstractControl } from '@angular/forms';
 export class Validador {
 
     static validarRUT(control: AbstractControl) {
+
+        if(!control.value){
+            return {};
+        }
+
         rut = control.value.replaceAll('-', '').replaceAll('.', '').slice(0, -1) + '-' + control.value.slice(-1);
         if( rut ){
           let rutCompleto: any = rut.replaceAll("‐", "").replace(/\./g, "");

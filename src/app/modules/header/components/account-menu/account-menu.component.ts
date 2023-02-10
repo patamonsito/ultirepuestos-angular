@@ -19,6 +19,8 @@ export class AccountMenuComponent {
 
     loginError: string = '';
 
+    logger = false;
+
     constructor(
         private sharingService: SharingService,
         private router: Router
@@ -28,6 +30,7 @@ export class AccountMenuComponent {
 
     ngOnInit() {
         this.formInit();
+        this.logger = this.sharingService.logger;
     }
 
     formInit(){
@@ -36,7 +39,7 @@ export class AccountMenuComponent {
           Contraseña: new FormControl('', [Validators.required]),
         });
       }
-  
+
 
     verificarUsuario(){
         if(this.formLogin.invalid){
@@ -44,13 +47,15 @@ export class AccountMenuComponent {
           return;
         }
         let email = this.formLogin.get("Correo")?.value;
-        let contraseña = this.formLogin.get("Contraseña")?.value; 
+        let contraseña = this.formLogin.get("Contraseña")?.value;
         this.sharingService.iniciarSesion(email, contraseña)
         this.Usuario$.subscribe({
           next: e => {
             this.loginError = '';
-            if(e.Nombre != ''){
-              this.router.navigate(['/'])
+            console.log(e.Nombre, this.logger, 'logger')
+            if(e.Nombre != '' && this.logger == false){
+              this.logger = this.sharingService.logger;
+              this.loginError = '';
             }else{
               this.loginError = 'Error al iniciar sesion, Verifique Correo y Contraseña.';
             }
@@ -68,7 +73,7 @@ export class AccountMenuComponent {
     get correoLogin() {
         return this.formLogin.get('Correo');
       }
-    
+
     get contraseniaLogin() {
       return this.formLogin.get('Contraseña');
     }

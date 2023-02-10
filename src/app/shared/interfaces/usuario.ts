@@ -11,6 +11,7 @@ export interface Usuario {
     CuponesDisponibles?: any,
     CuponesUsados?: any,
     Direcciones?: any,
+    Facturacion?: any,
     Favoritos?: any,
     id?: string,
     message?: string

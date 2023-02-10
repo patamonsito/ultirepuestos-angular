@@ -3,30 +3,69 @@
         <h5>Edit Profile</h5>
     </div>
     <div class="card-divider"></div>
-    <div class="card-body">
-        <div class="row no-gutters">
-            <div class="col-12 col-lg-7 col-xl-6">
-                <div class="form-group">
-                    <label for="profile-first-name">First Name</label>
-                    <input type="text" class="form-control" id="profile-first-name" placeholder="First Name">
-                </div>
-                <div class="form-group">
-                    <label for="profile-last-name">Last Name</label>
-                    <input type="text" class="form-control" id="profile-last-name" placeholder="Last Name">
-                </div>
-                <div class="form-group">
-                    <label for="profile-email">Email Address</label>
-                    <input type="email" class="form-control" id="profile-email" placeholder="Email Address">
-                </div>
-                <div class="form-group">
-                    <label for="profile-phone">Phone Number</label>
-                    <input type="text" class="form-control" id="profile-phone" placeholder="Phone Number">
-                </div>
+        <div class="card-body">
+            <div class="row no-gutters">
+                <div class="col-12 col-lg-7 col-xl-6" *ngIf="datosActualizado == false">
+                <form [formGroup]="formPerfil">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input AppFormatLetras type="text" class="form-control" formControlName="nombre"  maxlength="20" placeholder="Inrese su Nombre" [ngClass]="nombre?.touched && nombre?.valid == false ? 'inputError' : ''">
+                        <div *ngIf="!nombre?.valid && nombre?.touched">
+                            <span *ngIf="nombre?.errors?.['required']" class="text-invalid">
+                                El Nombre es Obligatorio
+                            </span>
+                            <span *ngIf="nombre?.errors?.['minlength']" class="text-invalid">
+                                Su nombre debe tener minimo 3 caracteres
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Apellido</label>
+                        <input AppFormatLetras type="text" class="form-control" formControlName="apellido" placeholder="Ingrese su Apellido" [ngClass]="apellido?.touched && apellido?.valid == false ? 'inputError' : ''">
+                        <div *ngIf="!apellido?.valid && apellido?.touched">
+                            <span *ngIf="apellido?.errors?.['required']" class="text-invalid">
+                                El Apellido es Obligatorio
+                            </span>
+                            <span *ngIf="apellido?.errors?.['minlength']" class="text-invalid">
+                                Su apellido debe tener minimo 2 caracteres
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Correo</label>
+                        <input type="email" class="form-control" formControlName="correo" placeholder="Correo" [ngClass]="correo?.touched && correo?.valid == false ? 'inputError' : ''">
+                        <div *ngIf="!correo?.valid && correo?.touched">
+                            <span *ngIf="correo?.errors?.['required']" class="text-invalid">
+                                El Correo es Obligatorio
+                            </span>
+                            <span *ngIf="correo?.errors?.['email']" class="text-invalid">
+                                El Correo es Invalido
+                            </span>
+                        </div>
+                    </div>
 
+                    <div class="form-group">
+                        <label>Correo</label>
+                        <input type="file" name="Avatar" class="form-control" enctype="multipart/form-data" formControlName="img" (change)="onImageChangeFromFile($event)" [ngClass]="img?.touched && img?.valid == false ? 'inputError' : ''">
+                        <div>
+                            <img [src]="'http://localhost:3000/'+(Usuario$|async)?.Avatar" alt="Imagen de perfil" style="max-width: 10rem;max-height: 10rem">
+                        </div>
+                    </div>
+
+                </form>
                 <div class="form-group mt-5 mb-0">
-                    <button class="btn btn-primary">Save</button>
+                    <button class="btn btn-primary" (click)="actualizarUsuario()">Actualizar</button>
                 </div>
             </div>
+
+            <div class="col-12 col-lg-7 col-xl-6" *ngIf="datosActualizado == true">
+                <div>
+                    <alert type="success">
+                        <strong>La contraseña fue cambiada con exito!</strong>
+                      </alert>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

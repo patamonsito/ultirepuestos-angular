@@ -1,34 +1,357 @@
-<div class="addresses-list">
-    <a routerLink="./" class="addresses-list__item addresses-list__item--new">
-        <div class="addresses-list__plus"></div>
-        <div class="btn btn-secondary btn-sm">Add New</div>
+<div class="addresses-list" *ngIf="agregarDireccion == false">
+    <a href="javascript:void(0)" class="addresses-list__item addresses-list__item--new">
+        <div class="addresses-list__plus" (click)="aniadirDireccionForm()"></div>
+        <div class="btn btn-secondary btn-sm" (click)="aniadirDireccionForm()">Añadir Dirección</div>
     </a>
     <div class="addresses-list__divider"></div>
 
     <ng-container *ngFor="let address of addresses">
         <div class="addresses-list__item card address-card">
-            <div class="address-card__badge" *ngIf="address.default">Default</div>
+            <div class="address-card__badge" *ngIf="address?.Default">
+                Sleccionada
+            </div>
             <div class="address-card__body">
-                <div class="address-card__name">{{ address.firstName + ' ' + address.lastName}}</div>
+                <div class="address-card__name">
+                    {{
+                        address?.Nombre +
+                            " " +
+                            address?.Apellido
+                    }}
+                    <br>
+                    {{
+                        address?.Rut
+                    }}
+                </div>
+
                 <div class="address-card__row">
-                    {{ address.country }}<br>
-                    {{ address.postcode }}, {{ address.city }}<br>
-                    {{ address.address }}
+                    {{ address?.Region }}, {{ address?.Comuna }}<br />
+                    {{ address?.Calle }} {{ address?.Numero }}<br />
+                    <span *ngIf="address?.Piso">
+                        Dep: {{ address?.Piso }}
+                    </span>
                 </div>
                 <div class="address-card__row">
-                    <div class="address-card__row-title">Phone Number</div>
-                    <div class="address-card__row-content">{{ address.phone }}</div>
-                </div>
-                <div class="address-card__row">
-                    <div class="address-card__row-title">Email Address</div>
-                    <div class="address-card__row-content">{{ address.email }}</div>
+                    <div class="address-card__row-title">Telefono</div>
+                    <div class="address-card__row-content">
+                        {{ address?.Telefono | telefono }}
+                    </div>
                 </div>
                 <div class="address-card__footer">
-                    <a routerLink="./5">Edit</a>&nbsp;&nbsp;
-                    <a routerLink="./">Remove</a>
+                    <a href="javascript:void(0)" (click)="editarDireccionForm(address)">Editar</a>&nbsp;&nbsp;
+                    <a href="javascript:void(0)" (click)="eliminarDireccion(address?._id)">Eliminar</a>
                 </div>
             </div>
         </div>
         <div class="addresses-list__divider"></div>
     </ng-container>
+</div>
+
+<div *ngIf="agregarDireccion == true">
+    <div class="block">
+        <div class="container">
+            <div class="row row no-gutters">
+                <div class="col-md-12 d-flex">
+                    <div class="card flex-grow-1 mb-md-0">
+                        <div class="card-body">
+                            <h3 class="card-title">Información de Envió</h3>
+
+                            <div class="card-divider"></div>
+                            <form
+                                [formGroup]="formDirecciones"
+                            >
+
+                            <div class="row">
+                                <div class="col-md-6 mt-4">
+                                    <div class="form-group">
+                                        <label>Nombre <span class="red">*</span></label>
+                                        <input
+                                        AppFormatLetras
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Nombre"
+                                            formControlName="Nombre"
+                                            maxlength="15"
+                                            [ngClass]="
+                                                nombre?.touched &&
+                                                nombre?.valid == false
+                                                    ? 'inputError'
+                                                    : ''
+                                            "
+                                        />
+                                        <div
+                                            *ngIf="
+                                                !nombre?.valid &&
+                                                nombre?.touched
+                                            "
+                                        >
+                                        <span *ngIf="nombre?.errors?.['required']" class="text-invalid">
+                                            El Nombre es Obligatorio
+                                        </span>
+                                        <span *ngIf="nombre?.errors?.['minlength']" class="text-invalid">
+                                            Su nombre debe tener minimo 3 caracteres
+                                        </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mt-4">
+                                    <div class="form-group">
+                                        <label>Apellido <span class="red">*</span></label>
+                                        <input
+                                        AppFormatLetras
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Apellido"
+                                            formControlName="Apellido"
+                                            maxlength="15"
+                                            [ngClass]="
+                                                apellido?.touched &&
+                                                apellido?.valid == false
+                                                    ? 'inputError'
+                                                    : ''
+                                            "
+                                        />
+                                        <div
+                                            *ngIf="
+                                                !apellido?.valid &&
+                                                apellido?.touched
+                                            "
+                                        >
+                                        <span *ngIf="apellido?.errors?.['required']" class="text-invalid">
+                                            El Apellido es Obligatorio
+                                        </span>
+                                        <span *ngIf="apellido?.errors?.['minlength']" class="text-invalid">
+                                            Su apellido debe tener minimo 2 caracteres
+                                        </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Rut <span class="red">*</span></label>
+                                        <input
+                                        AppFormatRut
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Rut"
+                                            formControlName="Rut"
+                                            [ngClass]="
+                                                rut?.touched &&
+                                                rut?.valid == false
+                                                    ? 'inputError'
+                                                    : ''
+                                            "
+                                        />
+                                        <div
+                                            *ngIf="
+                                                !rut?.valid &&
+                                                rut?.touched
+                                            "
+                                        >
+                                        <span *ngIf="rut?.errors?.['required']" class="text-invalid">
+                                            El Rut es Obligatorio
+                                        </span>
+                                        <span *ngIf="rut?.errors?.['rut_invalido']" class="text-invalid">
+                                            El RUT ingresado no es válido. Por favor vuelva a ingresar el RUT
+                                        </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Telefono <span class="red">*</span></label>
+                                        <input
+                                        AppFormatTelefono
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Telefono"
+                                            formControlName="Telefono"
+                                            maxlength="12"
+                                            [ngClass]="
+                                                telefono?.touched &&
+                                                telefono?.valid == false
+                                                    ? 'inputError'
+                                                    : ''
+                                            "
+                                        />
+                                        <div
+                                            *ngIf="
+                                                !telefono?.valid &&
+                                                telefono?.touched
+                                            "
+                                        >
+                                            <span
+                                                *ngIf="telefono?.errors?.['required']"
+                                                class="text-invalid"
+                                            >
+                                                El telefono es Obligatorio
+                                            </span>
+                                            <span
+                                                *ngIf="telefono?.errors?.['minlength']"
+                                                class="text-invalid"
+                                            >
+                                                Telefono invalido, ejemplo: +56912341234
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Región <span class="red">*</span></label>
+                                        <select class="form-control" formControlName="Region" (change)="verComunas()">
+                                            <option [ngValue]="null"  selected selected="true" disabled>Seleccione una Región</option>
+                                            <option *ngFor="let region of regiones" [ngValue]="region">
+                                                {{ region }}
+                                            </option>
+                                        </select>
+                                        <div
+                                            *ngIf="
+                                                !region?.valid &&
+                                                region?.touched
+                                            "
+                                        >
+                                            <span
+                                                *ngIf="region?.errors?.['required']"
+                                                class="text-invalid"
+                                            >
+                                                la region es Obligatoria
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Comuna <span class="red">*</span></label>
+                                        <select class="form-control" formControlName="Comuna">
+                                            <option [ngValue]="null"  selected selected="true" disabled>Seleccione una Comuna</option>
+                                            <option *ngFor="let comuna of comunas" [ngValue]="comuna">
+                                                {{ comuna }}
+                                            </option>
+                                        </select>
+                                        <div
+                                            *ngIf="
+                                                !comuna?.valid &&
+                                                comuna?.touched
+                                            "
+                                        >
+                                            <span
+                                                *ngIf="comuna?.errors?.['required']"
+                                                class="text-invalid"
+                                            >
+                                                la comuna es Obligatoria
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Calle <span class="red">*</span></label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Calle"
+                                            maxlength="50"
+                                            formControlName="Calle"
+                                            [ngClass]="
+                                                calle?.touched &&
+                                                calle?.valid == false
+                                                    ? 'inputError'
+                                                    : ''
+                                            "
+                                        />
+                                        <div
+                                            *ngIf="
+                                                !calle?.valid &&
+                                                calle?.touched
+                                            "
+                                        >
+                                            <span
+                                                *ngIf="calle?.errors?.['required']"
+                                                class="text-invalid"
+                                            >
+                                                La calle es Obligatoria
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Numero <span class="red">*</span></label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Numero"
+                                            maxlength="15"
+                                            formControlName="Numero"
+                                            [ngClass]="
+                                                numero?.touched &&
+                                                numero?.valid == false
+                                                    ? 'inputError'
+                                                    : ''
+                                            "
+                                        />
+                                        <div
+                                            *ngIf="
+                                                !numero?.valid &&
+                                                numero?.touched
+                                            "
+                                        >
+                                            <span
+                                                *ngIf="numero?.errors?.['required']"
+                                                class="text-invalid"
+                                            >
+                                                La calle es Obligatoria
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Piso</label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Piso"
+                                            formControlName="Piso"
+                                            maxlength="15"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary mt-2 mt-md-3 mt-lg-4"
+                                    *ngIf="isActualizacion == false"
+                                    (click)="aniadirDireccion()"
+                                >
+                                    Añadir Dirección
+                                </button>
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary mt-2 mt-md-3 mt-lg-4"
+                                    *ngIf="isActualizacion == true"
+                                    (click)="actualizarDireccion()"
+                                >
+                                    Actualizar
+                                </button>
+                                <button
+                                    class="btn btn-light ml-2 mt-2 mt-md-3 mt-lg-4"
+                                    (click)="cancelarDireccion()"
+                                >
+                                    Cancelar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

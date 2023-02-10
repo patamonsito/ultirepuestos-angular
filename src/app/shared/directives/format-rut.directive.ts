@@ -6,6 +6,9 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 export class AppFormatRut{
 
     @HostListener('keyup') onMouseEnter() {
+        if(!this.element.nativeElement.value){
+            return;
+        }
         var actual = this.element.nativeElement.value.replace(/^0+/, "");
         actual = actual.replace(/-/, "");
         actual = actual.replace(/\s/g, "");

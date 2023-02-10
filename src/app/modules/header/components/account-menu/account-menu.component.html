@@ -1,7 +1,6 @@
 <div class="account-menu">
     <form
         class="account-menu__form"
-        (ngSubmit)="verificarUsuario()"
         [formGroup]="formLogin"
         *ngIf="!(Usuario$|async)?.id"
     >
@@ -68,7 +67,7 @@
                 </span>
             </div>
         </div>
-        
+
         <span
             *ngIf="loginError"
             class="text-invalid"
@@ -76,7 +75,7 @@
             {{loginError}}
         </span>
         <div class="form-group account-menu__form-button">
-            <button type="submit" class="btn btn-primary btn-sm">
+            <button (click)="verificarUsuario()" class="btn btn-primary btn-sm">
                 Iniciar Sesión
             </button>
         </div>
@@ -86,7 +85,7 @@
             >
         </div>
     </form>
-    
+
     <div *ngIf="(Usuario$|async)?.id">
         <div class="account-menu__divider"></div>
         <a
@@ -95,7 +94,7 @@
             (click)="closeMenu.emit()"
         >
             <div class="account-menu__user-avatar">
-                <img src="assets/images/avatars/avatar-3.jpg" alt="" />
+                <img [src]="'http://localhost:3000/'+(Usuario$|async)?.Avatar" alt="" />
             </div>
             <div class="account-menu__user-info">
                 <div class="account-menu__user-name">

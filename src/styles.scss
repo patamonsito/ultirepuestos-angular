@@ -1,3 +1,18 @@
 @import '~ngx-toastr/toastr';
 @import 'node_modules/ngx-red-zoom/styles/base.scss';
 @import 'scss/style';
+.inputError{
+    border: 1px solid red;
+}
+
+.text-invalid{
+    color: red;
+    font-size: 0.8rem;
+    display: block;
+    margin-top: 0.3rem;
+    width: 100%;
+}
+
+.red{
+    color: red;
+}

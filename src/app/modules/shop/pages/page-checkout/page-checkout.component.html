@@ -7,121 +7,418 @@
 <div class="checkout block">
     <div class="container">
         <div class="row">
-            <div class="col-12 mb-3">
-                <app-alert type="primary" size="lg">Returning customer? <a [routerLink]="root.login()">Click here to login</a></app-alert>
+            <div class="col-12 mb-3" *ngIf="!(Usuario$|async)?.id">
+                <app-alert type="primary" size="lg">Ya eres cliente? <a [routerLink]="root.login()">Inicia Sesión Aquí</a></app-alert>
             </div>
 
             <div class="col-12 col-lg-6 col-xl-7">
                 <div class="card mb-lg-0">
                     <div class="card-body">
-                        <h3 class="card-title">Billing details</h3>
+                        <h3 class="card-title">Detalles de Facturación</h3>
+
+                        <form [formGroup]="formFacturacion">
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="checkout-first-name">First Name</label>
-                                <input type="text" class="form-control" id="checkout-first-name" placeholder="First Name">
+                                <label for="checkout-first-name">Rut</label>
+                                <input AppFormatRut type="text" class="form-control" (keypress)="validateRut()" formControlName="Rut" placeholder="12345678-9" [ngClass]="Rut?.touched && Rut?.valid == false ? 'inputError' : ''">
+                                <div *ngIf="!Rut?.valid && Rut?.touched">
+                                    <span *ngIf="Rut?.errors?.['required']" class="text-invalid">
+                                        El Rut es Obligatorio
+                                    </span>
+                                    <span *ngIf="Rut?.errors?.['rut_invalido']" class="text-invalid">
+                                        El RUT ingresado no es válido. Por favor vuelva a ingresar el RUT
+                                    </span>
+                                </div>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="checkout-last-name">Last Name</label>
-                                <input type="text" class="form-control" id="checkout-last-name" placeholder="Last Name">
+                                <label for="checkout-first-name">Nombre o Razon Social</label>
+                                <input
+                                AppFormatLetras
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Nombre o razon social"
+                                    formControlName="RazonSocial"
+                                    maxlength="15"
+                                    [ngClass]="
+                                        RazonSocial?.touched &&
+                                        RazonSocial?.valid == false
+                                            ? 'inputError'
+                                            : ''
+                                    "
+                                />
+                                <div
+                                    *ngIf="
+                                        !RazonSocial?.valid &&
+                                        RazonSocial?.touched
+                                    "
+                                >
+                                <span *ngIf="RazonSocial?.errors?.['required']" class="text-invalid">
+                                    El nombre o razon social es obligatorio
+                                </span>
+                                <span *ngIf="NombreD?.errors?.['minlength']" class="text-invalid">
+                                    Su nombre o razon social debe tener minimo 3 caracteres
+                                </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="checkout-first-name">Correo</label>
+                                <input type="text" class="form-control" id="checkout-first-name" placeholder="Correo" formControlName="Correo" maxlength="50"  [ngClass]="Correo?.touched && Correo?.valid == false ? 'inputError' : ''">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="checkout-first-name">Entrega</label>
+                                <select class="form-control" formControlName="Entrega" (change)="verComunas()">
+                                    <option [ngValue]="null"  selected selected="true" disabled>Seleccione una opción</option>
+                                    <option *ngFor="let entrega of entregas" [ngValue]="entrega">
+                                        {{ entrega }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-12" *ngIf="isPersona">
+                                <div class="form-check">
+                                        <span class="form-check-input input-check">
+                                            <span class="input-check__body">
+                                                <input class="input-check__input" type="checkbox" id="checkout-create-account" (change)="nuevoUsuario = !nuevoUsuario">
+                                                <span class="input-check__box"></span>
+                                                <svg class="input-check__icon" width="9px" height="7px"><use xlink:href="assets/images/sprite.svg#check-9x7"></use></svg>
+                                            </span>
+                                        </span>
+                                    <label class="form-check-label" for="checkout-create-account">Crear una cuenta?</label>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="nuevoUsuario">
+                                <div class="form-group col-md-6">
+                                    <label for="checkout-first-name">Contraseña</label>
+                                    <input type="password" class="form-control" formControlName="Contraseña" placeholder="Contraseña" minlength="5" maxlength="15" (keyup)="validarReContrasnia()" [ngClass]="Contrasenia?.touched && Contrasenia?.valid == false ? 'inputError' : ''">
+                                    <div *ngIf="!Contrasenia?.valid && Contrasenia?.touched">
+                                        <span *ngIf="Contrasenia?.errors?.['required']" class="text-invalid">
+                                            La Contraseña es Obligatoria
+                                        </span>
+                                        <span *ngIf="Contrasenia?.errors?.['minlength'].actualLength != Contrasenia?.errors?.['minlength'].requiredLength" class="text-invalid">
+                                            Debe contener almenos 5 caracteres
+                                        </span>
+                                        <span *ngIf="Contrasenia?.errors?.['maxlength']" class="text-invalid">
+                                            La contraseña excede el maximo permitido
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="checkout-first-name">Confirmar Contraseña</label>
+                                    <input type="password" class="form-control" formControlName="ReContraseña" placeholder="Contraseña" minlength="5" maxlength="15" (keyup)="validarReContrasnia()" [ngClass]="ReContrasenia?.touched && ReContrasenia?.valid == false ? 'inputError' : ''">
+                                    <div *ngIf="!ReContrasenia?.valid && ReContrasenia?.touched">
+                                        <span *ngIf="ReContrasenia?.errors?.['required']" class="text-invalid">
+                                            Este campo es Obligatorio
+                                        </span>
+                                    </div>
+                                    <span *ngIf="reContraseniaValid" class="text-invalid">
+                                        La Contraseñas no son iguales
+                                    </span>
+                                </div>
                             </div>
                         </div>
+                        </form>
+                     <div class="card-divider"></div>
 
-                        <div class="form-group">
-                            <label for="checkout-company-name">Company Name <span class="text-muted">(Optional)</span></label>
-                            <input type="text" class="form-control" id="checkout-company-name" placeholder="Company Name">
-                        </div>
-                        <div class="form-group">
-                            <label for="checkout-country">Country</label>
-                            <select id="checkout-country" class="form-control">
-                                <option>Select a country...</option>
-                                <option>United States</option>
-                                <option>Russia</option>
-                                <option>Italy</option>
-                                <option>France</option>
-                                <option>Ukraine</option>
-                                <option>Germany</option>
-                                <option>Australia</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="checkout-street-address">Street Address</label>
-                            <input type="text" class="form-control" id="checkout-street-address" placeholder="Street Address">
-                        </div>
-                        <div class="form-group">
-                            <label for="checkout-address">Apartment, suite, unit etc. <span class="text-muted">(Optional)</span></label>
-                            <input type="text" class="form-control" id="checkout-address">
-                        </div>
-                        <div class="form-group">
-                            <label for="checkout-city">Town / City</label>
-                            <input type="text" class="form-control" id="checkout-city">
-                        </div>
-                        <div class="form-group">
-                            <label for="checkout-state">State / County</label>
-                            <input type="text" class="form-control" id="checkout-state">
-                        </div>
-                        <div class="form-group">
-                            <label for="checkout-postcode">Postcode / ZIP</label>
-                            <input type="text" class="form-control" id="checkout-postcode">
-                        </div>
 
+
+                     <div class="mt-3">
+                            <h3 class="card-title">Datos de Envió</h3>
                         <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="checkout-email">Email address</label>
-                                <input type="email" class="form-control" id="checkout-email" placeholder="Email address">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="checkout-phone">Phone</label>
-                                <input type="text" class="form-control" id="checkout-phone" placeholder="Phone">
-                            </div>
-                        </div>
+                            <form
+                                [formGroup]="formDireccion"
+                            >
 
-                        <div class="form-group">
-                            <div class="form-check">
-                                    <span class="form-check-input input-check">
-                                        <span class="input-check__body">
-                                            <input class="input-check__input" type="checkbox" id="checkout-create-account">
-                                            <span class="input-check__box"></span>
-                                            <svg class="input-check__icon" width="9px" height="7px"><use xlink:href="assets/images/sprite.svg#check-9x7"></use></svg>
+                            <div class="row">
+                                <div class="col-md-6 mt-4">
+                                    <div class="form-group">
+                                        <label>Nombre <span class="red">*</span></label>
+                                        <input
+                                        AppFormatLetras
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Nombre"
+                                            formControlName="Nombre"
+                                            maxlength="15"
+                                            [ngClass]="
+                                                NombreD?.touched &&
+                                                NombreD?.valid == false
+                                                    ? 'inputError'
+                                                    : ''
+                                            "
+                                        />
+                                        <div
+                                            *ngIf="
+                                                !NombreD?.valid &&
+                                                NombreD?.touched
+                                            "
+                                        >
+                                        <span *ngIf="NombreD?.errors?.['required']" class="text-invalid">
+                                            El Nombre es Obligatorio
                                         </span>
-                                    </span>
-                                <label class="form-check-label" for="checkout-create-account">Create an account?</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-divider"></div>
-                    <div class="card-body">
-                        <h3 class="card-title">Shipping Details</h3>
-
-                        <div class="form-group">
-                            <div class="form-check">
-                                    <span class="form-check-input input-check">
-                                        <span class="input-check__body">
-                                            <input class="input-check__input" type="checkbox" id="checkout-different-address">
-                                            <span class="input-check__box"></span>
-                                            <svg class="input-check__icon" width="9px" height="7px"><use xlink:href="assets/images/sprite.svg#check-9x7"></use></svg>
+                                        <span *ngIf="NombreD?.errors?.['minlength']" class="text-invalid">
+                                            Su nombre debe tener minimo 3 caracteres
                                         </span>
-                                    </span>
-                                <label class="form-check-label" for="checkout-different-address">Ship to a different address?</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mt-4">
+                                    <div class="form-group">
+                                        <label>Apellido <span class="red">*</span></label>
+                                        <input
+                                        AppFormatLetras
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Apellido"
+                                            formControlName="Apellido"
+                                            maxlength="15"
+                                            [ngClass]="
+                                                ApellidoD?.touched &&
+                                                ApellidoD?.valid == false
+                                                    ? 'inputError'
+                                                    : ''
+                                            "
+                                        />
+                                        <div
+                                            *ngIf="
+                                                !ApellidoD?.valid &&
+                                                ApellidoD?.touched
+                                            "
+                                        >
+                                        <span *ngIf="ApellidoD?.errors?.['required']" class="text-invalid">
+                                            El Apellido es Obligatorio
+                                        </span>
+                                        <span *ngIf="ApellidoD?.errors?.['minlength']" class="text-invalid">
+                                            Su apellido debe tener minimo 2 caracteres
+                                        </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Rut <span class="red">*</span></label>
+                                        <input
+                                        AppFormatRut
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Rut"
+                                            formControlName="Rut"
+                                            [ngClass]="
+                                                RutD?.touched &&
+                                                RutD?.valid == false
+                                                    ? 'inputError'
+                                                    : ''
+                                            "
+                                        />
+                                        <div
+                                            *ngIf="
+                                                !RutD?.valid &&
+                                                RutD?.touched
+                                            "
+                                        >
+                                        <span *ngIf="RutD?.errors?.['required']" class="text-invalid">
+                                            El Rut es Obligatorio
+                                        </span>
+                                        <span *ngIf="RutD?.errors?.['rut_invalido']" class="text-invalid">
+                                            El RUT ingresado no es válido. Por favor vuelva a ingresar el RUT
+                                        </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Telefono <span class="red">*</span></label>
+                                        <input
+                                        AppFormatTelefono
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Telefono"
+                                            formControlName="Telefono"
+                                            maxlength="12"
+                                            [ngClass]="
+                                                TelefonoD?.touched &&
+                                                TelefonoD?.valid == false
+                                                    ? 'inputError'
+                                                    : ''
+                                            "
+                                        />
+                                        <div
+                                            *ngIf="
+                                                !TelefonoD?.valid &&
+                                                TelefonoD?.touched
+                                            "
+                                        >
+                                            <span
+                                                *ngIf="TelefonoD?.errors?.['required']"
+                                                class="text-invalid"
+                                            >
+                                                El telefono es Obligatorio
+                                            </span>
+                                            <span
+                                                *ngIf="TelefonoD?.errors?.['minlength']"
+                                                class="text-invalid"
+                                            >
+                                                Telefono invalido, ejemplo: +56912341234
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Región <span class="red">*</span></label>
+                                        <select class="form-control" formControlName="Region" (change)="verComunas()">
+                                            <option [ngValue]="null"  selected selected="true" disabled>Seleccione una Región</option>
+                                            <option *ngFor="let region of regiones" [ngValue]="region">
+                                                {{ region }}
+                                            </option>
+                                        </select>
+                                        <div
+                                            *ngIf="
+                                                !Region?.valid &&
+                                                Region?.touched
+                                            "
+                                        >
+                                            <span
+                                                *ngIf="Region?.errors?.['required']"
+                                                class="text-invalid"
+                                            >
+                                                la region es Obligatoria
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Comuna <span class="red">*</span></label>
+                                        <select class="form-control" formControlName="Comuna">
+                                            <option [ngValue]="null"  selected selected="true" disabled>Seleccione una Comuna</option>
+                                            <option *ngFor="let comuna of comunas" [ngValue]="comuna">
+                                                {{ comuna }}
+                                            </option>
+                                        </select>
+                                        <div
+                                            *ngIf="
+                                                !Comuna?.valid &&
+                                                Comuna?.touched
+                                            "
+                                        >
+                                            <span
+                                                *ngIf="Comuna?.errors?.['required']"
+                                                class="text-invalid"
+                                            >
+                                                la comuna es Obligatoria
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Calle <span class="red">*</span></label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Calle"
+                                            maxlength="50"
+                                            formControlName="Calle"
+                                            [ngClass]="
+                                                Calle?.touched &&
+                                                Calle?.valid == false
+                                                    ? 'inputError'
+                                                    : ''
+                                            "
+                                        />
+                                        <div
+                                            *ngIf="
+                                                !Calle?.valid &&
+                                                Calle?.touched
+                                            "
+                                        >
+                                            <span
+                                                *ngIf="Calle?.errors?.['required']"
+                                                class="text-invalid"
+                                            >
+                                                La calle es Obligatoria
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Numero <span class="red">*</span></label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Numero"
+                                            maxlength="15"
+                                            formControlName="Numero"
+                                            [ngClass]="
+                                                Numero?.touched &&
+                                                Numero?.valid == false
+                                                    ? 'inputError'
+                                                    : ''
+                                            "
+                                        />
+                                        <div
+                                            *ngIf="
+                                                !Numero?.valid &&
+                                                Numero?.touched
+                                            "
+                                        >
+                                            <span
+                                                *ngIf="Numero?.errors?.['required']"
+                                                class="text-invalid"
+                                            >
+                                                La calle es Obligatoria
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Piso</label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Piso"
+                                            formControlName="Piso"
+                                            maxlength="15"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                     </div>
+
+                     <div class="card-divider"></div>
+
+                     <form [formGroup]="formObservacion">
+                        <div class="mt-3">
+                            <div class="form-group">
+                                <label for="checkout-comment">Comentario <span class="text-muted">(Opcional)</span></label>
+                                <textarea id="checkout-comment" formControlName="Observaciones" class="form-control" rows="4"></textarea>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="checkout-comment">Order notes <span class="text-muted">(Optional)</span></label>
-                            <textarea id="checkout-comment" class="form-control" rows="4"></textarea>
-                        </div>
-                    </div>
+                     </form>
                 </div>
+            </div>
             </div>
 
             <div class="col-12 col-lg-6 col-xl-5 mt-4 mt-lg-0">
                 <div class="card mb-0">
                     <div class="card-body">
-                        <h3 class="card-title">Your Order</h3>
+                        <h3 class="card-title">Tu orden</h3>
 
                         <table class="checkout__totals">
                             <thead class="checkout__totals-header">
                             <tr>
-                                <th>Product</th>
+                                <th>Producto</th>
                                 <th>Total</th>
                             </tr>
                             </thead>
@@ -159,12 +456,11 @@
                                                     <span class="input-radio__circle"></span>
                                                 </span>
                                             </span>
-                                        <span class="payment-methods__item-title">Direct bank transfer</span>
+                                        <span class="payment-methods__item-title">Getnet</span>
                                     </label>
                                     <div class="payment-methods__item-container">
                                         <div class="payment-methods__item-description text-muted">
-                                            Make your payment directly into our bank account. Please use your Order ID as the payment
-                                            reference. Your order will not be shipped until the funds have cleared in our account.
+                                            Pagos en pesos con Tarjetas de Crédito, Débito o prepago, de todos los bancos nacionales e internacionales.
                                         </div>
                                     </div>
                                 </li>
@@ -176,11 +472,11 @@
                                                     <span class="input-radio__circle"></span>
                                                 </span>
                                             </span>
-                                        <span class="payment-methods__item-title">Check payments</span>
+                                        <span class="payment-methods__item-title">WebPay Plus</span>
                                     </label>
                                     <div class="payment-methods__item-container">
                                         <div class="payment-methods__item-description text-muted">
-                                            Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.
+                                            Pagos con todas las tarjetas de crédito, débito y prepago.
                                         </div>
                                     </div>
                                 </li>
@@ -192,11 +488,11 @@
                                                     <span class="input-radio__circle"></span>
                                                 </span>
                                             </span>
-                                        <span class="payment-methods__item-title">Cash on delivery</span>
+                                        <span class="payment-methods__item-title">Transferencia Bancaria</span>
                                     </label>
                                     <div class="payment-methods__item-container">
                                         <div class="payment-methods__item-description text-muted">
-                                            Pay with cash upon delivery.
+                                            Realiza una transferencia electrónica a nuestra cuenta bancaria.
                                         </div>
                                     </div>
                                 </li>
@@ -208,11 +504,27 @@
                                                     <span class="input-radio__circle"></span>
                                                 </span>
                                             </span>
-                                        <span class="payment-methods__item-title">PayPal</span>
+                                        <span class="payment-methods__item-title">Pago Presencial</span>
                                     </label>
                                     <div class="payment-methods__item-container">
                                         <div class="payment-methods__item-description text-muted">
-                                            Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.
+                                            Paga en una de nuestras sucursales o asociados.
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="payment-methods__item">
+                                    <label class="payment-methods__item-header">
+                                            <span class="payment-methods__item-radio input-radio">
+                                                <span class="input-radio__body">
+                                                    <input class="input-radio__input" name="checkout_payment_method" type="radio">
+                                                    <span class="input-radio__circle"></span>
+                                                </span>
+                                            </span>
+                                        <span class="payment-methods__item-title">Pagar al recibir</span>
+                                    </label>
+                                    <div class="payment-methods__item-container">
+                                        <div class="payment-methods__item-description text-muted">
+                                            Paga cuando recibas el producto, esta opción solo es valida para enviós a domicilio en Santiago.
                                         </div>
                                     </div>
                                 </li>
@@ -229,15 +541,16 @@
                                         </span>
                                     </span>
                                 <label class="form-check-label" for="checkout-terms">
-                                    I have read and agree to the website <a target="_blank" [routerLink]="root.terms()">terms and conditions</a>*
+                                    He leido y acepto los <a target="_blank" [routerLink]="root.terms()">Terminos y condiciones.</a>*
                                 </label>
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary btn-xl btn-block">Place Order</button>
+                        <button type="submit" class="btn btn-primary btn-xl btn-block">Realizar Orden</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+

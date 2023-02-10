@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { RedZoomModule } from 'ngx-red-zoom';
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 // directives
 import { ClickDirective } from './directives/click.directive';
@@ -39,14 +40,13 @@ import { SearchComponent } from './components/search/search.component';
 import { ShareButtonsComponent } from './components/share-buttons/share-buttons.component';
 import { SocialLinksComponent } from './components/social-links/social-links.component';
 import { IconLogoPc } from './components/icon-logo-pc/icon.component';
-
 // pipes
 import { AbsoluteUrlPipe } from './pipes/absolute-url.pipe';
 import { ColorTypePipe } from './pipes/color-type.pipe';
 import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
 import { ProductGalleryComponent } from './components/product-gallery/product-gallery.component';
 import { currencyCLP } from './pipes/currency-clp.pipe'
-
+import { telefono } from './pipes/telefono-format.pipe';
 @NgModule({
     declarations: [
         // directives
@@ -85,6 +85,7 @@ import { currencyCLP } from './pipes/currency-clp.pipe'
         CurrencyFormatPipe,
         ProductGalleryComponent,
         currencyCLP,
+        telefono
     ],
     imports: [
         // modules (angular)
@@ -96,6 +97,7 @@ import { currencyCLP } from './pipes/currency-clp.pipe'
         // modules (third-party)
         CarouselModule,
         ModalModule.forRoot(),
+        AlertModule.forRoot(),
         RedZoomModule,
     ],
     exports: [
@@ -133,7 +135,8 @@ import { currencyCLP } from './pipes/currency-clp.pipe'
         ColorTypePipe,
         CurrencyFormatPipe,
         ShareButtonsComponent,
-        currencyCLP
+        currencyCLP,
+        telefono
     ]
 })
 export class SharedModule { }

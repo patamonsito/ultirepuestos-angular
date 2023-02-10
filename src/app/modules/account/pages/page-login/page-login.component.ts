@@ -5,7 +5,7 @@ import { Usuario } from 'src/app/shared/interfaces/usuario';
 import { Validador } from 'src/app/shared/utils/validador.utils'
 import { SharingService } from 'src/app/core/services/sharing.services';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-login',
@@ -22,15 +22,28 @@ export class PageLoginComponent implements OnInit{
 
     reContraseniaValid: boolean = false;
 
-    Usuario$: Observable<Usuario>;
-
     loginError: string = '';
 
-    constructor(private shopService: ShopService, private sharingService: SharingService, private router: Router) { 
+    logger: boolean = false;
+
+    Usuario$: Observable<Usuario>;
+
+    constructor(private shopService: ShopService,
+         private sharingService: SharingService,
+         private router: Router,
+         private route: ActivatedRoute) {
       this.Usuario$ = sharingService.sharingObservable;
+      this.logger = this.sharingService.logger;
     }
 
     ngOnInit() {
+        this.Usuario$.subscribe({
+            next: (e) => {
+                if(e.Rut){
+                    this.router.navigate(['../../'], {relativeTo: this.route}).then();
+                }
+            }
+        })
         this.formInit();
     }
 
@@ -39,13 +52,12 @@ export class PageLoginComponent implements OnInit{
         Correo: new FormControl('', [Validators.required, Validators.email]),
         Contraseña: new FormControl('', [Validators.required]),
       });
-  
+
       this.formRegistro = new FormGroup({
         Nombre: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(15) ]),
         Apellido: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(15)]),
         Rut: new FormControl('', [Validators.required, Validador.validarRUT ]),
         Correo: new FormControl('', [Validators.required, Validators.email]),
-        Telefono: new FormControl('+56', [Validators.required, Validators.minLength(12)]),
         Contraseña: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]),
         ReContraseña: new FormControl('', [Validators.required])
       })
@@ -59,13 +71,15 @@ export class PageLoginComponent implements OnInit{
         return;
       }
       let email = this.formLogin.get("Correo")?.value;
-      let contraseña = this.formLogin.get("Contraseña")?.value; 
+      let contraseña = this.formLogin.get("Contraseña")?.value;
       this.sharingService.iniciarSesion(email, contraseña)
       this.Usuario$.subscribe({
         next: e => {
-          if(e.id){
+            console.log(e.Nombre, this.logger, 'logger1')
+          if(e.Nombre != '' && this.logger == false){
+            this.logger = this.sharingService.logger;
             this.loginError = '';
-            this.router.navigate(['/'])
+            this.router.navigate(['../../'], {relativeTo: this.route}).then();
           }else{
             this.loginError = 'Error al iniciar sesion, Verifique Correo y Contraseña.';
           }
@@ -82,7 +96,7 @@ export class PageLoginComponent implements OnInit{
         this.reContraseniaValid = this.formRegistro.get('Contraseña')?.value == this.formRegistro.get('ReContraseña')?.value ? false : true;
         return;
       }
-      
+
       let datos: Usuario = {
         Nombre: this.formRegistro.get('Nombre')?.value,
         Apellido: this.formRegistro.get('Apellido')?.value,
@@ -124,10 +138,6 @@ export class PageLoginComponent implements OnInit{
       return this.formRegistro.get('Correo');
     }
 
-    get telefono() {
-      return this.formRegistro.get('Telefono');
-    }
-
     get contrasenia() {
       return this.formRegistro.get('Contraseña');
     }
@@ -139,7 +149,7 @@ export class PageLoginComponent implements OnInit{
     get correoLogin() {
       return this.formLogin.get('Correo');
     }
-  
+
     get contraseniaLogin() {
       return this.formLogin.get('Contraseña');
     }

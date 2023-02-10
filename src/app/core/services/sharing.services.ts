@@ -16,6 +16,8 @@ export class SharingService {
             Telefono: '',
         });
 
+    public logger: boolean = false;
+
     get sharingObservable() {
         return this.sharingObservablePrivate.asObservable();
     }
@@ -23,6 +25,7 @@ export class SharingService {
     set sharingObservableData(data: Usuario) {
         this.sharingObservablePrivate.next(data);
     }
+
 
     iniciarSesion(email: string, contraseña: string) {
         let body = {
@@ -45,12 +48,47 @@ export class SharingService {
                             Rut: '',
                             Telefono: '',
                         })
+                        this.logger = false;
                     }else{
                         this.sharingObservablePrivate.next(data)
+                        this.logger = true;
                     }
                 },
             });
     }
+
+
+    reloadUsuario(id: string) {
+        let body = {
+            id
+        };
+
+        this.http
+            .post('http://localhost:3000/api/reload-user', body)
+            .subscribe({
+                error: (err) => console.log(err),
+                next: (data: any) => {
+                    localStorage.setItem('Usuario', JSON.stringify(data));
+                    console.log(data)
+                    if(!data?.id){
+                        this.sharingObservablePrivate.next({
+                            Apellido: '',
+                            Contraseña: '',
+                            Correo: '',
+                            Nombre: '',
+                            Rut: '',
+                            Telefono: '',
+                        })
+                        this.logger = false;
+                    }else{
+                        this.sharingObservablePrivate.next(data)
+                        this.logger = true;
+                    }
+                },
+            });
+    }
+
+
 
     cerrarSesion(){
         localStorage.removeItem('Usuario');
@@ -61,6 +99,7 @@ export class SharingService {
             Nombre: '',
             Rut: '',
             Telefono: '',
-        })
+        });
+        this.logger = false;
     }
 }

@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { Brand } from '../interfaces/brand';
 import { Product } from '../interfaces/product';
 import { Usuario } from '../interfaces/usuario';
+import { Direcciones } from '../interfaces/direcciones';
+import { Regiones } from '../interfaces/regiones';
 import { ProductsList } from '../interfaces/list';
 import { SerializedFilterValues } from '../interfaces/filter';
 import {
@@ -50,8 +52,33 @@ export class ShopService {
      */
 
 
+    actualizarUsuario(body: any, id: string){
+        return this.http.patch('http://localhost:3000/api/user/'+id, body);
+    }
+
     registrarUsuario(body: Usuario){
         return this.http.post('http://localhost:3000/api/crear-usuario', body);
+    }
+
+    changePassword(body: any){
+        return this.http.post('http://localhost:3000/api/change-password', body);
+    }
+
+    getRegiones(){
+        return this.http.get<Regiones[]>('http://localhost:3000/api/get-regiones');
+    }
+
+
+    añadirDireccion(body: Direcciones){
+        return this.http.post('http://localhost:3000/api/add-direccion', body);
+    }
+
+    actualizarDireccion(body: Direcciones){
+        return this.http.post('http://localhost:3000/api/update-direccion', body);
+    }
+
+    eliminarDireccion(id: string){
+        return this.http.delete('http://localhost:3000/api/eliminar-direccion/'+id);
     }
 
     getCategory(slug: string): Observable<Category> {

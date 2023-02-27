@@ -620,7 +620,7 @@
                             </thead>
                             <tbody class="checkout__totals-products">
                             <tr *ngFor="let item of cart.items$|async">
-                                <td><img [src]="'http://service.ulti.cl/repuestos/'+item.product.images[0]+'.jpg'" style="max-height: 4rem;"></td>
+                                <td><img [src]="'http://www.service.ulti.cl/repuestos/'+item.product.images[0]+'.jpg'" style="max-height: 4rem;"></td>
                                 <td>{{ item.product.name }} × {{ item.quantity }}</td>
                                 <td>{{ item.product.price * item.quantity|currencyCLP }}</td>
                             </tr>

@@ -2,7 +2,7 @@
     <div class="dashboard__profile card profile-card">
         <div class="card-body profile-card__body">
             <div class="profile-card__avatar">
-                <img [src]="'http://service.ulti.cl/'+(Usuario$|async)?.Avatar" alt="">
+                <img [src]="'http://www.service.ulti.cl/'+(Usuario$|async)?.Avatar" alt="">
             </div>
             <div class="profile-card__name">{{(Usuario$|async)?.Nombre + ' ' + (Usuario$|async)?.Apellido }}</div>
             <div class="profile-card__email">{{(Usuario$|async)?.Correo}}</div>

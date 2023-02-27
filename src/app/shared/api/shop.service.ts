@@ -60,7 +60,7 @@ export class ShopService {
     }
 
     getAplications(id: any){
-        return this.http.post('http://service.ulti.cl/api/get-aplications', { id });
+        return this.http.post('http://service.ulti.cl/api/get-aplications', { id }); 
     }
 
 

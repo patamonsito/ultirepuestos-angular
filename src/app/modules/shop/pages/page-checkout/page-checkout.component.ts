@@ -56,7 +56,7 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
         name: 'WebPay Plus',
         description: 'Paga seguro todo lo que necesitas con Webpay Plus utilizando tus tarjetas de crédito, débito y prepago, de todos los emisores nacionales e internacionales.',
         permission: [null, '', 'Envio a región', 'Delivery Región Metropolitana', 'Retiro en bodega'],
-        img: 'http://147.182.141.213:3000/etc/webpay-plus-full.png',
+        img: 'http://service.ulti.cl/etc/webpay-plus-full.png',
         active: false
     },
     {
@@ -64,7 +64,7 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
         name: 'Transferencia Bancaria',
         description: 'Realiza una transferencia electrónica a nuestra cuenta bancaria Ulti SPA 77612907-0.',
         permission: [null, '', 'Envio a región', 'Delivery Región Metropolitana', 'Retiro en bodega'],
-        img: 'http://147.182.141.213:3000/etc/santander-logo.png',
+        img: 'http://service.ulti.cl/etc/santander-logo.png',
         active: false
     },
     // {

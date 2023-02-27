@@ -30,30 +30,30 @@
             </div> -->
             <ul>
                 <li class="product__meta-availability">Stock: <span class="text-success">{{ product.availability }}</span></li>
-                <li class="d-flex">Marca: {{ product.fabricante }} <img class="ml-2 fabricante-img" [src]="'http://147.182.141.213:3000/fabricantes/' + product.fabricante + '.png'" ></li>
-                <li class="d-flex">Origen: {{ product.origen }} <img class="ml-2 origen-img" [src]="'http://147.182.141.213:3000/countries/' + product.origen?.replace('Ñ', 'NI')?.replace(' ', '_') + '.jpg'"></li>
+                <li class="d-flex">Marca: {{ product.fabricante }} <img class="ml-2 fabricante-img" [src]="'http://service.ulti.cl/fabricantes/' + product.fabricante + '.png'" ></li>
+                <li class="d-flex">Origen: {{ product.origen }} <img class="ml-2 origen-img" [src]="'http://service.ulti.cl/countries/' + product.origen?.replace('Ñ', 'NI')?.replace(' ', '_') + '.jpg'"></li>
                 <li>SKU: {{ product.sku }}</li>
                 <!-- <li>Tarjetas de crédito
                     <div class="paiment-methods d-block w-100">
-                        <img class="mr-2" src="http://147.182.141.213:3000/etc/visa.svg" alt="Visa">
-                        <img class="mr-2" src="http://147.182.141.213:3000/etc/msater-card.svg" alt="master card">
-                        <img class="mr-2" src="http://147.182.141.213:3000/etc/america-express.svg" alt="america express">
-                        <img src="http://147.182.141.213:3000/etc/dinner-club.svg" alt="dinner club">
+                        <img class="mr-2" src="http://service.ulti.cl/etc/visa.svg" alt="Visa">
+                        <img class="mr-2" src="http://service.ulti.cl/etc/msater-card.svg" alt="master card">
+                        <img class="mr-2" src="http://service.ulti.cl/etc/america-express.svg" alt="america express">
+                        <img src="http://service.ulti.cl/etc/dinner-club.svg" alt="dinner club">
                     </div>
                 </li> -->
                 <li>Metodos de Pago
                     <div class="paiment-methods d-block w-100">
-                        <img class="mr-2" src="http://147.182.141.213:3000/etc/webpay.svg" alt="webpay plus">
-                        <img src="http://147.182.141.213:3000/etc/visa-debito.svg" alt="visa debito">
+                        <img class="mr-2" src="http://service.ulti.cl/etc/webpay.svg" alt="webpay plus">
+                        <img src="http://service.ulti.cl/etc/visa-debito.svg" alt="visa debito">
                         </div>
                     <div class="paiment-methods d-block w-100">
-                        <img class="mr-2" src="http://147.182.141.213:3000/etc/master-card-debito.svg" alt="master card debito">
-                        <img src="http://147.182.141.213:3000/etc/red-compra.svg" alt="red compra">
+                        <img class="mr-2" src="http://service.ulti.cl/etc/master-card-debito.svg" alt="master card debito">
+                        <img src="http://service.ulti.cl/etc/red-compra.svg" alt="red compra">
                     </div>
                 </li>
                 <li>
                     <div class="paiment-methods d-block w-100">
-                        <img class="mr-2" src="http://147.182.141.213:3000/etc/envios.jpg" alt="Enviós a todo chile" style="max-width: 17rem;">
+                        <img class="mr-2" src="http://service.ulti.cl/etc/envios.jpg" alt="Enviós a todo chile" style="max-width: 17rem;">
                     </div>
                 </li>
 

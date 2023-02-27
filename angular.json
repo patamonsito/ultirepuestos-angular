@@ -93,7 +93,9 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "stroyka:build:production"
+              "browserTarget": "stroyka:build:production",
+              "host": "147.182.141.213",
+              "port": 3200
             },
             "development": {
               "browserTarget": "stroyka:build:development"

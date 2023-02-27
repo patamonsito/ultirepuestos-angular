@@ -12,7 +12,7 @@ import { Express } from 'express';
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): Express {
     const server = express();
-    const distFolder = join(process.cwd(), 'dist/stroyka/browser');
+    const distFolder = join(process.cwd(), 'dist');
     const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
 
     // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
@@ -33,6 +33,7 @@ export function app(): Express {
 
     // All regular routes use the Universal engine
     server.get('*', (req, res) => {
+        console.log(APP_BASE_HREF, req.baseUrl)
         res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
     });
 

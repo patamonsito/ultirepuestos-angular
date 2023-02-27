@@ -34,7 +34,7 @@ export class SharingService {
         };
 
         this.http
-            .post('http://www.service.ulti.cl/api/user-login', body)
+            .post('https://www.service.ulti.cl/api/user-login', body)
             .subscribe({
                 error: (err) => console.log(err),
                 next: (data: any) => {
@@ -64,7 +64,7 @@ export class SharingService {
         };
 
         this.http
-            .post('http://www.service.ulti.cl/api/reload-user', body)
+            .post('https://www.service.ulti.cl/api/reload-user', body)
             .subscribe({
                 error: (err) => console.log(err),
                 next: (data: any) => {

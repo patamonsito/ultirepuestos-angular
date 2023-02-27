@@ -2,7 +2,7 @@
     <div class="container">
         <div class="order-success__body">
             <div class="order-success__header" *ngIf="orden.estado">
-                <img src="http://www.service.ulti.cl/etc/check-success.jpg" alt="" style="width: 7rem;">
+                <img src="https://www.service.ulti.cl/etc/check-success.jpg" alt="" style="width: 7rem;">
                 <h1 class="order-success__title" style="color: green">Pagado !</h1>
                 <div class="order-success__subtitle">Tu orden ha sido recibida!</div>
                 <div class="order-success__actions">
@@ -16,7 +16,7 @@
             'Transferencia Bancaria' -->
 
             <div class="order-success__header" *ngIf="!orden.estado && metodoPago == 'WebPay Plus'">
-                <img src="http://www.service.ulti.cl/etc/webpay-plus-full.png" alt="" style="width: 10rem;">
+                <img src="https://www.service.ulti.cl/etc/webpay-plus-full.png" alt="" style="width: 10rem;">
                 <h1 class="order-success__title" style="color: red">No Pagado</h1>
                 <div class="order-success__subtitle">Tu orden ha sido recibida!</div>
                 <div class="order-success__actions">
@@ -25,7 +25,7 @@
             </div>
 
             <div class="order-success__header" *ngIf="!orden.estado && metodoPago == 'Getnet'">
-                <img src="http://www.service.ulti.cl/etc/getnet-logo-full.png" alt="" style="width: 20rem;">
+                <img src="https://www.service.ulti.cl/etc/getnet-logo-full.png" alt="" style="width: 20rem;">
                 <h1 class="order-success__title" style="color: red">No Pagado</h1>
                 <div class="order-success__subtitle">Puedes reintentar el pago o cambiar el metodo de pago.</div>
                 <div class="order-success__actions">
@@ -34,7 +34,7 @@
             </div>
 
             <div class="order-success__header" *ngIf="!orden.estado && metodoPago == 'Transferencia Bancaria'">
-                <img src="http://www.service.ulti.cl/etc/santander-logo.png" alt="" style="width: 20rem;">
+                <img src="https://www.service.ulti.cl/etc/santander-logo.png" alt="" style="width: 20rem;">
                 <h1 class="order-success__title" style="color: red">No Pagado</h1>
                 <div class="order-success__subtitle">Una vez realizada la transferencia envianos el comprobante a nuestro <a href="https://api.whatsapp.com/send/?phone=56986874327" target="_blank" rel="noopener noreferrer">Whatsapp</a>.</div>
                 <div>Nombre: Ulti SPA</div>
@@ -83,7 +83,7 @@
                             <td class="order-list__column-image">
                                 <div class="product-image">
                                     <a [routerLink]="root.product(item)" class="product-image__body">
-                                        <img class="product-image__img" src="http://www.service.ulti.cl/repuestos/Z900051.jpg" alt="">
+                                        <img class="product-image__img" src="https://www.service.ulti.cl/repuestos/Z900051.jpg" alt="">
                                     </a>
                                 </div>
                             </td>

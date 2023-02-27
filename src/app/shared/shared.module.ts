@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
+import { ScrollingModule } from '@angular/cdk/scrolling'
 // modules (third-party)
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -95,6 +95,7 @@ import { telefono } from './pipes/telefono-format.pipe';
         ReactiveFormsModule,
         RouterModule,
         // modules (third-party)
+        ScrollingModule,
         CarouselModule,
         ModalModule.forRoot(),
         AlertModule.forRoot(),
@@ -102,6 +103,7 @@ import { telefono } from './pipes/telefono-format.pipe';
     ],
     exports: [
         // directives
+        ScrollingModule,
         ClickDirective,
         CollapseContentDirective,
         CollapseDirective,

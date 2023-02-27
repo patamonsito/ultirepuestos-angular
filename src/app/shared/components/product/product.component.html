@@ -13,43 +13,57 @@
                         [ngClass]="{'btn-loading': addingToWishlist}">
                     <app-icon name="wishlist-16" size="16"></app-icon>
                 </button>
-                <button type="button" class="btn btn-sm btn-light btn-svg-icon" data-toggle="tooltip" data-placement="right" title="Compare"
+                <!-- <button type="button" class="btn btn-sm btn-light btn-svg-icon" data-toggle="tooltip" data-placement="right" title="Compare"
                         appClick (click)="addToCompare()"
                         [ngClass]="{'btn-loading': addingToCompare}">
                     <app-icon name="compare-16" size="16"></app-icon>
-                </button>
+                </button> -->
             </div>
             <h1 class="product__name">{{ product.name }}</h1>
-            <div class="product__rating">
+            <!-- <div class="product__rating">
                 <div class="product__rating-stars">
                     <app-rating [value]="product.rating"></app-rating>
                 </div>
                 <div class="product__rating-legend">
                     <a href="" appClick>{{ product.reviews }} Reviews</a><span>/</span><a href="" appClick>Write A Review</a>
                 </div>
-            </div>
-            <div class="product__description">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ornare, mi in ornare elementum, libero nibh
-                lacinia urna, quis convallis lorem erat at purus. Maecenas eu varius nisi.
-            </div>
-            <ul class="product__features">
-                <li>Speed: 750 RPM</li>
-                <li>Power Source: Cordless-Electric</li>
-                <li>Battery Cell Type: Lithium</li>
-                <li>Voltage: 20 Volts</li>
-                <li>Battery Capacity: 2 Ah</li>
+            </div> -->
+            <ul>
+                <li class="product__meta-availability">Stock: <span class="text-success">{{ product.availability }}</span></li>
+                <li class="d-flex">Marca: {{ product.fabricante }} <img class="ml-2 fabricante-img" [src]="'http://147.182.141.213:3000/fabricantes/' + product.fabricante + '.png'" ></li>
+                <li class="d-flex">Origen: {{ product.origen }} <img class="ml-2 origen-img" [src]="'http://147.182.141.213:3000/countries/' + product.origen?.replace('Ñ', 'NI')?.replace(' ', '_') + '.jpg'"></li>
+                <li>SKU: {{ product.sku }}</li>
+                <!-- <li>Tarjetas de crédito
+                    <div class="paiment-methods d-block w-100">
+                        <img class="mr-2" src="http://147.182.141.213:3000/etc/visa.svg" alt="Visa">
+                        <img class="mr-2" src="http://147.182.141.213:3000/etc/msater-card.svg" alt="master card">
+                        <img class="mr-2" src="http://147.182.141.213:3000/etc/america-express.svg" alt="america express">
+                        <img src="http://147.182.141.213:3000/etc/dinner-club.svg" alt="dinner club">
+                    </div>
+                </li> -->
+                <li>Metodos de Pago
+                    <div class="paiment-methods d-block w-100">
+                        <img class="mr-2" src="http://147.182.141.213:3000/etc/webpay.svg" alt="webpay plus">
+                        <img src="http://147.182.141.213:3000/etc/visa-debito.svg" alt="visa debito">
+                        </div>
+                    <div class="paiment-methods d-block w-100">
+                        <img class="mr-2" src="http://147.182.141.213:3000/etc/master-card-debito.svg" alt="master card debito">
+                        <img src="http://147.182.141.213:3000/etc/red-compra.svg" alt="red compra">
+                    </div>
+                </li>
+                <li>
+                    <div class="paiment-methods d-block w-100">
+                        <img class="mr-2" src="http://147.182.141.213:3000/etc/envios.jpg" alt="Enviós a todo chile" style="max-width: 17rem;">
+                    </div>
+                </li>
+
             </ul>
-            <ul class="product__meta">
-                <li class="product__meta-availability">Availability: <span class="text-success">In Stock</span></li>
-                <li>Brand: <a href="" appClick>Wakita</a></li>
-                <li>SKU: 83690/32</li>
-            </ul>
-        </div>
+
         <!-- .product__info / end -->
         <!-- .product__sidebar -->
         <div class="product__sidebar">
             <div class="product__availability">
-                Availability: <span class="text-success">In Stock</span>
+                Stock: <span class="text-success">{{ product.availability}}</span>
             </div>
 
             <div class="product__prices">
@@ -64,70 +78,21 @@
             <!-- .product__options -->
             <form class="product__options">
                 <div class="form-group product__option">
-                    <label class="product__option-label">Color</label>
-                    <div class="input-radio-color">
-                        <div class="input-radio-color__list">
-                            <label class="input-radio-color__item input-radio-color__item--white" style="color: #fff;" data-toggle="tooltip" title="White">
-                                <input type="radio" name="color">
-                                <span></span>
-                            </label>
-                            <label class="input-radio-color__item" style="color: #3366cc;" data-toggle="tooltip" title="Yellow">
-                                <input type="radio" name="color">
-                                <span></span>
-                            </label>
-                            <label class="input-radio-color__item" style="color: #ff4040;" data-toggle="tooltip" title="Red">
-                                <input type="radio" name="color">
-                                <span></span>
-                            </label>
-                            <label class="input-radio-color__item input-radio-color__item--disabled" style="color: #4080ff;" data-toggle="tooltip" title="Blue">
-                                <input type="radio" name="color" disabled>
-                                <span></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group product__option">
-                    <label class="product__option-label">Material</label>
-                    <div class="input-radio-label">
-                        <div class="input-radio-label__list">
-                            <label>
-                                <input type="radio" name="material">
-                                <span>Metal</span>
-                            </label>
-                            <label>
-                                <input type="radio" name="material">
-                                <span>Wood</span>
-                            </label>
-                            <label>
-                                <input type="radio" name="material" disabled>
-                                <span>Plastic</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group product__option">
-                    <label class="product__option-label">Quantity</label>
+                    <label class="product__option-label">Cantidad</label>
                     <div class="product__actions">
                         <div class="product__actions-item">
-                            <app-input-number aria-label="Quantity" class="product__quantity" size="lg" [min]="1" [formControl]="quantity"></app-input-number>
+                            <app-input-number aria-label="Cantidad" class="product__quantity" size="lg" [min]="1" [formControl]="quantity"></app-input-number>
                         </div>
                         <div class="product__actions-item product__actions-item--addtocart">
                             <button type="button" class="btn btn-primary btn-lg"
                                     [ngClass]="{'btn-loading': addingToCart}"
-                                    appClick (click)="addToCart()">Agregar Al Carro</button>
+                                    appClick (click)="addToCart()">Agregar al carro</button>
                         </div>
                         <div class="product__actions-item product__actions-item--wishlist">
                             <button type="button" class="btn btn-secondary btn-svg-icon btn-lg" data-toggle="tooltip" title="Wishlist"
                                     [ngClass]="{'btn-loading': addingToWishlist}"
                                     appClick (click)="addToWishlist()">
                                 <app-icon name="wishlist-16" size="16"></app-icon>
-                            </button>
-                        </div>
-                        <div class="product__actions-item product__actions-item--compare">
-                            <button type="button" class="btn btn-secondary btn-svg-icon btn-lg" data-toggle="tooltip" title="Compare"
-                                    [ngClass]="{'btn-loading': addingToCompare}"
-                                    appClick (click)="addToCompare()">
-                                <app-icon name="compare-16" size="16"></app-icon>
                             </button>
                         </div>
                     </div>
@@ -139,9 +104,9 @@
         <div class="product__footer">
             <div class="product__tags tags">
                 <div class="tags__list">
-                    <a href="" appClick>Mounts</a>
+                    <!-- <a href="" appClick>Mounts</a>
                     <a href="" appClick>Electrodes</a>
-                    <a href="" appClick>Chainsaws</a>
+                    <a href="" appClick>Chainsaws</a> -->
                 </div>
             </div>
 

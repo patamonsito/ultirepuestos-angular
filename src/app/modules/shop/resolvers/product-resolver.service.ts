@@ -20,6 +20,12 @@ export class ProductResolverService implements Resolve<Product> {
     resolve(route: ActivatedRouteSnapshot): Observable<Product> {
         const productSlug = route.params['productSlug'] || route.data['productSlug'];
 
+        console.log(productSlug);
+        // Hacer el request !
+        return this.shop.getProduct(productSlug).subscribe((e: any) => {
+            return e;
+        })
+
         return this.shop.getProduct(productSlug).pipe(
             catchError(error => {
                 if (error instanceof HttpErrorResponse && error.status === 404) {

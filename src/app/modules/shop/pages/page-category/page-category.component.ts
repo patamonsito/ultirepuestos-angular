@@ -11,6 +11,8 @@ import { parseProductsListParams } from '../../resolvers/products-list-resolver.
 import { ShopService } from '../../../../shared/api/shop.service';
 import { parseFilterValue } from '../../../../shared/helpers/filter';
 import { Category } from '../../../../shared/interfaces/category';
+import { dataMock } from './productos.mock';
+import { fromEvent } from "rxjs";
 
 @Component({
     selector: 'app-grid',
@@ -21,14 +23,26 @@ import { Category } from '../../../../shared/interfaces/category';
         {provide: ShopSidebarService, useClass: ShopSidebarService},
     ]
 })
+
 export class PageCategoryComponent implements OnDestroy {
     destroy$: Subject<void> = new Subject<void>();
 
     columns: 3|4|5 = 3;
-    viewMode: 'grid'|'grid-with-features'|'list' = 'grid';
+    viewMode: 'grid'|'grid-with-features'|'list' = 'list';
     sidebarPosition: 'start'|'end' = 'start'; // For LTR scripts "start" is "left" and "end" is "right"
     breadcrumbs: Link[] = [];
     pageHeader = '';
+    keyMarca: string = '';
+    Marcas: any[] = [];
+    saveMarcas: any[] = [];
+    MarcaVehiculo: any = -1;
+    Modelo: any = -1;
+    Modelos: any[] = [];
+    saveModelos: any[] = [];
+    keyModelo: string = '';
+    dataProducts: any;
+    saveDataProducts: any;
+    haveResult: boolean = false;
 
     constructor(
         private root: RootService,
@@ -38,15 +52,22 @@ export class PageCategoryComponent implements OnDestroy {
         private shop: ShopService,
         private location: Location,
     ) {
-        this.route.data.subscribe(data => {
+        // this.route.data.subscribe(data => { // TODO
+
+        this.reloadMarcas();
+        this.pageService.setIsLoading(true);
+
+
+        let data: any = dataMock
+
             this.breadcrumbs = [
-                {label: 'Home', url: this.root.home()},
-                {label: 'Shop', url: this.root.shop()},
+                {label: 'Inicio', url: this.root.home()},
+                {label: 'Compra', url: this.root.shop()},
             ];
 
             // If categorySlug is undefined then this is a root catalog page.
             if (!this.getCategorySlug()) {
-                this.pageHeader = 'Shop';
+                this.pageHeader = 'Compra';
             } else {
                 this.pageHeader = data['category'].name;
 
@@ -57,16 +78,16 @@ export class PageCategoryComponent implements OnDestroy {
                     {label: data['category'].name, url: this.root.category(data['category'])},
                 ]);
             }
-
             this.pageService.setList(data['products']);
-
+            this.dataProducts = data['products'];
             this.columns = 'columns' in data ? data['columns'] : this.columns;
             this.viewMode = 'viewMode' in data ? data['viewMode'] : this.viewMode;
             this.sidebarPosition = 'sidebarPosition' in data ? data['sidebarPosition'] : this.sidebarPosition;
-        });
         this.route.queryParams.subscribe(queryParams => {
-            this.pageService.setOptions(parseProductsListParams(queryParams), false);
+            this.pageService.setOptions(parseProductsListParams(queryParams), false); // Aqui se envia los parametros de paginacion
         });
+
+        console.log(this.pageService.options)
 
         this.pageService.optionsChange$.pipe(
             debounce(changedOptions => {
@@ -76,19 +97,144 @@ export class PageCategoryComponent implements OnDestroy {
                 this.updateUrl();
                 this.pageService.setIsLoading(true);
 
-                return this.shop.getProductsList(
-                    this.getCategorySlug(),
-                    this.pageService.options,
+                console.log(
+                    this.pageService.options.page,
+                    this.Modelo.id,
+                    this.filterKeyProducts, 'parametros') 
+
+                return this.shop.searchProductsByCodeModel( // llamada a la API y pasa los parametros
+                    this.pageService.options.page,
+                    this.Modelo.id,
+                    this.filterKeyProducts
                 ).pipe(
                     takeUntil(this.pageService.optionsChange$)
                 );
-            }),
+            })
+            ,
             takeUntil(this.destroy$),
-        ).subscribe(list => {
-            this.pageService.setList(list);
+        ).subscribe((data: any) => {
+            // If categorySlug is undefined then this is a root catalog page.
+            if (!this.getCategorySlug()) {
+                this.pageHeader = 'Catalogo';
+            } else {
+                this.pageHeader = data['category'].name;
+
+                this.breadcrumbs = this.breadcrumbs.concat([
+                    ...data['category'].parents.map(
+                        (parent: Category) => ({label: parent.name, url: this.root.category(parent)})
+                    ),
+                    {label: data['category'].name, url: this.root.category(data['category'])},
+                ]);
+            }
+            this.pageService.setList(data['products']);
+            this.dataProducts = data['products'];
+
+            this.columns = 'columns' in data ? data['columns'] : this.columns;
+            this.viewMode = 'viewMode' in data ? data['viewMode'] : this.viewMode;
+            this.sidebarPosition = 'sidebarPosition' in data ? data['sidebarPosition'] : this.sidebarPosition;
+
             this.pageService.setIsLoading(false);
         });
+        
+        console.log(this.pageService.optionsChange$.subscribe(e => {
+        }))
     }
+
+    async searchMarca(target: any | null){
+
+        let result = await target ? this.saveMarcas.filter(e => {
+          if(e.nombre.includes(target.toUpperCase())){
+            return e;
+          }
+        }) : this.saveMarcas;
+  
+        this.Marcas = result
+    }
+
+
+    selectedMarca(marca: any){
+        this.pageService.setIsLoading(true);
+        this.MarcaVehiculo = marca;
+        this.shop.buscarModelos(marca.nombre).subscribe((e: any) => {
+            this.Modelos = e;
+            this.saveModelos = e;
+        })
+
+        this.pageService.setIsLoading(false);
+    }
+
+    async searchModel(target: any | null){
+        let result = await target ? this.saveModelos.filter(e => {
+          if(e.descripcion.includes(target.toUpperCase())){
+            return e;
+          }
+        }) : this.saveModelos;
+  
+        this.Modelos = result
+    }
+
+
+    reloadMarcas(){
+        this.pageService.setIsLoading(true);
+        this.MarcaVehiculo = -1;
+        this.Modelo = -1;
+        this.Modelos = [];
+        this.shop.getMarcas().subscribe((e: any) =>{
+            console.log(e, 'response')
+            this.Marcas = e;
+            this.saveMarcas = e;
+        })
+        
+        this.pageService.setIsLoading(false);
+    }
+
+
+    reloadModelos(){
+        this.pageService.setIsLoading(true);
+        this.selectedMarca(this.MarcaVehiculo);
+        this.Modelo = -1;
+        this.pageService.setIsLoading(false);
+    }
+
+    selectedModel(model: any){
+
+        let modelo = model.id
+        this.pageService.setIsLoading(true);
+        this.shop.searchProductsByCodeModel(1, modelo).subscribe((data: any) => {
+            // this.shop.searchProducts({ key: ''}, {}).subscribe((data: any) => {
+
+                console.log(data);
+
+            this.breadcrumbs = [
+                {label: 'Inicio', url: this.root.home()},
+                {label: 'Compra', url: this.root.shop()},
+            ];
+
+            // If categorySlug is undefined then this is a root catalog page.
+            if (!this.getCategorySlug()) {
+                this.pageHeader = 'Compra';
+            } else {
+                this.pageHeader = data['category'].name;
+
+                this.breadcrumbs = this.breadcrumbs.concat([
+                    ...data['category'].parents.map(
+                        (parent: Category) => ({label: parent.name, url: this.root.category(parent)})
+                    ),
+                    {label: data['category'].name, url: this.root.category(data['category'])},
+                ]);
+            }
+            this.pageService.setList(data['products']);
+            this.dataProducts = data['products'];
+
+            this.columns = 'columns' in data ? data['columns'] : this.columns;
+            this.viewMode = 'viewMode' in data ? data['viewMode'] : this.viewMode;
+            this.sidebarPosition = 'sidebarPosition' in data ? data['sidebarPosition'] : this.sidebarPosition;
+            this.Modelo = model;
+        this.pageService.setIsLoading(false);
+        })
+    }
+
+
 
     ngOnDestroy(): void {
         this.destroy$.next();
@@ -144,14 +290,57 @@ export class PageCategoryComponent implements OnDestroy {
             });
         }
 
+        console.log(params, 'params')
         return params;
     }
 
     getCategorySlug(): string|null {
-        return this.route.snapshot.params['categorySlug'] || this.route.snapshot.data['categorySlug'] || null;
+        return this.route.snapshot.params['sort'] || this.route.snapshot.data['categorySlug'] || null;
     }
 
     getProductsViewLayout(): 'grid-3-sidebar'|'grid-4-full'|'grid-5-full' {
         return 'grid-' + this.columns + '-full' as 'grid-3-sidebar'|'grid-4-full'|'grid-5-full';
     }
+
+    async filterKeyProducts(value: any){
+        
+        this.haveResult = true;
+
+        let model = this.Modelo.id
+
+        console.log(1, model, value)
+
+        this.shop.searchProductsByCodeModel(1, model, value).subscribe((data: any) => {
+            console.log(data)
+            this.breadcrumbs = [
+                {label: 'Inicio', url: this.root.home()},
+                {label: 'Compra', url: this.root.shop()},
+            ];
+
+            // If categorySlug is undefined then this is a root catalog page.
+            if (!this.getCategorySlug()) {
+                console.log('paso por aqui')
+                this.pageHeader = 'Compra';
+            } else {
+                this.pageHeader = data['category'].name;
+
+                this.breadcrumbs = this.breadcrumbs.concat([
+                    ...data['category'].parents.map(
+                        (parent: Category) => ({label: parent.name, url: this.root.category(parent)})
+                    ),
+                    {label: data['category'].name, url: this.root.category(data['category'])},
+                ]);
+            }
+            this.pageService.setList(data['products']);
+            this.dataProducts = data['products'];
+
+            console.log(this.dataProducts)
+            this.columns = 'columns' in data ? data['columns'] : this.columns;
+            this.viewMode = 'viewMode' in data ? data['viewMode'] : this.viewMode;
+            this.sidebarPosition = 'sidebarPosition' in data ? data['sidebarPosition'] : this.sidebarPosition;
+        this.pageService.setIsLoading(false);
+        })
+
+    }
+
 }

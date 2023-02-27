@@ -34,7 +34,7 @@ export class SharingService {
         };
 
         this.http
-            .post('http://localhost:3000/api/user-login', body)
+            .post('http://147.182.141.213:3000/api/user-login', body)
             .subscribe({
                 error: (err) => console.log(err),
                 next: (data: any) => {
@@ -64,7 +64,7 @@ export class SharingService {
         };
 
         this.http
-            .post('http://localhost:3000/api/reload-user', body)
+            .post('http://147.182.141.213:3000/api/reload-user', body)
             .subscribe({
                 error: (err) => console.log(err),
                 next: (data: any) => {

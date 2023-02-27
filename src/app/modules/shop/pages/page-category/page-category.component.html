@@ -1,28 +1,112 @@
 <app-page-header [header]="pageHeader" [breadcrumbs]="breadcrumbs"></app-page-header>
 
-<ng-container *ngIf="columns === 3">
+<ng-container *ngIf="MarcaVehiculo == -1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Seleccione la marca de su vehiculo</h3>
+            </div>
+            </div>
+            <div class="row">
+            <div class="col-md-4 mt-2 mb-2">
+                <input type="text" class="form-control mt-2 mb-2" placeholder="Buscar Marca Ejemplo: Chevrolet" (keyup)="searchMarca($any($event.target).value)">
+            </div>
+        </div>
+        <div class="row">
+            <a appClick class="block-product-columns__column" *ngFor="let marca of Marcas" style="cursor: pointer" (click)="selectedMarca(marca)">
+                <!-- aqui el ngfor  -->
+                <div class="block-product-columns__item"> 
+                    <div class="product-card product-card--layout--horizontal">
+                        <div class="product-card__image product-image">
+                            <div class="product-image__body" style="padding-bottom: initial !important;">
+                                <img class="product-image__img" [src]="'http://147.182.141.213:3000/logos/' + marca.urlImg"  alt="" style="position: relative !important">
+                                <div class="title-marca">{{ marca.nombre }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</ng-container>
+
+
+<!-- Fin seleccion marca vehiculo -->
+
+<ng-container *ngIf="MarcaVehiculo != -1 && Modelo == -1">
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-md-4 col-ms-12" style="align-self: center;">
+                <h3 class="mb-3">Seleccione Modelo</h3>
+                <input type="text" class="form-control mt-2 mb-2" placeholder="Buscar Marca Ejemplo: Chevrolet" (keyup)="searchModel($any($event.target).value)">
+            </div>
+            <div class="col-md-8 d-ms-none">
+                <a appClick class="block-product-columns__column">
+                    <!-- aqui el ngfor  -->
+                    <div class="block-product-columns__item"> 
+                        <div class="product-card product-card--layout--horizontal logo-selected" style="cursor: pointer" (click)="reloadMarcas()">
+                            <div class="product-card__image product-image" style="width: 11rem">
+                                <div class="product-image__body" style="padding-bottom: initial !important;">
+                                    <img class="product-image__img" [src]="'http://147.182.141.213:3000/logos/' + MarcaVehiculo.urlImg"  alt="" style="position: relative !important; max-height: 5rem;">
+                                    <div class="title-marca">{{ MarcaVehiculo.nombre }}</div>
+                                    <div class="btn btn-info" style="width: 100%;"><li class="fas fa-redo"></li> Cambiar</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            </div>
+        <div class="row">
+            <a appClick class="block-product-columns__column col-ms-12 col-md-6 col-lg-4" *ngFor="let model of Modelos" style="cursor: pointer" (click)="selectedModel(model)">
+                <!-- aqui el ngfor  -->
+                <div class="block-product-columns__item"> 
+                    <div class="product-card product-card--layout--horizontal">
+                        <div class="product-card__image product-image">
+                            <div class="product-image__body" style="padding-bottom: initial !important;">
+                                <img class="product-image__img" [src]="'http://147.182.141.213:3000/vehiculo/' + model.modeloImg + '.png'"  alt="" style="position: relative !important">
+                            </div>
+                        </div>
+
+
+                        <div class="product-card__info">
+                            <div class="product-card__name">
+                                <a>{{ model.descripcion }} ({{model.count}})</a>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="MarcaVehiculo != -1 && Modelo != -1 && columns === 3">
     <div class="container">
         <div class="shop-layout shop-layout--sidebar--{{ sidebarPosition }}">
             <div class="shop-layout__sidebar" *ngIf="sidebarPosition === 'start'">
-                <app-shop-sidebar offcanvas="mobile"></app-shop-sidebar>
+                <app-shop-sidebar [MarcaVehiculo]="MarcaVehiculo" [Modelo]="Modelo" (reloadMarcas)="reloadMarcas()" (reloadModelos)="reloadModelos()" offcanvas="mobile"></app-shop-sidebar>
             </div>
             <div class="shop-layout__content">
                 <div class="block">
-                    <app-products-view [layout]="viewMode" grid="grid-3-sidebar" offcanvas="mobile"></app-products-view>
+                    <app-products-view (filterKeyProducts)="filterKeyProducts($event)" [haveResult]="haveResult" [layout]="viewMode" grid="grid-3-sidebar" offcanvas="mobile"></app-products-view>
                 </div>
             </div>
             <div class="shop-layout__sidebar" *ngIf="sidebarPosition === 'end'">
-                <app-shop-sidebar offcanvas="mobile"></app-shop-sidebar>
+                <app-shop-sidebar [MarcaVehiculo]="MarcaVehiculo" [Modelo]="Modelo" offcanvas="mobile"></app-shop-sidebar>
             </div>
         </div>
     </div>
 </ng-container>
 
-<ng-container *ngIf="columns > 3">
+<ng-container *ngIf="MarcaVehiculo != -1 && Modelo != -1 && columns > 3">
     <div class="container">
         <div class="block">
-            <app-products-view [layout]="viewMode" [grid]="getProductsViewLayout()" offcanvas="always"></app-products-view>
+            <app-products-view (filterKeyProducts)="filterKeyProducts($event)" [haveResult]="haveResult" [layout]="viewMode" [grid]="getProductsViewLayout()" offcanvas="always"></app-products-view>
         </div>
-        <app-shop-sidebar offcanvas="always"></app-shop-sidebar>
+        <app-shop-sidebar [MarcaVehiculo]="MarcaVehiculo" [Modelo]="Modelo" offcanvas="always"></app-shop-sidebar>
     </div>
 </ng-container>

@@ -11,4 +11,5 @@ export interface Direcciones {
     Calle: string;
     Numero: string;
     Piso?: string;
+    Departamento?: string;
 }

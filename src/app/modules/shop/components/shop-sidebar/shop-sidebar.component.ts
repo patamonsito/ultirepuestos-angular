@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit, Output, PLATFORM_ID, EventEmitter } from '@angular/core';
 import { Product } from '../../../../shared/interfaces/product';
 import { ShopSidebarService } from '../../services/shop-sidebar.service';
 import { Observable, Subject } from 'rxjs';
@@ -19,6 +19,11 @@ export class ShopSidebarComponent implements OnInit, OnDestroy {
      * - mobile: https://stroyka.angular.themeforest.scompiler.ru/themes/default-ltr/classic/shop/category-grid-3-columns-sidebar
      */
     @Input() offcanvas: 'always'|'mobile' = 'mobile';
+    @Input() Modelo: any;
+    @Input() MarcaVehiculo: any;
+    // (reloadMarcas)="reloadMarcas()" (reloadModelos)="reloadModelos()"
+    @Output() reloadModelos = new EventEmitter<any>();
+    @Output() reloadMarcas = new EventEmitter<any>();
 
     destroy$: Subject<void> = new Subject<void>();
     bestsellers$!: Observable<Product[]>;
@@ -31,8 +36,22 @@ export class ShopSidebarComponent implements OnInit, OnDestroy {
         private platformId: any
     ) { }
 
+
+    emitReloadModelos(){
+        console.log('Emitir reloadModelos')
+        this.reloadModelos.emit()
+    }
+
+    emitReloadMarcas(){
+        console.log('Emitir reloadMarcas')
+        this.reloadMarcas.emit()
+    }
+
+
     ngOnInit(): void {
         this.bestsellers$ = this.shop.getBestsellers().pipe(map(x => x.slice(0, 5)));
+
+        console.log(this.Modelo, this.MarcaVehiculo, 'marca y modelo')
 
         this.sidebar.isOpen$.pipe(
             takeUntil(this.destroy$)

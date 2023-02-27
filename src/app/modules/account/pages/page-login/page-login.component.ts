@@ -26,6 +26,10 @@ export class PageLoginComponent implements OnInit{
 
     logger: boolean = false;
 
+    mensaje: string = '';
+    
+    registed: boolean = false;
+
     Usuario$: Observable<Usuario>;
 
     constructor(private shopService: ShopService,
@@ -109,10 +113,18 @@ export class PageLoginComponent implements OnInit{
       datos.Rut =  datos.Rut.replace('-', '').replace('.', '').replace('.', '').replace('.', '').replace('.', '').slice(0, -1) + '-' + datos.Rut.slice(-1);
 
       this.shopService.registrarUsuario(datos)
-      .subscribe({
-        next: (x) => console.log('Respuesta del servidor: ' + x),
-        error: (err: Error) => console.error('Se produjo un error: ' + err),
-        complete: () => console.log('Siguiente operacion :3'),
+      .subscribe((x: any) => {
+        console.log(x)
+          if(x.message.includes('Rut_1')){
+            return this.mensaje = 'El rut ingresado ya se encuentra registrado.'
+          }else if(x.message.includes('Correo_1')){
+            return this.mensaje = 'El correo ingresado ya se encuentra registrado.';
+          }else{
+            this.registed = true;
+            return setTimeout(() => {
+              window.location.href = '/'
+            }, 3000);
+          }
       })
     }
 

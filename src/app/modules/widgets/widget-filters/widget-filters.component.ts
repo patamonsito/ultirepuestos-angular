@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit, PLATFORM_ID, Output, EventEmitter } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { DirectionService } from '../../../shared/services/direction.service';
 import { AbstractControl, FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -27,6 +27,10 @@ interface FormFilterValues {
 })
 export class WidgetFiltersComponent implements OnInit, OnDestroy {
     @Input() offcanvas: 'always'|'mobile' = 'mobile';
+    @Input() MarcaVehiculo: any;
+    @Input() Modelo: any;
+    @Output() reloadModelos = new EventEmitter<string>();
+    @Output() reloadMarcas = new EventEmitter<string>();
 
     destroy$: Subject<void> = new Subject<void>();
 
@@ -46,6 +50,7 @@ export class WidgetFiltersComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        console.log(this.Modelo, 'modelo')
         this.pageCategory.list$.pipe(
             map(x => x?.filters || []),
             takeUntil(this.destroy$),
@@ -99,6 +104,19 @@ export class WidgetFiltersComponent implements OnInit, OnDestroy {
     trackBySlug(index: number, item: {slug: string}): any {
         return item.slug;
     }
+
+
+
+    emnitReloadModelos(){
+        console.log('Emitir emitReloadModelos')
+        this.reloadModelos.emit()
+    }
+
+    emitReloadMarcas(){
+        console.log('Emitir emitReloadMarcas')
+        this.reloadMarcas.emit('Emitiendo...')
+    }
+
 
     makeFiltersForm(filters: Filter[]): FormGroup {
         const filtersFromGroup: {[key: string]: AbstractControl} = {};

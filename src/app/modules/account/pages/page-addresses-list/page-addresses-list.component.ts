@@ -66,7 +66,7 @@ export class PageAddressesListComponent {
             Comuna: new FormControl(null, [Validators.required]),
             Calle: new FormControl('', [Validators.required]),
             Numero: new FormControl('', [Validators.required]),
-            Piso: new FormControl('', [])
+            Departamento: new FormControl('', [])
         });
     }
 
@@ -90,7 +90,7 @@ export class PageAddressesListComponent {
             Comuna: this.formDirecciones.get('Comuna')?.value,
             Calle: this.formDirecciones.get('Calle')?.value,
             Numero: this.formDirecciones.get('Numero')?.value,
-            Piso: this.formDirecciones.get('Piso')?.value,
+            Departamento: this.formDirecciones.get('Departamento')?.value,
             id: this.idUsuario
           }
 
@@ -125,7 +125,7 @@ export class PageAddressesListComponent {
         this.formDirecciones.get('Comuna')?.setValue(data.Comuna);
         this.formDirecciones.get('Calle')?.setValue(data.Calle);
         this.formDirecciones.get('Numero')?.setValue(data.Numero);
-        this.formDirecciones.get('Piso')?.setValue(data.Piso);
+        this.formDirecciones.get('Departamento')?.setValue(data.Departamento);
 
          this.idDireccion = data._id;
 
@@ -148,7 +148,7 @@ export class PageAddressesListComponent {
             Comuna: this.formDirecciones.get('Comuna')?.value,
             Calle: this.formDirecciones.get('Calle')?.value,
             Numero: this.formDirecciones.get('Numero')?.value,
-            Piso: this.formDirecciones.get('Piso')?.value,
+            Departamento: this.formDirecciones.get('Departamento')?.value,
             id: this.idUsuario
           }
 
@@ -219,7 +219,7 @@ export class PageAddressesListComponent {
     get numero() {
         return this.formDirecciones.get('Numero');
     }
-    get piso() {
-        return this.formDirecciones.get('Piso');
+    get Departamento() {
+        return this.formDirecciones.get('Departamento');
     }
 }

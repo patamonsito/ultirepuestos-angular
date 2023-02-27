@@ -9,8 +9,8 @@
 .site-header {
     position: relative;
     z-index: 100;
-    background: #234fa7;
-    color: #fff;
+    background: rgb(255, 255, 255);
+    color: balck;
 }
 .site-header__middle {
     display: flex;
@@ -51,7 +51,7 @@
 }
 .site-header__phone-title {
     font-size: 14px;
-    color: $header-font-muted-color;
+    color: #1a66ff;
     margin-bottom: 6px;
 }
 .site-header__phone-number {

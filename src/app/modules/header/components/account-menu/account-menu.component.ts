@@ -67,6 +67,7 @@ export class AccountMenuComponent {
           this.closeMenu.emit()
           this.sharingService.cerrarSesion();
           this.loginError = '';
+          window.location.href = '/'
       }
 
     //Login

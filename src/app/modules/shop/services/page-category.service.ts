@@ -51,6 +51,7 @@ export class PageCategoryService {
     }
 
     setList(list: ProductsList): void {
+        console.log(list);
         this.listState = list;
         this.listSource.next(this.listState);
     }

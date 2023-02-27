@@ -1,0 +1,28 @@
+.title-marca{
+    text-align: -webkit-center;
+    text-align: center;
+    font-weight: 600;
+    border-top: ridge;
+    padding-top: 0.4rem;
+    margin-top: 0.3rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.change {
+    color: #589b4c;
+    text-align-last: center;
+}
+
+.logo-selected{
+    justify-content: center;
+    width: 10rem;
+    margin-bottom: 1rem;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .d-ms-none{
+        display: none;
+    }
+  }

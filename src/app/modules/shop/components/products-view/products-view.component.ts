@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ShopSidebarService } from '../../services/shop-sidebar.service';
 import { PageCategoryService } from '../../services/page-category.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -17,6 +17,9 @@ export class ProductsViewComponent implements OnInit, OnDestroy {
     @Input() layout: Layout = 'grid';
     @Input() grid: 'grid-3-sidebar'|'grid-4-full'|'grid-5-full' = 'grid-3-sidebar';
     @Input() offcanvas: 'always'|'mobile' = 'mobile';
+    @Input() haveResult: any;
+    @Output() filterKeyProducts = new EventEmitter<string>();
+
 
     destroy$: Subject<void> = new Subject<void>();
 
@@ -27,7 +30,8 @@ export class ProductsViewComponent implements OnInit, OnDestroy {
         private fb: FormBuilder,
         public sidebar: ShopSidebarService,
         public pageService: PageCategoryService,
-    ) { }
+    ) { 
+    }
 
     ngOnInit(): void {
         this.listOptionsForm = this.fb.group({
@@ -41,15 +45,19 @@ export class ProductsViewComponent implements OnInit, OnDestroy {
             this.pageService.updateOptions(value);
         });
 
-        this.pageService.list$.pipe(
-            filter((x): x is ProductsList => x !== null),
-            takeUntil(this.destroy$)
-        ).subscribe(
-            ({page, limit, sort, filterValues}) => {
-                this.filtersCount = Object.keys(filterValues).length;
-                this.listOptionsForm.setValue({page, limit, sort}, {emitEvent: false});
-            }
-        );
+        // this.pageService.list$.pipe(
+        //     filter((x): x is ProductsList => x !== null),
+        //     takeUntil(this.destroy$)
+        // ).subscribe(
+        //     ({page, limit, sort, filterValues}) => {
+        //         this.filtersCount = Object.keys(filterValues).length;
+        //         this.listOptionsForm.setValue({page, limit, sort}, {emitEvent: false});
+        //     }
+        // );
+    }
+
+    emitFilterKeyProducts(key: any){
+        this.filterKeyProducts.emit(key)
     }
 
     ngOnDestroy(): void {
@@ -61,7 +69,7 @@ export class ProductsViewComponent implements OnInit, OnDestroy {
         this.layout = value;
     }
 
-    resetFilters(): void {
-        this.pageService.updateOptions({filterValues: {}});
-    }
+    // resetFilters(): void {
+    //     this.pageService.updateOptions({filterValues: {}});
+    // }
 }

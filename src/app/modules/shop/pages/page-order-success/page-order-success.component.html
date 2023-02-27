@@ -1,32 +1,69 @@
-<div class="block order-success">
+<div class="block order-success" *ngIf="loader">
     <div class="container">
         <div class="order-success__body">
-            <div class="order-success__header">
-                <app-icon class="order-success__icon" name="check-100" size="100"></app-icon>
-                <h1 class="order-success__title">Thank you</h1>
-                <div class="order-success__subtitle">Your order has been received</div>
+            <div class="order-success__header" *ngIf="orden.estado">
+                <img src="http://147.182.141.213:3000/etc/check-success.jpg" alt="" style="width: 7rem;">
+                <h1 class="order-success__title" style="color: green">Pagado !</h1>
+                <div class="order-success__subtitle">Tu orden ha sido recibida!</div>
                 <div class="order-success__actions">
-                    <a routerLink="/" class="btn btn-xs btn-secondary">Go To Homepage</a>
+                    <a routerLink="/" class="btn btn-xs btn-secondary">Ir al Inicio</a>
+                </div>
+            </div>
+
+
+            <!-- 'Getnet',
+            'WebPay Plus',
+            'Transferencia Bancaria' -->
+
+            <div class="order-success__header" *ngIf="!orden.estado && metodoPago == 'WebPay Plus'">
+                <img src="http://147.182.141.213:3000/etc/webpay-plus-full.png" alt="" style="width: 10rem;">
+                <h1 class="order-success__title" style="color: red">No Pagado</h1>
+                <div class="order-success__subtitle">Tu orden ha sido recibida!</div>
+                <div class="order-success__actions">
+                    <a routerLink="/" class="btn btn btn-info">Reintentar el Pago</a>
+                </div>
+            </div>
+
+            <div class="order-success__header" *ngIf="!orden.estado && metodoPago == 'Getnet'">
+                <img src="http://147.182.141.213:3000/etc/getnet-logo-full.png" alt="" style="width: 20rem;">
+                <h1 class="order-success__title" style="color: red">No Pagado</h1>
+                <div class="order-success__subtitle">Puedes reintentar el pago o cambiar el metodo de pago.</div>
+                <div class="order-success__actions">
+                    <a routerLink="/" class="btn btn btn-info">Pagar Ahora</a>
+                </div>
+            </div>
+
+            <div class="order-success__header" *ngIf="!orden.estado && metodoPago == 'Transferencia Bancaria'">
+                <img src="http://147.182.141.213:3000/etc/santander-logo.png" alt="" style="width: 20rem;">
+                <h1 class="order-success__title" style="color: red">No Pagado</h1>
+                <div class="order-success__subtitle">Una vez realizada la transferencia envianos el comprobante a nuestro <a href="https://api.whatsapp.com/send/?phone=56986874327" target="_blank" rel="noopener noreferrer">Whatsapp</a>.</div>
+                <div>Nombre: Ulti SPA</div>
+                <div>Rut: 77612907-0</div>
+                <div>Banco: Santander</div>
+                <div>Cuenta Corriente: 88900030</div>
+                <div>Transferir: {{ orden.total }}</div>
+                <div class="order-success__actions">
+                    <div class="btn btn btn-info" (click)="copyDates()">Copiar Datos</div>
                 </div>
             </div>
 
             <div class="order-success__meta">
                 <ul class="order-success__meta-list">
                     <li class="order-success__meta-item">
-                        <span class="order-success__meta-title">Order number:</span>
-                        <span class="order-success__meta-value">#{{ order.id }}</span>
+                        <span class="order-success__meta-title">Numero de orden:</span>
+                        <span class="order-success__meta-value">#{{ orden.orden }}</span>
                     </li>
                     <li class="order-success__meta-item">
-                        <span class="order-success__meta-title">Created at:</span>
-                        <span class="order-success__meta-value">{{ order.date }}</span>
+                        <span class="order-success__meta-title">Fecha:</span>
+                        <span class="order-success__meta-value">{{ orden.fecha.slice(0, -13).split('-').reverse().join('/').replace('T', '') }}</span>
                     </li>
                     <li class="order-success__meta-item">
                         <span class="order-success__meta-title">Total:</span>
-                        <span class="order-success__meta-value">{{ order.total|currencyCLP }}</span>
+                        <span class="order-success__meta-value">{{ orden.total|currencyCLP }}</span>
                     </li>
                     <li class="order-success__meta-item">
-                        <span class="order-success__meta-title">Payment method:</span>
-                        <span class="order-success__meta-value">{{ order.paymentMethod }}</span>
+                        <span class="order-success__meta-title">Metodo de Pago:</span>
+                        <span class="order-success__meta-value">{{ orden.metodoPago }}</span>
                     </li>
                 </ul>
             </div>
@@ -36,17 +73,17 @@
                     <table>
                         <thead class="order-list__header">
                         <tr>
-                            <th class="order-list__column-label" colspan="2">Product</th>
-                            <th class="order-list__column-quantity">Qty</th>
+                            <th class="order-list__column-label" colspan="2">Producto</th>
+                            <th class="order-list__column-quantity">Cant.</th>
                             <th class="order-list__column-total">Total</th>
                         </tr>
                         </thead>
                         <tbody class="order-list__products">
-                        <tr *ngFor="let item of order.items">
+                        <tr *ngFor="let item of orden.detalles">
                             <td class="order-list__column-image">
                                 <div class="product-image">
                                     <a [routerLink]="root.product(item)" class="product-image__body">
-                                        <img class="product-image__img" [src]="item.image" alt="">
+                                        <img class="product-image__img" src="http://147.182.141.213:3000/repuestos/Z900051.jpg" alt="">
                                     </a>
                                 </div>
                             </td>
@@ -61,74 +98,87 @@
                                     </ul>
                                 </div>
                             </td>
-                            <td class="order-list__column-quantity" data-title="Qty:">{{ item.quantity }}</td>
-                            <td class="order-list__column-total">{{ item.total|currencyCLP }}</td>
+                            <td class="order-list__column-quantity" data-title="Qty:">{{ item.cantidad }}</td>
+                            <td class="order-list__column-total">{{ item.price|currencyCLP }}</td>
                         </tr>
                         </tbody>
-                        <tbody *ngIf="order.additionalLines.length > 0" class="order-list__subtotals">
+                        <tbody *ngIf="orden.additionalLines.length > 0" class="order-list__subtotals">
                         <tr>
                             <th class="order-list__column-label" colspan="3">Subtotal</th>
-                            <td class="order-list__column-total">{{ order.subtotal|currencyCLP }}</td>
+                            <td class="order-list__column-total">{{ orden.subtotal|currencyCLP }}</td>
                         </tr>
-                        <tr *ngFor="let line of order.additionalLines">
+                        <tr *ngFor="let line of orden.additionalLines">
                             <th class="order-list__column-label" colspan="3">{{ line.label }}</th>
                             <td class="order-list__column-total">{{ line.total|currencyCLP }}</td>
                         </tr>
                         </tbody>
                         <tfoot class="order-list__footer">
                         <tr>
-                            <th class="order-list__column-label" colspan="3">Total</th>
-                            <td class="order-list__column-total">{{ order.total|currencyCLP }}</td>
+                            <th class="order-list__column-label" colspan="2">Total</th>
+                            <td class="order-list__column-total" colspan="2">{{ orden.total|currencyCLP }}</td>
                         </tr>
                         </tfoot>
                     </table>
+                    <div class="card">
+                        <div class="order-list">
+                    <table>
+                        <tr>
+                            <td><strong>Codigo Seguimiento:</strong> {{orden.seguimiento}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fecha Despacho:</strong> {{ orden.despacho }}</td>
+                        </tr>
+                        <tr *ngIf="orden.estado">
+                            <td><strong>Detalle Seguimiento:</strong> {{ orden.detalleSeguimiento }}</td>
+                        </tr>
+                    </table>
+                    </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="row mt-3 no-gutters mx-n2">
+            <div class="row mt-3 no-gutters mx-n2" *ngIf="orden.entrega == 'Envio a Región' || orden.entrega == 'Delivery Región Metropolitana'" >
                 <div class="col-sm-6 col-12 px-2">
                     <div class="card address-card">
                         <div class="address-card__body">
-                            <div class="address-card__badge address-card__badge--muted">Shipping Address</div>
-                            <div class="address-card__name">{{ order.shippingAddress.firstName + ' ' + order.shippingAddress.lastName}}</div>
+                            <div class="address-card__badge address-card__badge--muted">Dirección de Envio</div>
+                            <div class="address-card__name">{{ orden.nombreD }} - {{ orden.rutD }}</div>
                             <div class="address-card__row">
-                                {{ order.shippingAddress.country }}<br>
-                                {{ order.shippingAddress.postcode }}, {{ order.shippingAddress.city }}<br>
-                                {{ order.shippingAddress.address }}
+                                {{ orden.region }}<br>
+                                {{ orden.comuna }}, {{ orden.calle }} {{orden.numero}}<br>
+                                <span *ngIf="orden.departamento">Dep {{ orden.departamento }}</span>
                             </div>
                             <div class="address-card__row">
-                                <div class="address-card__row-title">Phone Number</div>
-                                <div class="address-card__row-content">{{ order.shippingAddress.phone }}</div>
+                                <div class="address-card__row-title">Entrega</div>
+                                <div class="address-card__row-content">{{ orden?.agencia || orden.entrega }}</div>
                             </div>
                             <div class="address-card__row">
-                                <div class="address-card__row-title">Email Address</div>
-                                <div class="address-card__row-content">{{ order.shippingAddress.email }}</div>
+                                <div class="address-card__row-title">Fecha Despacho</div>
+                                <div class="address-card__row-content">{{ orden.despacho }}</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-12 px-2 mt-sm-0 mt-3">
+                <div class="col-sm-6 col-12 px-2 mt-sm-0 mt-3" *ngIf="orden.documento == 'Factura'">
                     <div class="card address-card">
                         <div class="address-card__body">
-                            <div class="address-card__badge address-card__badge--muted">Billing Address</div>
-                            <div class="address-card__name">{{ order.billingAddress.firstName + ' ' + order.billingAddress.lastName}}</div>
+                            <div class="address-card__badge address-card__badge--muted">Facturacion</div>
+                            <div class="address-card__name">{{ orden.razonSocial }} - {{ orden.rut }}</div>
                             <div class="address-card__row">
-                                {{ order.billingAddress.country }}<br>
-                                {{ order.billingAddress.postcode }}, {{ order.billingAddress.city }}<br>
-                                {{ order.billingAddress.address }}
+                                {{ orden.giro }}<br>
+                                {{ orden.direccion }}
                             </div>
                             <div class="address-card__row">
-                                <div class="address-card__row-title">Phone Number</div>
-                                <div class="address-card__row-content">{{ order.billingAddress.phone }}</div>
+                                <div class="address-card__row-title">Telefono</div>
+                                <div class="address-card__row-content">{{ orden.telefono }}</div>
                             </div>
                             <div class="address-card__row">
-                                <div class="address-card__row-title">Email Address</div>
-                                <div class="address-card__row-content">{{ order.billingAddress.email }}</div>
+                                <div class="address-card__row-title">Correo</div>
+                                <div class="address-card__row-content">{{ orden.correo }}</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </div>

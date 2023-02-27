@@ -40,6 +40,8 @@ export interface Product {
     rating: number;
     reviews: number;
     availability: string;
+    fabricante?: string;
+    origen?: string;
     brand: Brand|null;
     categories: Category[];
     attributes: ProductAttribute[];

@@ -26,8 +26,8 @@
                 <div class="address-card__row">
                     {{ address?.Region }}, {{ address?.Comuna }}<br />
                     {{ address?.Calle }} {{ address?.Numero }}<br />
-                    <span *ngIf="address?.Piso">
-                        Dep: {{ address?.Piso }}
+                    <span *ngIf="address?.Departamento">
+                        Dep: {{ address?.Departamento }}
                     </span>
                 </div>
                 <div class="address-card__row">
@@ -313,12 +313,12 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>Piso</label>
+                                        <label>Departamento</label>
                                         <input
                                             type="text"
                                             class="form-control"
-                                            placeholder="Piso"
-                                            formControlName="Piso"
+                                            placeholder="Departamento"
+                                            formControlName="Departamento"
                                             maxlength="15"
                                         />
                                     </div>

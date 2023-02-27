@@ -131,20 +131,21 @@ export class CartService {
         let subtotal = 0;
 
         this.data.items.forEach(item => {
+            console.log(item.product.price)
             quantity += item.quantity;
-            subtotal += item.product.price * item.quantity;
+            subtotal += Math.round((item.product.price * item.quantity) / 1.19);
         });
 
         const totals: CartTotal[] = [];
 
-        totals.push({
-            title: 'Descuento',
-            price: 0,
-            type: 'Descuento'
-        });
+        // totals.push({
+        //     title: 'Descuento',
+        //     price: 0,
+        //     type: 'Descuento'
+        // }); // en caso de hacer descuentos
         totals.push({
             title: 'IVA',
-            price: subtotal * 0.19,
+            price: Math.round(subtotal * 0.19),
             type: 'IVA'
         });
 

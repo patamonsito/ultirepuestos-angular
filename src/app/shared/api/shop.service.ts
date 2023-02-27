@@ -52,33 +52,66 @@ export class ShopService {
      */
 
 
+    getFacturacion(id: any){
+        return this.http.post('http://147.182.141.213:3000/api/get-orden', { id: id });
+    }
+    searchProductFast(id: any){
+        return this.http.post('http://147.182.141.213:3000/api/get-products-fast', { Buscar: id });
+    }
+
+    getAplications(id: any){
+        return this.http.post('http://147.182.141.213:3000/api/get-aplications', { id });
+    }
+
+
+    searchProductsByCodeModel(Page: any, CodigoModelo: any, Key: any = ''){
+
+        return this.http.post('http://147.182.141.213:3000/api/products/model', { Page, CodigoModelo, Key });
+    }
+
+    searchProducts(key: any, options: any){
+        return this.http.post('http://147.182.141.213:3000/api/get-products', { ...key, ...options});
+    }
+
+    getMarcas(){
+        return this.http.get('http://147.182.141.213:3000/api/marcas-vehiculos');
+    }
+
+    buscarModelos(nombre: any){
+        return this.http.post('http://147.182.141.213:3000/api/models', {nombre: nombre});
+    }
+
+    generarOrdenCompra(body: any){
+        return this.http.post('http://147.182.141.213:3000/api/generar-orden', body);
+    }
+
     actualizarUsuario(body: any, id: string){
-        return this.http.patch('http://localhost:3000/api/user/'+id, body);
+        return this.http.patch('http://147.182.141.213:3000/api/user/'+id, body);
     }
 
     registrarUsuario(body: Usuario){
-        return this.http.post('http://localhost:3000/api/crear-usuario', body);
+        return this.http.post('http://147.182.141.213:3000/api/crear-usuario', body);
     }
 
     changePassword(body: any){
-        return this.http.post('http://localhost:3000/api/change-password', body);
+        return this.http.post('http://147.182.141.213:3000/api/change-password', body);
     }
 
     getRegiones(){
-        return this.http.get<Regiones[]>('http://localhost:3000/api/get-regiones');
+        return this.http.get<Regiones[]>('http://147.182.141.213:3000/api/get-regiones');
     }
 
 
     añadirDireccion(body: Direcciones){
-        return this.http.post('http://localhost:3000/api/add-direccion', body);
+        return this.http.post('http://147.182.141.213:3000/api/add-direccion', body);
     }
 
     actualizarDireccion(body: Direcciones){
-        return this.http.post('http://localhost:3000/api/update-direccion', body);
+        return this.http.post('http://147.182.141.213:3000/api/update-direccion', body);
     }
 
     eliminarDireccion(id: string){
-        return this.http.delete('http://localhost:3000/api/eliminar-direccion/'+id);
+        return this.http.delete('http://147.182.141.213:3000/api/eliminar-direccion/'+id);
     }
 
     getCategory(slug: string): Observable<Category> {
@@ -98,7 +131,7 @@ export class ShopService {
 
 
     suscribirCorreo(correo: string){
-        return this.http.post('http://localhost:3000/api/suscribir', {Correo: correo});
+        return this.http.post('http://147.182.141.213:3000/api/suscribir', {Correo: correo});
     }
 
     /**
@@ -122,7 +155,7 @@ export class ShopService {
         //     depth: depth.toString(),
         // };
         //
-        return this.http.post<Category[]>('http://localhost:3000/api/categorias', {});
+        return this.http.post<Category[]>('http://147.182.141.213:3000/api/categorias', {});
 
         // This is for demonstration purposes only. Remove it and use the code above.
         // return getShopCategoriesTree(parent ? parent.slug : null, depth);
@@ -152,7 +185,7 @@ export class ShopService {
         // return this.http.get<Category[]>('https://example.com/api/shop/categories.json', {params});
 
         // This is for demonstration purposes only. Remove it and use the code above.
-        return this.http.post<Category[]>('http://localhost:3000/api/categorias', {});
+        return this.http.post<Category[]>('http://147.182.141.213:3000/api/categorias', {});
         // return getShopCategoriesBySlugs(slugs, depth);
     }
 
@@ -204,7 +237,7 @@ export class ShopService {
         return getProductsList(categorySlug, options);
     }
 
-    getProduct(productSlug: string): Observable<Product> {
+    getProduct(id: string): any {
         /**
          * This is what your API endpoint might look like:
          *
@@ -216,7 +249,9 @@ export class ShopService {
         // return this.http.get<Product>(`https://example.com/api/products/${productSlug}.json`);
 
         // This is for demonstration purposes only. Remove it and use the code above.
-        return getProduct(productSlug);
+
+
+        return this.http.post('http://147.182.141.213:3000/api/product', {id: id});
     }
 
     /**
@@ -251,7 +286,7 @@ export class ShopService {
         //
         // return this.http.get<Product[]>('https://example.com/api/shop/products/bestsellers.json', {params});
 
-        return this.http.post<Product[]>('http://localhost:3000/api/productos-populares', {});
+        return this.http.post<Product[]>('http://147.182.141.213:3000/api/productos-populares', {});
         // This is for demonstration purposes only. Remove it and use the code above.
         // return getBestsellers(limit);
     }
@@ -274,7 +309,7 @@ export class ShopService {
         //
         // return this.http.get<Product[]>('https://example.com/api/shop/products/bestsellers.json', {params});
 
-        return this.http.post<Product[]>('http://localhost:3000/api/productos-populares', { Repuesto: repuesto});
+        return this.http.post<Product[]>('http://147.182.141.213:3000/api/productos-populares', { Repuesto: repuesto});
         // This is for demonstration purposes only. Remove it and use the code above.
         // return getBestsellers(limit);
     }
@@ -342,9 +377,9 @@ export class ShopService {
         // }
         //
 
-        return this.http.post<Product[]>('http://localhost:3000/api/ofertas', { Repuesto: categorySlug, Public: true });
+        return this.http.post<Product[]>('http://147.182.141.213:3000/api/ofertas', { Repuesto: categorySlug, limit: limit, Public: true });
 
-        // This is for demonstration purposes only. Remove it and use the code above.
+        // This is for demonstration purposes only. Remove it and use the code above. 
         // return getFeatured(categorySlug, limit);
     }
 
@@ -369,7 +404,7 @@ export class ShopService {
         //
         // return this.http.get<Product[]>('https://example.com/api/shop/products/latest.json', {params});
 
-        return this.http.post<Product[]>('http://localhost:3000/api/productos-relacionados', { Repuesto: categorySlug });
+        return this.http.post<Product[]>('http://147.182.141.213:3000/api/productos-relacionados', { Repuesto: categorySlug });
         // This is for demonstration purposes only. Remove it and use the code above.
         return getLatestProducts(categorySlug, limit);
     }

@@ -1,7 +1,7 @@
 <app-page-header [header]="'Checkout'" [breadcrumbs]="[
-    {label: 'Home',          url: root.home()},
-    {label: 'Shopping Cart', url: root.cart()},
-    {label: 'Checkout',      url: ''}
+    {label: 'Inicio',          url: root.home()},
+    {label: 'Carro', url: root.cart()},
+    {label: 'Pagar',      url: ''}
 ]"></app-page-header>
 
 <div class="checkout block">
@@ -19,7 +19,29 @@
                         <form [formGroup]="formFacturacion">
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="checkout-first-name">Rut</label>
+                                <label for="checkout-first-name">Tipo Documento </label><span class="red"> *</span>
+                                <select class="form-control" formControlName="Documento" (change)="setDelivery()" [ngClass]="Entrega?.touched && Entrega?.valid == false ? 'inputError' : ''">
+                                    <option [ngValue]="null"  selected selected="true" disabled>Seleccione una opción</option>
+                                    <option *ngFor="let documento of Documentos" [selected]="documento == Documento?.value" [ngValue]="documento">
+                                        {{ documento }}
+                                    </option>
+                                </select>
+                                <div
+                                    *ngIf="
+                                        !Documento?.valid &&
+                                        Documento?.touched
+                                    "
+                                >
+                                <span *ngIf="Entrega?.errors?.['required']" class="text-invalid">
+                                    Este campo es obligatorio
+                                </span>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group col-md-6">
+                                <label for="checkout-first-name" *ngIf="Documento?.value == 'Boleta'">Rut Persona</label>
+                                <label for="checkout-first-name" *ngIf="Documento?.value == 'Factura'">Rut Empresa</label><span class="red"> *</span>
                                 <input AppFormatRut type="text" class="form-control" (keypress)="validateRut()" formControlName="Rut" placeholder="12345678-9" [ngClass]="Rut?.touched && Rut?.valid == false ? 'inputError' : ''">
                                 <div *ngIf="!Rut?.valid && Rut?.touched">
                                     <span *ngIf="Rut?.errors?.['required']" class="text-invalid">
@@ -30,15 +52,80 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="checkout-first-name">Nombre o Razon Social</label>
+
+
+                            <div class="form-group col-md-6" *ngIf="Documento?.value == 'Boleta'">
+                                    <label>Nombre <span class="red">*</span></label>
+                                    <input
+                                    AppFormatLetras
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Nombre"
+                                        formControlName="Nombre"
+                                        maxlength="15"
+                                        [ngClass]="
+                                            Nombre?.touched &&
+                                            Nombre?.valid == false
+                                                ? 'inputError'
+                                                : ''
+                                        "
+                                    />
+                                    <div
+                                        *ngIf="
+                                            !Nombre?.valid &&
+                                            Nombre?.touched
+                                        "
+                                    >
+                                    <span *ngIf="Nombre?.errors?.['required']" class="text-invalid">
+                                        El Nombre es Obligatorio
+                                    </span>
+                                    <span *ngIf="Nombre?.errors?.['minlength']" class="text-invalid">
+                                        Su nombre debe tener minimo 3 caracteres
+                                    </span>
+                                    </div>
+                            </div>
+                            <div class="form-group col-md-6" *ngIf="Documento?.value == 'Boleta'">
+                                    <label>Apellido <span class="red">*</span></label>
+                                    <input
+                                    AppFormatLetras
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Apellido"
+                                        formControlName="Apellido"
+                                        maxlength="15"
+                                        [ngClass]="
+                                            Apellido?.touched &&
+                                            Apellido?.valid == false
+                                                ? 'inputError'
+                                                : ''
+                                        "
+                                    />
+                                    <div
+                                        *ngIf="
+                                            !Apellido?.valid &&
+                                            Apellido?.touched
+                                        "
+                                    >
+                                    <span *ngIf="Apellido?.errors?.['required']" class="text-invalid">
+                                        El Apellido es Obligatorio
+                                    </span>
+                                    <span *ngIf="Apellido?.errors?.['minlength']" class="text-invalid">
+                                        Su apellido debe tener minimo 2 caracteres
+                                    </span>
+                                    </div>
+                            </div>
+
+
+
+                            <div class="form-group col-md-12" *ngIf="Documento?.value == 'Factura'">
+                                <label for="checkout-first-name">Razon Social </label><span class="red"> *</span>
                                 <input
                                 AppFormatLetras
                                     type="text"
                                     class="form-control"
                                     placeholder="Nombre o razon social"
                                     formControlName="RazonSocial"
-                                    maxlength="15"
+                                    maxlength="30"
                                     [ngClass]="
                                         RazonSocial?.touched &&
                                         RazonSocial?.valid == false
@@ -55,25 +142,167 @@
                                 <span *ngIf="RazonSocial?.errors?.['required']" class="text-invalid">
                                     El nombre o razon social es obligatorio
                                 </span>
-                                <span *ngIf="NombreD?.errors?.['minlength']" class="text-invalid">
+                                <span *ngIf="RazonSocial?.errors?.['minlength']" class="text-invalid">
                                     Su nombre o razon social debe tener minimo 3 caracteres
                                 </span>
                                 </div>
                             </div>
+
+
+
+                            <div class="form-group col-md-12" *ngIf="Documento?.value == 'Factura'">
+                                <label for="checkout-first-name">Giro </label><span class="red"> *</span>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Nombre o razon social"
+                                    formControlName="Giro"
+                                    maxlength="30"
+                                    [ngClass]="
+                                    Giro?.touched &&
+                                    Giro?.valid == false
+                                            ? 'inputError'
+                                            : ''
+                                    "
+                                />
+                                <div
+                                    *ngIf="
+                                        !Giro?.valid &&
+                                        Giro?.touched
+                                    "
+                                >
+                                <span *ngIf="Giro?.errors?.['required']" class="text-invalid">
+                                    El giro es obligatorio
+                                </span>
+                                <span *ngIf="Giro?.errors?.['minlength']" class="text-invalid">
+                                    Giro Inválido
+                                </span>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group col-md-12" *ngIf="Documento?.value == 'Factura'">
+                                <label for="checkout-first-name">Direccion Empresa </label><span class="red"> *</span>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Nombre o razon social"
+                                    formControlName="DireccionEmpresa"
+                                    maxlength="150"
+                                    [ngClass]="
+                                        DireccionEmpresa?.touched &&
+                                        DireccionEmpresa?.valid == false
+                                            ? 'inputError'
+                                            : ''
+                                    "
+                                />
+                                <div
+                                    *ngIf="
+                                        !DireccionEmpresa?.valid &&
+                                        RazonSocial?.touched
+                                    "
+                                >
+                                <span *ngIf="DireccionEmpresa?.errors?.['required']" class="text-invalid">
+                                    El nombre o razon social es obligatorio
+                                </span>
+                                <span *ngIf="DireccionEmpresa?.errors?.['minlength']" class="text-invalid">
+                                    Ingrese una dirección valida
+                                </span>
+                                </div>
+                            </div>
+
+
+
+                            <form method="POST" #f style="display: none;">
+                                <input type="text" name="token_ws" [value]="token" #i>
+                            </form>
+
+
                             <div class="form-group col-md-6">
-                                <label for="checkout-first-name">Correo</label>
+                                <label for="checkout-first-name">Correo </label><span class="red"> *</span>
                                 <input type="text" class="form-control" id="checkout-first-name" placeholder="Correo" formControlName="Correo" maxlength="50"  [ngClass]="Correo?.touched && Correo?.valid == false ? 'inputError' : ''">
+                                <div *ngIf="!Correo?.valid && Correo?.touched">
+                                    <span *ngIf="Correo?.errors?.['required']" class="text-invalid">
+                                        El Correo es Obligatorio
+                                    </span>
+                                    <span *ngIf="Correo?.errors?.['email']" class="text-invalid">
+                                        El Correo es Invalido
+                                    </span>
+                                </div>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="checkout-first-name">Entrega</label>
-                                <select class="form-control" formControlName="Entrega" (change)="verComunas()">
-                                    <option [ngValue]="null"  selected selected="true" disabled>Seleccione una opción</option>
-                                    <option *ngFor="let entrega of entregas" [ngValue]="entrega">
-                                        {{ entrega }}
-                                    </option>
-                                </select>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Telefono <span class="red">*</span></label>
+                                    <input
+                                    AppFormatTelefono
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Telefono"
+                                        formControlName="Telefono"
+                                        maxlength="12"
+                                        [ngClass]="
+                                            Telefono?.touched &&
+                                            Telefono?.valid == false
+                                                ? 'inputError'
+                                                : ''
+                                        "
+                                    />
+                                    <div
+                                        *ngIf="
+                                            !Telefono?.valid &&
+                                            Telefono?.touched
+                                        "
+                                    >
+                                        <span
+                                            *ngIf="Telefono?.errors?.['required']"
+                                            class="text-invalid"
+                                        >
+                                            El telefono es Obligatorio
+                                        </span>
+                                        <span
+                                            *ngIf="Telefono?.errors?.['minlength']"
+                                            class="text-invalid"
+                                        >
+                                            Telefono invalido, ejemplo: +56912341234
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group col-md-12" *ngIf="isPersona">
+                                <div class="form-group col-md-6">
+                                    <label for="checkout-first-name">Agendar Despacho </label><span class="red"> *</span>
+                                    <input type="date" class="form-control" formControlName="FechaDespacho" (click)="openDatepicker()" onkeydown="return false" #dateDespacho>
+                                    <div
+                                        *ngIf="
+                                            !FechaDespacho?.valid &&
+                                            Entrega?.touched
+                                        "
+                                    >
+                                    <span *ngIf="FechaDespacho?.errors?.['required']" class="text-invalid">
+                                        Este campo es obligatorio
+                                    </span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="checkout-first-name">Envió </label><span class="red"> *</span>
+                                    <select class="form-control" formControlName="Entrega" (change)="setDelivery()" [ngClass]="Entrega?.touched && Entrega?.valid == false ? 'inputError' : ''">
+                                        <option [ngValue]="null"  selected selected="true" disabled>Seleccione una opción</option>
+                                        <option *ngFor="let entrega of entregas" [ngValue]="entrega">
+                                            {{ entrega }}
+                                        </option>
+                                    </select>
+                                    <div
+                                        *ngIf="
+                                            !Entrega?.valid &&
+                                            Entrega?.touched
+                                        "
+                                    >
+                                    <span *ngIf="Entrega?.errors?.['required']" class="text-invalid">
+                                        Este campo es obligatorio
+                                    </span>
+                                    </div>
+                                </div>
+
+                            <div class="form-group col-md-12" *ngIf="isPersona && !(Usuario$|async)?.id">
                                 <div class="form-check">
                                         <span class="form-check-input input-check">
                                             <span class="input-check__body">
@@ -121,7 +350,7 @@
 
 
 
-                     <div class="mt-3">
+                     <div class="mt-3" *ngIf="dataEntrega == 'Envio a región' || dataEntrega ==  'Delivery Región Metropolitana'">
                             <h3 class="card-title">Datos de Envió</h3>
                         <div class="form-row">
                             <form
@@ -129,75 +358,9 @@
                             >
 
                             <div class="row">
-                                <div class="col-md-6 mt-4">
-                                    <div class="form-group">
-                                        <label>Nombre <span class="red">*</span></label>
-                                        <input
-                                        AppFormatLetras
-                                            type="text"
-                                            class="form-control"
-                                            placeholder="Nombre"
-                                            formControlName="Nombre"
-                                            maxlength="15"
-                                            [ngClass]="
-                                                NombreD?.touched &&
-                                                NombreD?.valid == false
-                                                    ? 'inputError'
-                                                    : ''
-                                            "
-                                        />
-                                        <div
-                                            *ngIf="
-                                                !NombreD?.valid &&
-                                                NombreD?.touched
-                                            "
-                                        >
-                                        <span *ngIf="NombreD?.errors?.['required']" class="text-invalid">
-                                            El Nombre es Obligatorio
-                                        </span>
-                                        <span *ngIf="NombreD?.errors?.['minlength']" class="text-invalid">
-                                            Su nombre debe tener minimo 3 caracteres
-                                        </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mt-4">
-                                    <div class="form-group">
-                                        <label>Apellido <span class="red">*</span></label>
-                                        <input
-                                        AppFormatLetras
-                                            type="text"
-                                            class="form-control"
-                                            placeholder="Apellido"
-                                            formControlName="Apellido"
-                                            maxlength="15"
-                                            [ngClass]="
-                                                ApellidoD?.touched &&
-                                                ApellidoD?.valid == false
-                                                    ? 'inputError'
-                                                    : ''
-                                            "
-                                        />
-                                        <div
-                                            *ngIf="
-                                                !ApellidoD?.valid &&
-                                                ApellidoD?.touched
-                                            "
-                                        >
-                                        <span *ngIf="ApellidoD?.errors?.['required']" class="text-invalid">
-                                            El Apellido es Obligatorio
-                                        </span>
-                                        <span *ngIf="ApellidoD?.errors?.['minlength']" class="text-invalid">
-                                            Su apellido debe tener minimo 2 caracteres
-                                        </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Rut <span class="red">*</span></label>
+                                        <label>Rut Destinatario<span class="red">*</span></label>
                                         <input
                                         AppFormatRut
                                             type="text"
@@ -228,45 +391,39 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Telefono <span class="red">*</span></label>
+                                        <label>Nombre Destinatario <span class="red">*</span></label>
                                         <input
-                                        AppFormatTelefono
+                                        AppFormatLetras
                                             type="text"
                                             class="form-control"
-                                            placeholder="Telefono"
-                                            formControlName="Telefono"
-                                            maxlength="12"
+                                            placeholder="Nombre"
+                                            formControlName="NombreD"
+                                            maxlength="30"
                                             [ngClass]="
-                                                TelefonoD?.touched &&
-                                                TelefonoD?.valid == false
+                                                NombreD?.touched &&
+                                                NombreD?.valid == false
                                                     ? 'inputError'
                                                     : ''
                                             "
                                         />
                                         <div
                                             *ngIf="
-                                                !TelefonoD?.valid &&
-                                                TelefonoD?.touched
+                                                !NombreD?.valid &&
+                                                NombreD?.touched
                                             "
                                         >
-                                            <span
-                                                *ngIf="TelefonoD?.errors?.['required']"
-                                                class="text-invalid"
-                                            >
-                                                El telefono es Obligatorio
-                                            </span>
-                                            <span
-                                                *ngIf="TelefonoD?.errors?.['minlength']"
-                                                class="text-invalid"
-                                            >
-                                                Telefono invalido, ejemplo: +56912341234
-                                            </span>
+                                        <span *ngIf="NombreD?.errors?.['required']" class="text-invalid">
+                                            El Nombre es Obligatorio
+                                        </span>
+                                        <span *ngIf="NombreD?.errors?.['minlength']" class="text-invalid">
+                                            Su nombre debe tener minimo 3 caracteres
+                                        </span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-6" *ngIf="dataEntrega == 'Envio a región'">
                                     <div class="form-group">
                                         <label>Región <span class="red">*</span></label>
                                         <select class="form-control" formControlName="Region" (change)="verComunas()">
@@ -285,12 +442,13 @@
                                                 *ngIf="Region?.errors?.['required']"
                                                 class="text-invalid"
                                             >
-                                                la region es Obligatoria
+                                                la región es Obligatoria
                                             </span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+
+                                <div  [class.col-md-6]="dataEntrega === 'Envio a región'" [class.col-md-12]="dataEntrega === 'Delivery Región Metropolitana'"  *ngIf="dataEntrega == 'Envio a región' || dataEntrega == 'Delivery Región Metropolitana' ">
                                     <div class="form-group">
                                         <label>Comuna <span class="red">*</span></label>
                                         <select class="form-control" formControlName="Comuna">
@@ -381,18 +539,55 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>Piso</label>
+                                        <label>Departamento</label>
                                         <input
                                             type="text"
                                             class="form-control"
-                                            placeholder="Piso"
-                                            formControlName="Piso"
-                                            maxlength="15"
+                                            placeholder="Departamento"
+                                            formControlName="Departamento"
+                                            maxlength="35"
                                         />
                                     </div>
                                 </div>
-                            </div>
+                                
+                                </div>
+                                
                             </form>
+
+
+                            <div class="row">
+                                <form
+                                    [formGroup]="formAgencia"
+                                >
+
+                                <div class="col-md-12" *ngIf="dataEntrega == 'Envio a región'">
+                                    <div class="form-group">
+                                        <label>Agencia de Envió <span class="red">*</span></label>
+                                        <select class="form-control" formControlName="Agencia">
+                                            <option [ngValue]="null"  selected selected="true" disabled>Seleccione una Agencia de envió</option>
+                                            <option *ngFor="let agencia of agencias" [ngValue]="agencia">
+                                                {{ agencia }}
+                                            </option>
+                                        </select>
+                                        <div
+                                            *ngIf="
+                                                !Agencia?.valid &&
+                                                Agencia?.touched
+                                            "
+                                        >
+                                            <span
+                                                *ngIf="Agencia?.errors?.['required']"
+                                                class="text-invalid"
+                                            >
+                                                la agencia es Obligatoria
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                            </div>
+
                         </div>
                      </div>
 
@@ -418,12 +613,14 @@
                         <table class="checkout__totals">
                             <thead class="checkout__totals-header">
                             <tr>
+                                <th></th>
                                 <th>Producto</th>
                                 <th>Total</th>
                             </tr>
                             </thead>
                             <tbody class="checkout__totals-products">
                             <tr *ngFor="let item of cart.items$|async">
+                                <td><img [src]="'http://147.182.141.213:3000/repuestos/'+item.product.images[0]+'.jpg'" style="max-height: 4rem;"></td>
                                 <td>{{ item.product.name }} × {{ item.quantity }}</td>
                                 <td>{{ item.product.price * item.quantity|currencyCLP }}</td>
                             </tr>
@@ -448,86 +645,29 @@
 
                         <div class="payment-methods">
                             <ul class="payment-methods__list">
-                                <li class="payment-methods__item payment-methods__item--active">
-                                    <label class="payment-methods__item-header">
-                                            <span class="payment-methods__item-radio input-radio">
-                                                <span class="input-radio__body">
-                                                    <input class="input-radio__input" name="checkout_payment_method" type="radio" checked>
-                                                    <span class="input-radio__circle"></span>
+
+
+                                <div *ngFor="let paiment of paimentMethod">
+                                    <li class="payment-methods__item" [ngClass]="{'payment-methods__item--active': paiment.active === true}" *ngIf="paiment.permission.toString().includes(Entrega?.value)">
+                                        <label class="payment-methods__item-header">
+                                                <span class="payment-methods__item-radio input-radio">
+                                                    <span class="input-radio__body">
+                                                        <input class="input-radio__input" name="checkout_payment_method" type="radio" [checked]="paiment.active === true" (change)="changeActivePaiment(paiment._id)">
+                                                        <span class="input-radio__circle"></span>
+                                                    </span>
                                                 </span>
-                                            </span>
-                                        <span class="payment-methods__item-title">Getnet</span>
-                                    </label>
-                                    <div class="payment-methods__item-container">
-                                        <div class="payment-methods__item-description text-muted">
-                                            Pagos en pesos con Tarjetas de Crédito, Débito o prepago, de todos los bancos nacionales e internacionales.
+                                            <span class="payment-methods__item-title">{{paiment.name}}</span>
+                                        </label>
+                                        <div class="payment-methods__item-container">
+                                            <div class="payment-methods__item-description text-muted">
+                                                <img [src]="paiment.img" [alt]="paiment.namne" style="width: 10rem; margin-bottom: 0.3rem;">
+                                                <div>
+                                                    {{paiment.description}}
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li class="payment-methods__item">
-                                    <label class="payment-methods__item-header">
-                                            <span class="payment-methods__item-radio input-radio">
-                                                <span class="input-radio__body">
-                                                    <input class="input-radio__input" name="checkout_payment_method" type="radio">
-                                                    <span class="input-radio__circle"></span>
-                                                </span>
-                                            </span>
-                                        <span class="payment-methods__item-title">WebPay Plus</span>
-                                    </label>
-                                    <div class="payment-methods__item-container">
-                                        <div class="payment-methods__item-description text-muted">
-                                            Pagos con todas las tarjetas de crédito, débito y prepago.
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="payment-methods__item">
-                                    <label class="payment-methods__item-header">
-                                            <span class="payment-methods__item-radio input-radio">
-                                                <span class="input-radio__body">
-                                                    <input class="input-radio__input" name="checkout_payment_method" type="radio">
-                                                    <span class="input-radio__circle"></span>
-                                                </span>
-                                            </span>
-                                        <span class="payment-methods__item-title">Transferencia Bancaria</span>
-                                    </label>
-                                    <div class="payment-methods__item-container">
-                                        <div class="payment-methods__item-description text-muted">
-                                            Realiza una transferencia electrónica a nuestra cuenta bancaria.
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="payment-methods__item">
-                                    <label class="payment-methods__item-header">
-                                            <span class="payment-methods__item-radio input-radio">
-                                                <span class="input-radio__body">
-                                                    <input class="input-radio__input" name="checkout_payment_method" type="radio">
-                                                    <span class="input-radio__circle"></span>
-                                                </span>
-                                            </span>
-                                        <span class="payment-methods__item-title">Pago Presencial</span>
-                                    </label>
-                                    <div class="payment-methods__item-container">
-                                        <div class="payment-methods__item-description text-muted">
-                                            Paga en una de nuestras sucursales o asociados.
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="payment-methods__item">
-                                    <label class="payment-methods__item-header">
-                                            <span class="payment-methods__item-radio input-radio">
-                                                <span class="input-radio__body">
-                                                    <input class="input-radio__input" name="checkout_payment_method" type="radio">
-                                                    <span class="input-radio__circle"></span>
-                                                </span>
-                                            </span>
-                                        <span class="payment-methods__item-title">Pagar al recibir</span>
-                                    </label>
-                                    <div class="payment-methods__item-container">
-                                        <div class="payment-methods__item-description text-muted">
-                                            Paga cuando recibas el producto, esta opción solo es valida para enviós a domicilio en Santiago.
-                                        </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                </div>
                             </ul>
                         </div>
 
@@ -535,7 +675,7 @@
                             <div class="form-check">
                                     <span class="form-check-input input-check">
                                         <span class="input-check__body">
-                                            <input class="input-check__input" type="checkbox" id="checkout-terms">
+                                            <input class="input-check__input" type="checkbox" id="checkout-terms" (change)="checkoutTerms = !checkoutTerms">
                                             <span class="input-check__box"></span>
                                             <svg class="input-check__icon" width="9px" height="7px"><use xlink:href="assets/images/sprite.svg#check-9x7"></use></svg>
                                         </span>
@@ -543,10 +683,25 @@
                                 <label class="form-check-label" for="checkout-terms">
                                     He leido y acepto los <a target="_blank" [routerLink]="root.terms()">Terminos y condiciones.</a>*
                                 </label>
+
+                                <div
+                                *ngIf="!checkoutTerms && checkoutTermsError">
+                                <span class="text-invalid">
+                                    Debe aceptar los terminos y condiciones para continuar.
+                                </span>
+                                <div
+                                *ngIf="isApiError">
+                                <span class="text-invalid">
+                                    {{ apiErrorMsg }}
+                                </span>
+
+                            </div>
+                            
+
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary btn-xl btn-block">Realizar Orden</button>
+                        <button class="btn btn-primary btn-xl btn-block" (click)=purchase()>Realizar Orden</button>
                     </div>
                 </div>
             </div>

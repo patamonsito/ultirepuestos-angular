@@ -8,14 +8,14 @@
     <div *ngIf="type === 'offcanvas'" class="dropcart__backdrop" (click)="close()"></div>
     <div class="dropcart__body">
         <div *ngIf="type === 'offcanvas'" class="dropcart__header">
-            <div class="dropcart__title">Shopping Cart</div>
+            <div class="dropcart__title">Carro de compra</div>
             <button class="dropcart__close" type="button" (click)="close()">
                 <app-icon name="cross-12" size="12"></app-icon>
             </button>
         </div>
 
         <div class="dropcart__empty" *ngIf="!(cart.items$|async)?.length">
-            Your shopping cart is empty!
+            Tu carro esta vacio!
         </div>
         <ng-container *ngIf="(cart.items$|async)?.length">
             <div class="dropcart__products-list">
@@ -27,7 +27,7 @@
                             [routerLink]="root.product(item.product)"
                             (click)="closeMenu.emit()"
                         >
-                            <img class="product-image__img" [src]="item.product.images[0]" alt="">
+                            <img class="product-image__img" [src]="'http://147.182.141.213:3000/repuestos/'+item.product.images[0]+'.jpg'" alt="">
                         </a>
                     </div>
                     <div class="dropcart__product-info">
@@ -68,8 +68,8 @@
             </div>
 
             <div class="dropcart__buttons">
-                <a class="btn btn-secondary" [routerLink]="root.cart()" (click)="closeMenu.emit()">View Cart</a>
-                <a class="btn btn-primary" [routerLink]="root.checkout()" (click)="closeMenu.emit()">Checkout</a>
+                <a class="btn btn-secondary" [routerLink]="root.cart()" (click)="closeMenu.emit()">Ver carro</a>
+                <a class="btn btn-primary" [routerLink]="root.checkout()" (click)="closeMenu.emit()">Ir a pagar</a>
             </div>
         </ng-container>
     </div>

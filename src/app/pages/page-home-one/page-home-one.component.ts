@@ -44,9 +44,8 @@ export class PageHomeOneComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit(): void {
-        this.bestsellers$ = this.shop.getBestsellers(7);
+        this.bestsellers$ = this.shop.getFeaturedProducts('AMORTIGUADOR', 10);
         this.brands$ = this.shop.getPopularBrands();
-        console.log(this.brands$)
         this.popularCategories$ = this.shop.getCategoriesBySlug([
             'power-tools',
             'hand-tools',
@@ -55,9 +54,9 @@ export class PageHomeOneComponent implements OnInit, OnDestroy {
             'measurement',
             'clothes-and-ppe',
         ], 1);
-        this.columnTopRated$ = this.shop.getPopulateCustom('Optico');
-        this.columnSpecialOffers$ = this.shop.getPopulateCustom('Bandeja suspension');
-        this.columnBestsellers$ = this.shop.getPopulateCustom('empaquetadura culata');
+        this.columnTopRated$ = this.shop.getFeaturedProducts('portalon', 3);
+        this.columnSpecialOffers$ = this.shop.getFeaturedProducts('patines', 3);
+        this.columnBestsellers$ = this.shop.getFeaturedProducts('axial', 3);
 
         this.featuredProducts = {
             abort$: new Subject<void>(),
@@ -65,24 +64,24 @@ export class PageHomeOneComponent implements OnInit, OnDestroy {
             products: [],
             groups: [
                 {
-                    name: 'Todo',
+                    name: 'KITS EMBRAGUE',
                     current: true,
-                    products$: this.shop.getFeaturedProducts(null, 8),
+                    products$: this.shop.getFeaturedProducts('KIT EMBRAGUE', 8),
                 },
                 {
-                    name: 'Parachoques',
+                    name: 'Parachoques Delanteros',
                     current: false,
-                    products$: this.shop.getFeaturedProducts('parachoque', 8),
+                    products$: this.shop.getFeaturedProducts('parachoque delantero', 8),
                 },
                 {
-                    name: 'Amortiguadores',
+                    name: 'Parachoque Traseros',
                     current: false,
-                    products$: this.shop.getFeaturedProducts('amortiguador', 8),
+                    products$: this.shop.getFeaturedProducts('parachoque trasero', 8),
                 },
                 {
-                    name: 'Anticongelantes',
+                    name: 'Frontales',
                     current: false,
-                    products$: this.shop.getFeaturedProducts('Anticongelante', 8),
+                    products$: this.shop.getFeaturedProducts('frontal', 8),
                 },
             ],
         };
@@ -96,22 +95,22 @@ export class PageHomeOneComponent implements OnInit, OnDestroy {
                 {
                     name: 'All',
                     current: true,
-                    products$: this.shop.getLatestProducts(null, 8),
+                    products$: this.shop.getFeaturedProducts('ACEITE MOTOR', 8),
                 },
                 {
-                    name: 'Power Tools',
+                    name: 'Empaquetadura culata',
                     current: false,
-                    products$: this.shop.getLatestProducts('power-tools', 8),
+                    products$: this.shop.getFeaturedProducts('EMPAQUETADURA CULATA', 8),
                 },
                 {
-                    name: 'Hand Tools',
+                    name: 'pastillas de freno',
                     current: false,
-                    products$: this.shop.getLatestProducts('hand-tools', 8),
+                    products$: this.shop.getFeaturedProducts('PASTILLA', 8),
                 },
                 {
-                    name: 'Plumbing',
+                    name: 'lubricante',
                     current: false,
-                    products$: this.shop.getLatestProducts('plumbing', 8),
+                    products$: this.shop.getFeaturedProducts('LUBRICANTE', 8),
                 },
             ],
         };

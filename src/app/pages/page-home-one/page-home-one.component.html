@@ -3,7 +3,7 @@
 <app-block-features layout="boxed"></app-block-features>
 
 <app-block-products-carousel
-    header="Últimas Ofertas"
+    header="Las mejores marcas para tú vehículo"
     layout="grid-5"
     [rows]="2"
     [loading]="featuredProducts.loading"
@@ -14,12 +14,12 @@
 
 <app-block-banner></app-block-banner>
 
-<app-block-products header="Más Vendidos" layout="large-last" [products]="(bestsellers$|async) || []"></app-block-products>
+<app-block-products header="Populares" layout="large-last" [products]="(bestsellers$|async) || []"></app-block-products>
 
-<app-block-categories header="Categorías" layout="compact" [categories]="(popularCategories$|async) || []"></app-block-categories>
+<!-- <app-block-categories header="Categorías" layout="compact" [categories]="(popularCategories$|async) || []"></app-block-categories> -->
 
 <app-block-products-carousel
-    header="Nuevos"
+    header="Necesitas aceite motor?"
     layout="grid-5"
     [rows]="1"
     [loading]="latestProducts.loading"
@@ -33,7 +33,8 @@
 <app-block-brands [brands]="(brands$|async) || []"></app-block-brands>
 
 <app-block-product-columns>
-    <app-block-product-columns-item header="Top Repuestos" [products]="(columnTopRated$|async) || []"></app-block-product-columns-item>
-    <app-block-product-columns-item header="Ofertas Especiales" [products]="(columnSpecialOffers$|async) || []"></app-block-product-columns-item>
-    <app-block-product-columns-item header="Más Vendidos" [products]="(columnBestsellers$|async) || []"></app-block-product-columns-item>
+    <app-block-product-columns-item header="Amortiguador para 
+    Portalon" [products]="(columnTopRated$|async) || []"></app-block-product-columns-item>
+    <app-block-product-columns-item header="Patines" [products]="(columnSpecialOffers$|async) || []"></app-block-product-columns-item>
+    <app-block-product-columns-item header="Articulación axial" [products]="(columnBestsellers$|async) || []"></app-block-product-columns-item>
 </app-block-product-columns>

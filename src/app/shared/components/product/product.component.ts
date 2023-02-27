@@ -32,6 +32,10 @@ export class ProductComponent {
         public root: RootService,
     ) { }
 
+    ngInit(){
+        console.log(this.product, 'este product')
+    }
+
     addToCart(): void {
         if (!this.addingToCart && this.product && this.quantity.value > 0) {
             this.addingToCart = true;

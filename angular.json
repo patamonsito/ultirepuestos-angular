@@ -18,7 +18,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular",
           "options": {
             "outputPath": "dist",
             "index": "src/index.html",
@@ -142,6 +142,8 @@
           },
           "configurations": {
             "production": {
+              "optimization": true,
+              "sourceMap": true,
               "outputHashing": "media",
               "fileReplacements": [
                 {

@@ -39,7 +39,7 @@ const routes: Routes = [
     // },
     // END / ONLY_FOR_DEMO_YOU_CAN_DELETE_IT
     {
-        path: '/',
+        path: '',
         component: RootComponent,
         data: {
             // Header layout. Choose one of ['classic', 'compact'].
@@ -49,29 +49,29 @@ const routes: Routes = [
         },
         children: [
             {
-                path: '/',
+                path: '',
                 pathMatch: 'full',
                 component: PageHomeOneComponent
             },
             {
-                path: '/shop',
+                path: 'shop',
                 loadChildren: () => import('./modules/shop/shop.module').then(m => m.ShopModule)
             },
             {
-                path: '/blog',
+                path: 'blog',
                 loadChildren: () => import('./modules/blog/blog.module').then(m => m.BlogModule)
             },
             {
-                path: '/account',
+                path: 'account',
                 loadChildren: () => import('./modules/account/account.module').then(m => m.AccountModule)
             },
             {
-                path: '/site',
+                path: 'site',
                 loadChildren: () => import('./modules/site/site.module').then(m => m.SiteModule)
             },
             {
                 path: '**',
-                component: PageNotFoundComponent
+                redirectTo: '/'
             }
         ],
     },

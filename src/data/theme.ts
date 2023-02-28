@@ -1,7 +1,7 @@
 export const theme = {
-    name: 'Stroyka',
+    name: 'UltiSpa',
     author: {
-        name: 'Kos',
-        profile_url: 'https://themeforest.net/user/kos9'
+        name: 'Luis Sanchez',
+        profile_url: 'https://google.com'
     }
 };

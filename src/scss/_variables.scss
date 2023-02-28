@@ -117,15 +117,15 @@
    // light
    $light-color:                    #fff                  !default;
    $light-opposite-color:           #3d464d               !default;
-   $light-opposite-muted-color:     #99bbff                  !default;
+   $light-opposite-muted-color:     #1a66ff                  !default;
    $light-opposite-alt-color:       #6c757d               !default;
    $light-divider-color:            #ebebeb               !default;
    // dark
-   $dark-color:                     $light-opposite-color !default;
-   $dark-opposite-color:            $light-color          !default;
+   $dark-color:                     #fff !default;
+   $dark-opposite-color:            #fff          !default;
    // accent
    $accent-color:                   #3366cc               !default;
-   $accent-opposite-color:          $light-opposite-color !default;
+   $accent-opposite-color:          #fff !default;
    //links
    $link-color:                     #1a66ff               !default;
    $link-hover-color:               #1a66ff               !default;
@@ -557,11 +557,11 @@
          $btn-primary-font-color:        $accent-opposite-color        !default;
          $btn-primary-icon-color:        $btn-primary-font-color       !default;
          // hover
-         $btn-primary-hover-bg-color:    $dark-color                   !default;
+         $btn-primary-hover-bg-color:    #5e5e5e                   !default;
          $btn-primary-hover-font-color:  $dark-opposite-color          !default;
          $btn-primary-hover-icon-color:  $btn-primary-hover-font-color !default;
          // active
-         $btn-primary-active-bg-color:   lighten($dark-color, 10%)     !default;
+         $btn-primary-active-bg-color:   lighten(#5e5e5e, 10%)     !default;
          $btn-primary-active-font-color: $btn-primary-hover-font-color !default;
          $btn-primary-active-icon-color: $btn-primary-hover-icon-color !default;
       // secondary
@@ -570,11 +570,11 @@
          $btn-secondary-font-color:        $light-opposite-color           !default;
          $btn-secondary-icon-color:        $btn-secondary-font-color       !default;
          // hover
-         $btn-secondary-hover-bg-color:    $dark-color                     !default;
+         $btn-secondary-hover-bg-color:    #5e5e5e                     !default;
          $btn-secondary-hover-font-color:  $dark-opposite-color            !default;
          $btn-secondary-hover-icon-color:  $btn-secondary-hover-font-color !default;
          // active
-         $btn-secondary-active-bg-color:   lighten($dark-color, 10%)       !default;
+         $btn-secondary-active-bg-color:   lighten(#5e5e5e, 10%)       !default;
          $btn-secondary-active-font-color: $btn-secondary-hover-font-color !default;
          $btn-secondary-active-icon-color: $btn-secondary-hover-icon-color !default;
       // light

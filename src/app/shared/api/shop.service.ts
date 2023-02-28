@@ -51,6 +51,12 @@ export class ShopService {
      * @param slug - Unique human-readable category identifier.
      */
 
+        /* 
+router.post('/tack-id', API.POST_TRACK_CODE)*/
+
+    getTrackCode(code: any){
+        return this.http.post('http://localhost:3000/api/tack-id', { trackCode: code });
+    }
 
     getFacturacion(id: any){
         return this.http.post('https://www.service.ulti.cl/api/get-orden', { id: id });

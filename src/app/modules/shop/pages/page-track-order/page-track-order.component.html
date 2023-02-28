@@ -1,6 +1,6 @@
 <app-page-header [breadcrumbs]="[
-    {label: 'Home',        url: '/'},
-    {label: 'Track Order', url: ''}
+    {label: 'Inicio',        url: '/'},
+    {label: 'Seguimiento', url: ''}
 ]"></app-page-header>
 
 <div class="block">
@@ -9,22 +9,26 @@
             <div class="col-xl-5 col-lg-6 col-md-8">
                 <div class="card flex-grow-1 mb-0 mt-5">
                     <div class="card-body">
-                        <div class="card-title text-center"><h1>Track Order</h1></div>
+                        <div class="card-title text-center"><h1>Seguimiento</h1></div>
                         <p class="mb-4 pt-2">
-                            Vestibulum sem odio, ullamcorper a imperdiet tincidunt sed magna felis, consequat a erat ut,
-                            rutrum finibus odio.
+                            Para ver el estado de su orden de compra por favor ingrese el Código de Seguimiento.
                         </p>
-                        <form>
+                        <form
+                            [formGroup]="formOrden"
+                        >
                             <div class="form-group">
-                                <label for="track-order-id">Order ID</label>
-                                <input id="track-order-id" type="text" class="form-control" placeholder="Order ID">
+                                <label for="track-order-id">Código de Seguimiento</label>
+                                <input id="track-order-id" type="text" formControlName="Orden" minlength="10" maxlength="11" class="form-control" placeholder="Ingrese código">
+                                <div
+                                *ngIf="errorSeguimiento">
+                                <span class="text-invalid">
+                                    {{ errorSeguimiento }}
+                                </span>
+
                             </div>
-                            <div class="form-group">
-                                <label for="track-email">Email address</label>
-                                <input id="track-email" type="email" class="form-control" placeholder="Email address">
                             </div>
                             <div class="pt-3">
-                                <button type="submit" class="btn btn-primary btn-lg btn-block">Track</button>
+                                <button class="btn btn-primary btn-lg btn-block" (click)="searchOrden()">Seguir Compra</button>
                             </div>
                         </form>
                     </div>

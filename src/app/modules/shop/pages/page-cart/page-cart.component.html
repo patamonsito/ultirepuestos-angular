@@ -1,14 +1,14 @@
-<app-page-header [header]="'Shopping Cart'" [breadcrumbs]="[
-    {label: 'Home',          url: root.home()},
-    {label: 'Shopping Cart', url: ''}
+<app-page-header [header]="'Carro de Compras'" [breadcrumbs]="[
+    {label: 'Inicio',          url: root.home()},
+    {label: 'Carro de Compras', url: ''}
 ]"></app-page-header>
 
 <div class="block block-empty" *ngIf="!items.length">
     <div class="container">
         <div class="block-empty__body">
-            <div class="block-empty__message">Your shopping cart is empty!</div>
+            <div class="block-empty__message">Tu carro esta vacío!</div>
             <div class="block-empty__actions">
-                <a [routerLink]="root.shop()" class="btn btn-primary btn-sm">Continue</a>
+                <a [routerLink]="root.shop()" class="btn btn-primary btn-sm">Continuar</a>
             </div>
         </div>
     </div>
@@ -19,10 +19,10 @@
         <table class="cart__table cart-table">
             <thead class="cart-table__head">
             <tr class="cart-table__row">
-                <th class="cart-table__column cart-table__column--image">Image</th>
-                <th class="cart-table__column cart-table__column--product">Product</th>
-                <th class="cart-table__column cart-table__column--price">Price</th>
-                <th class="cart-table__column cart-table__column--quantity">Quantity</th>
+                <th class="cart-table__column cart-table__column--image">Imagen</th>
+                <th class="cart-table__column cart-table__column--product">Producto</th>
+                <th class="cart-table__column cart-table__column--price">Precio</th>
+                <th class="cart-table__column cart-table__column--quantity">Cantidad</th>
                 <th class="cart-table__column cart-table__column--total">Total</th>
                 <th class="cart-table__column cart-table__column--remove"></th>
             </tr>
@@ -32,7 +32,7 @@
                 <td class="cart-table__column cart-table__column--image">
                     <div *ngIf="item.cartItem.product.images?.length" class="product-image">
                         <a [routerLink]="root.product(item.cartItem.product)" class="product-image__body">
-                            <img class="product-image__img" [src]="item.cartItem.product.images[0]" alt="">
+                            <img class="product-image__img" [src]="'https://www.service.ulti.cl/repuestos/'+item.cartItem.product.images[0]+'.jpg'" alt="">
                         </a>
                     </div>
                 </td>
@@ -58,13 +58,13 @@
 
         <div class="cart__actions">
             <form class="cart__coupon-form">
-                <label for="input-coupon-code" class="sr-only">Password</label>
-                <input type="text" class="form-control" id="input-coupon-code" placeholder="Coupon Code">
-                <button type="submit" class="btn btn-primary">Apply Coupon</button>
+                <label for="input-coupon-code" class="sr-only">Código Promocional</label>
+                <input type="text" class="form-control" id="input-coupon-code" placeholder="Codigo Promocional">
+                <button type="submit" class="btn btn-primary">Aplicar Cupón</button>
             </form>
             <div class="cart__buttons">
-                <a routerLink="/" class="btn btn-light">Continue Shopping</a>
-                <button type="button" class="btn btn-primary cart__update-button" (click)="update()" [ngClass]="{'btn-loading': updating}" [disabled]="!needUpdate()">Update Cart</button>
+                <a routerLink="/" class="btn btn-light">Continuar Comprando</a>
+                <button type="button" class="btn btn-primary cart__update-button" (click)="update()" [ngClass]="{'btn-loading': updating}" [disabled]="!needUpdate()">Actualizar Carro</button>
             </div>
         </div>
 
@@ -72,7 +72,7 @@
             <div class="col-12 col-md-7 col-lg-6 col-xl-5">
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="card-title">Cart Totals</h3>
+                        <h3 class="card-title">Detalle</h3>
 
                         <table class="cart__totals">
                             <thead *ngIf="(cart.totals$|async)?.length" class="cart__totals-header">
@@ -97,7 +97,7 @@
                             </tr>
                             </tfoot>
                         </table>
-                        <a class="btn btn-primary btn-xl btn-block cart__checkout-button" routerLink="./checkout">Proceed to checkout</a>
+                        <a class="btn btn-primary btn-xl btn-block cart__checkout-button" routerLink="./checkout">Ir a pagar</a>
                     </div>
                 </div>
             </div>

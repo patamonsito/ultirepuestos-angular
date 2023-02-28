@@ -64,7 +64,7 @@ export class PageHomeOneComponent implements OnInit, OnDestroy {
             products: [],
             groups: [
                 {
-                    name: 'KITS EMBRAGUE',
+                    name: 'Kits Embrague',
                     current: true,
                     products$: this.shop.getFeaturedProducts('KIT EMBRAGUE', 8),
                 },

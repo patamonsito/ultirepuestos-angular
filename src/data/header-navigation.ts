@@ -11,8 +11,7 @@ export const navigation: NavigationLink[] = [
     //     ]
     // }
 },
-    {label: 'Catalogo', url: '/shop/catalog/power-tools', external: false},
-    {label: 'Modelos', url: '/shop/catalog'},
-    {label: 'Seguimiento', url: '/shop/catalog/power-tools', external: false},
+    {label: 'Catalogo', url: '/shop/catalog', external: false},
+    {label: 'Seguimiento', url: '/shop/track-order', external: false},
     // {label: 'Blog', url: '/shop/catalog/power-tools', external: true}
 ];

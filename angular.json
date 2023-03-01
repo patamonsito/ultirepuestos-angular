@@ -141,7 +141,7 @@
             "inlineStyleLanguage": "scss"
           },
           "configurations": {
-            "production": {
+            "prod": {
               "outputHashing": "media",
               "fileReplacements": [
                 {

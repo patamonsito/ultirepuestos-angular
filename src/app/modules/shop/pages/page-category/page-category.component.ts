@@ -62,12 +62,12 @@ export class PageCategoryComponent implements OnDestroy {
 
             this.breadcrumbs = [
                 {label: 'Inicio', url: this.root.home()},
-                {label: 'Compra', url: this.root.shop()},
+                {label: 'Catalogo', url: this.root.shop()},
             ];
 
             // If categorySlug is undefined then this is a root catalog page.
             if (!this.getCategorySlug()) {
-                this.pageHeader = 'Compra';
+                this.pageHeader = 'Catalogo';
             } else {
                 this.pageHeader = data['category'].name;
 
@@ -207,12 +207,12 @@ export class PageCategoryComponent implements OnDestroy {
 
             this.breadcrumbs = [
                 {label: 'Inicio', url: this.root.home()},
-                {label: 'Compra', url: this.root.shop()},
+                {label: 'Catalogo', url: this.root.shop()},
             ];
 
             // If categorySlug is undefined then this is a root catalog page.
             if (!this.getCategorySlug()) {
-                this.pageHeader = 'Compra';
+                this.pageHeader = 'Catalogo';
             } else {
                 this.pageHeader = data['category'].name;
 
@@ -314,13 +314,13 @@ export class PageCategoryComponent implements OnDestroy {
             console.log(data)
             this.breadcrumbs = [
                 {label: 'Inicio', url: this.root.home()},
-                {label: 'Compra', url: this.root.shop()},
+                {label: 'Catalogo', url: this.root.shop()},
             ];
 
             // If categorySlug is undefined then this is a root catalog page.
             if (!this.getCategorySlug()) {
                 console.log('paso por aqui')
-                this.pageHeader = 'Compra';
+                this.pageHeader = 'Catalogo';
             } else {
                 this.pageHeader = data['category'].name;
 

@@ -1,6 +1,6 @@
 import { MobileMenuItem } from '../app/shared/interfaces/mobile-menu-item';
 
-export const mobileMenu: MobileMenuItem[] = [
+export const mobileMenuOffline: MobileMenuItem[] = [
     {type: 'link', label: 'Inicio', url: '/'},
 
     // {type: 'link', label: 'Categories', url: '/shop/catalog', children: [
@@ -19,6 +19,10 @@ export const mobileMenu: MobileMenuItem[] = [
     {type: 'link', label: 'Catalogo', url: '/shop/catalog'},
     
     {type: 'link', label: 'Seguimiento', url: '/shop/track-order' },
+
+    {type: 'link', label: 'Iniciar Sesion', url: '/account/login'},
+    
+    {type: 'link', label: 'Registrarse', url: '/account/login'},
 
     // {type: 'link', label: 'Shop', url: '/shop/catalog/power-tools', children: [
     //     {type: 'link', label: 'Shop Grid', url: '/shop/catalog/power-tools', children: [
@@ -40,13 +44,6 @@ export const mobileMenu: MobileMenuItem[] = [
     //     {type: 'link', label: 'Compare',     url: '/shop/compare'},
     //     {type: 'link', label: 'Track Order', url: '/shop/track-order'}
     // ]},
-
-    {type: 'link', label: 'Mi cuenta', url: '/account', children: [
-        {type: 'link', label: 'Resumen',       url: '/account/dashboard'},
-        {type: 'link', label: 'Editar Perfil',    url: '/account/profile'},
-        {type: 'link', label: 'Mis Ordenes',   url: '/account/orders'},
-        {type: 'link', label: 'Mis Direcciones',    url: '/account/addresses'},
-    ]},
 
     // {type: 'link', label: 'Blog', url: '/blog', children: [
     //     {type: 'link', label: 'Blog Classic',         url: '/blog/category-classic'},

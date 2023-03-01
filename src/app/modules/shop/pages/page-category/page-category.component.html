@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h3>Seleccione la marca de su vehiculo</h3>
+                <h4>Seleccione marca</h4>
             </div>
             </div>
             <div class="row">
@@ -12,7 +12,7 @@
                 <input type="text" class="form-control mt-2 mb-2" placeholder="Buscar Marca Ejemplo: Chevrolet" (keyup)="searchMarca($any($event.target).value)">
             </div>
         </div>
-        <div class="row">
+        <div class="row" style="justify-content: center;">
             <a appClick class="block-product-columns__column" *ngFor="let marca of Marcas" style="cursor: pointer" (click)="selectedMarca(marca)">
                 <!-- aqui el ngfor  -->
                 <div class="block-product-columns__item"> 

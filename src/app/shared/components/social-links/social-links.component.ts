@@ -18,11 +18,9 @@ export class SocialLinksComponent {
     theme = theme;
 
     items: SocialLinksItem[] = [
-        {type: 'facebook', url: this.theme.author.profile_url, icon: 'fab fa-facebook-f'},
-        {type: 'twitter', url: this.theme.author.profile_url, icon: 'fab fa-twitter'},
-        {type: 'youtube', url: this.theme.author.profile_url, icon: 'fab fa-youtube'},
-        {type: 'instagram', url: this.theme.author.profile_url, icon: 'fab fa-instagram'},
-        {type: 'rss', url: this.theme.author.profile_url, icon: 'fas fa-rss'},
+        {type: 'facebook', url: 'https://www.facebook.com/Ulti-Repuestos-100846552731441', icon: 'fab fa-facebook-f'},
+        {type: 'instagram', url: 'https://www.instagram.com/ultirepuestos/?hl=es-la', icon: 'fab fa-instagram'},
+        {type: 'youtube', url: 'https://www.youtube.com/@ultirepuestos4892', icon: 'fab fa-youtube'},
     ];
 
     @Input() shape: SocialLinksShape = 'circle';

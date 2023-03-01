@@ -13,9 +13,9 @@
                                 <div class="block-slideshow__slide-content">
                                     <div class="block-slideshow__slide-title" [innerHTML]="sanitizer.bypassSecurityTrustHtml(slide.title)"></div>
                                     <div class="block-slideshow__slide-text" [innerHTML]="sanitizer.bypassSecurityTrustHtml(slide.text)"></div>
-                                    <div class="block-slideshow__slide-button">
+                                    <a class="block-slideshow__slide-button" href="/#/shop/catalog">
                                         <span class="btn btn-primary btn-lg">Ver Catalogo</span>
-                                    </div>
+                                    </a>
                                 </div>
                             </a>
                         </ng-template>

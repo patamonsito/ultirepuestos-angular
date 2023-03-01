@@ -61,6 +61,14 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
     },
     {
         _id: 3,
+        name: 'Mercadopago',
+        description: 'Utiliza tu cuenta de Mercadopago o tarjetas de crédito, débito y prepago, de todos los emisores nacionales e internacionales.',
+        permission: [null, '', 'Envio a región', 'Delivery Región Metropolitana', 'Retiro en bodega'],
+        img: 'http://localhost:3000/etc/mercadopago-logo.jpg',
+        active: false
+    },
+    {
+        _id: 4,
         name: 'Transferencia Bancaria',
         description: 'Realiza una transferencia electrónica a nuestra cuenta bancaria Ulti SPA 77612907-0.',
         permission: [null, '', 'Envio a región', 'Delivery Región Metropolitana', 'Retiro en bodega'],
@@ -466,8 +474,8 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
                 this.isApiError = true;
                 this.apiErrorMsg = x;
             }else{
-                if(this.MetodoPago?.value.name == 'Getnet'){
-                    
+                if(this.MetodoPago?.value.name == 'Getnet' || this.MetodoPago?.value.name == 'Mercadopago'){
+                    console.log('mercadopago');
                     window.location.href = x.processUrl;
                     
                 }else if(this.MetodoPago?.value.name == 'WebPay Plus'){

@@ -52,7 +52,7 @@ export class ShopService {
         private http: HttpClient,
         ) { 
 
-            URL = environment.production == false ? 'http://localhost:3000/api' : 'https://service.ulti.cl/api'
+            URL = environment.production == false ? 'http://localhost:3000/api' : 'https://wwww.service.ulti.cl/api'
         }
         
     /**

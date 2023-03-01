@@ -64,7 +64,7 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
         name: 'Mercadopago',
         description: 'Utiliza tu cuenta de Mercadopago o tarjetas de crédito, débito y prepago, de todos los emisores nacionales e internacionales.',
         permission: [null, '', 'Envio a región', 'Delivery Región Metropolitana', 'Retiro en bodega'],
-        img: 'http://localhost:3000/etc/mercadopago-logo.jpg',
+        img: 'https://www.service.ulti.cl/etc/mercadopago-logo.jpg',
         active: false
     },
     {

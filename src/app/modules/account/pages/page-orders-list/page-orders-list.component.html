@@ -21,7 +21,7 @@
                 </tr>
 
                 <tr *ngFor="let order of orders">
-                    <td style="text-align: center;"><a [routerLink]="'https://www.ulti.cl/#/shop/cart/checkout/success?reference=' + order.id">#{{ order.orden }}</a></td>
+                    <td style="text-align: center;"><a href="'https://www.ulti.cl/#/shop/cart/checkout/success?reference=' + order.id" target="_blank">#{{ order.orden }}</a></td>
                     <td style="text-align: center;">{{ order.date.slice(0, 10).split('-').reverse().join('/') }}</td>
                     <td style="text-align: center;" *ngIf="order.status"><div class="badge badge-success">Pagado</div></td>
                     <td style="text-align: center;" *ngIf="!order.status"><div class="badge badge-error">No Pagado</div></td>

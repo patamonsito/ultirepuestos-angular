@@ -10,6 +10,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
     templateUrl: './account-menu.component.html',
     styleUrls: ['./account-menu.component.scss'],
 })
+
+
 export class AccountMenuComponent {
     @Output() closeMenu: EventEmitter<void> = new EventEmitter<void>();
 

@@ -9,7 +9,7 @@
                 <a class="topbar-link" href="https://api.whatsapp.com/send/?phone=56986874327" target="_blank">Contactanos</a>
             </div>
             <div class="topbar__item topbar__item--link">
-                <a class="topbar-link" routerLink="/shop/track-order">Segimiento</a>
+                <a class="topbar-link" routerLink="/shop/track-order">Seguimiento</a>
             </div>
             <div class="topbar__spring"></div>
             <div class="topbar__item">
@@ -21,13 +21,16 @@
 
                     <div class="topbar-dropdown__body">
                         <app-header-menu layout="topbar" (itemClick)="accountDropdown.close()" [items]="[
+                            {label: 'Iniciar Sesión',     url: '/account/login'},
+                        ]" *ngIf="!Logger"></app-header-menu>
+                        <app-header-menu layout="topbar" (itemClick)="accountDropdown.close()" [items]="[
                             {label: 'Panel',     url: '/account/dashboard'},
                             {label: 'Editar Perfil',  url: '/account/profile'},
                             {label: 'Mis Ordenes', url: '/account/orders'},
                             {label: 'Direcciones',     url: '/account/addresses'},
                             {label: 'Contraseña',      url: '/account/password'},
-                            {label: 'Cerrar Sesion',        url: '/account/login'}
-                        ]"></app-header-menu>
+                            {label: 'Cerrar Sesion',        url: '/account/logout'}
+                        ]" *ngIf="Logger"></app-header-menu>
                     </div>
                 </div>
             </div>

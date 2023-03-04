@@ -14,15 +14,34 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
     styleUrls: ['./page-orders-list.component.sass']
 })
 export class PageOrdersListComponent {
-    orders: Partial<Order>[] = orders;
-
+    orders: any[] = orders;
     Usuario$: Observable<Usuario>;
+    id: any;
 
     constructor(private shopService: ShopService, private sharingService: SharingService, private router: Router) {
       this.Usuario$ = sharingService.sharingObservable;
     }
 
     ngOnInit() {
+      this.Usuario$.subscribe(e => {
+        if(!e){
+          window.location.href = '/'
+        }
+        this.id = e.id;
+      })
+      this.sharingService.reloadUsuario(this.id);
+    
+      this.getOrdenes()
 
     }
+
+    getOrdenes(){
+      this.Usuario$.subscribe(e => {
+        this.orders = e.Compras;
+      })
+
+
+    }
+
+
 }

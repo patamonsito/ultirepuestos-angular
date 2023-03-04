@@ -3,7 +3,7 @@ import { Direcciones } from '../../../../shared/interfaces/direcciones';
 import { SharingService } from 'src/app/core/services/sharing.services';
 import { ShopService } from 'src/app/shared/api/shop.service';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from 'src/app/shared/interfaces/usuario';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Regiones } from 'src/app/shared/interfaces/regiones';
@@ -36,14 +36,21 @@ export class PageAddressesListComponent {
 
     idDireccion: string = '';
 
-    constructor(private shopService: ShopService, private sharingService: SharingService, private router: Router) {
+    constructor(private shopService: ShopService, private sharingService: SharingService, private router: Router,
+        private route: ActivatedRoute) {
       this.Usuario$ = sharingService.sharingObservable;
     }
 
 
     ngOnInit() {
+        
         this.Usuario$.subscribe({
-            next: e => { this.addresses = e.Direcciones, this.idUsuario = e.id }
+            next: e => { 
+                if(!e){
+                    this.router.navigate(['../../'], {relativeTo: this.route}).then();
+                }
+                
+                this.addresses = e.Direcciones, this.idUsuario = e.id }
         })
 
        this.shopService.getRegiones().subscribe({

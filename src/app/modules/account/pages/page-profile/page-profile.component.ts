@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { SharingService } from 'src/app/core/services/sharing.services';
 import { ShopService } from 'src/app/shared/api/shop.service';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from 'src/app/shared/interfaces/usuario';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -23,7 +23,7 @@ export class PageProfileComponent {
     fileToUpload: any;
     id: any;
 
-    constructor(private shopService: ShopService, private sharingService: SharingService, private router: Router) {
+    constructor(private shopService: ShopService, private sharingService: SharingService, private router: Router, private route: ActivatedRoute) {
       this.Usuario$ = sharingService.sharingObservable;
 
       this.formPerfil = new FormGroup({
@@ -35,6 +35,10 @@ export class PageProfileComponent {
 
       this.Usuario$.subscribe({
         next: e => {
+          
+            if(!e){
+              this.router.navigate(['../../'], {relativeTo: this.route}).then();
+            }
             this.id = e.id;
             this.editarDireccionForm(e);
         }

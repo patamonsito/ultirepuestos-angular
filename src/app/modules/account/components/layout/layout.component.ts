@@ -11,7 +11,7 @@ export class LayoutComponent {
         {label: 'Editar Perfil', url: './profile'},
         {label: 'Mis Ordenes', url: './orders'},
         {label: 'Direcciones', url: './addresses'},
-        {label: 'Cerrar Sesion', url: './login'}
+        {label: 'Cerrar Sesion', url: './logout'}
     ];
 
     constructor() { }

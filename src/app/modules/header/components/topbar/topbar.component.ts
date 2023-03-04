@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { CurrencyService } from '../../../../shared/services/currency.service';
+import { SharingService } from 'src/app/core/services/sharing.services';
+import { Observable } from 'rxjs';
+import { Usuario } from 'src/app/shared/interfaces/usuario';
 
 interface Currency {
     name: string;
@@ -14,6 +17,10 @@ interface Currency {
     styleUrls: ['./topbar.component.scss']
 })
 export class TopbarComponent {
+
+    Usuario$: Observable<Usuario>;
+    Logger: boolean = false;
+
     languages = [
         {name: 'Español', image: 'language-1'},
     ];
@@ -23,8 +30,23 @@ export class TopbarComponent {
     ];
 
     constructor(
-        public currencyService: CurrencyService
-    ) { }
+        public currencyService: CurrencyService,
+        private sharingService: SharingService,
+    ) {
+        this.Usuario$ = sharingService.sharingObservable; }
+        
+
+
+    ngOnInit() {
+        this.Usuario$.subscribe({
+            next: (e) => {
+                console.log(e, 'eee??')
+                if(e){
+                    this.Logger = true;
+                }
+            }
+        })
+    }
 
     setCurrency(currency: Currency): void {
         this.currencyService.options = {

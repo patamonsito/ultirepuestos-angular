@@ -78,6 +78,10 @@ export class RootService {
         return '/account/login';
     }
 
+    logout(): string {
+        return '/account/logout';
+    }
+
     terms(): string {
         return '/site/terms';
     }

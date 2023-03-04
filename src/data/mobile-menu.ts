@@ -46,6 +46,7 @@ export const mobileMenu: MobileMenuItem[] = [
         {type: 'link', label: 'Editar Perfil',    url: '/account/profile'},
         {type: 'link', label: 'Mis Ordenes',   url: '/account/orders'},
         {type: 'link', label: 'Mis Direcciones',    url: '/account/addresses'},
+        {type: 'link', label: 'Cerrar Sesión',    url: '/account/logout'},
     ]},
 
     // {type: 'link', label: 'Blog', url: '/blog', children: [

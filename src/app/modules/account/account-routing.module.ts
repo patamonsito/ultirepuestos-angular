@@ -9,7 +9,7 @@ import { PageProfileComponent } from './pages/page-profile/page-profile.componen
 import { PagePasswordComponent } from './pages/page-password/page-password.component';
 import { PageOrderDetailsComponent } from './pages/page-order-details/page-order-details.component';
 import { PageEditAddressComponent } from './pages/page-edit-address/page-edit-address.component';
-
+import { PageLogoutComponent } from './pages/page-logout/page-logout.component';
 const routes: Routes = [
     {
         path: '',
@@ -47,6 +47,10 @@ const routes: Routes = [
             {
                 path: 'password',
                 component: PagePasswordComponent
+            },
+            {
+                path: 'logout',
+                component: PageLogoutComponent
             }
         ]
     },

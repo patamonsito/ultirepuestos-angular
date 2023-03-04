@@ -12,7 +12,6 @@ import { ProductsListResolverService } from './resolvers/products-list-resolver.
 import { CategoryResolverService } from './resolvers/category-resolver.service';
 import { ProductResolverService } from './resolvers/product-resolver.service';
 import { PageOrderSuccessComponent } from './pages/page-order-success/page-order-success.component';
-
 const categoryPageData: Data = {
     // Number of products per row. Possible values: 3, 4, 5.
     columns: 3,

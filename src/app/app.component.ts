@@ -74,13 +74,13 @@ export class AppComponent implements OnInit {
             }
         });
         this.cart.onAdding$.subscribe(product => {
-            this.toastr.success(`Product "${product.name}" added to cart!`);
+            this.toastr.success(`"${product.name}" se ha añadido al carrito!`);
         });
         this.compare.onAdding$.subscribe(product => {
-            this.toastr.success(`Product "${product.name}" added to compare!`);
+            this.toastr.success(`"${product.name}" se añadio a la lista de comparar!`);
         });
         this.wishlist.onAdding$.subscribe(product => {
-            this.toastr.success(`Product "${product.name}" added to wish list!`);
+            this.toastr.success(`"${product.name}" se añadio a la lista de deseos!`);
         });
     }
 }

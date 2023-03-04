@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { SharingService } from 'src/app/core/services/sharing.services';
 import { ShopService } from 'src/app/shared/api/shop.service';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from 'src/app/shared/interfaces/usuario';
 import { FormGroup, FormControl, Validators, ValidationErrors } from '@angular/forms';
 
@@ -21,12 +21,17 @@ export class PagePasswordComponent {
     contraseniaCambiada: boolean = false;
     Modal: boolean = false;
 
-    constructor(private shopService: ShopService, private sharingService: SharingService, private router: Router) {
+    constructor(private shopService: ShopService, private sharingService: SharingService, private router: Router, private route: ActivatedRoute) {
       this.Usuario$ = sharingService.sharingObservable;
     }
 
     ngOnInit() {
 
+      this.Usuario$.subscribe(e => { 
+        if(!e){
+          this.router.navigate(['../../'], {relativeTo: this.route}).then();
+      }
+      })
         this.formContrasenia = new FormGroup({
             contrasenia: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]),
             newContrasenia: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]),

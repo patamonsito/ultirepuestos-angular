@@ -24,11 +24,10 @@ export class PageTrackOrderComponent {
 
         this.shopService.getTrackCode(this.Orden?.value).subscribe((e: any) => {
             if(e){
-                let uri = '/#/shop/cart/checkout/success?reference='+this.Orden?.value;
-                console.log(uri);
+                let uri = '/#/shop/cart/checkout/success?reference='+this.Orden?.value.toUpperCase();
                 return window.location.href = uri;
             }else{
-                return this.errorSeguimiento = 'Codigo Invalido.'
+                return this.errorSeguimiento = 'Código Inválido.'
             }
         })
     }

@@ -20,7 +20,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="checkout-first-name">Tipo Documento </label><span class="red"> *</span>
-                                <select class="form-control" formControlName="Documento" (change)="setDelivery()" [ngClass]="Entrega?.touched && Entrega?.valid == false ? 'inputError' : ''">
+                                <select class="form-control" formControlName="Documento" (change)="changeDocument()" [ngClass]="Entrega?.touched && Entrega?.valid == false ? 'inputError' : ''">
                                     <option [ngValue]="null"  selected selected="true" disabled>Seleccione una opción</option>
                                     <option *ngFor="let documento of Documentos" [selected]="documento == Documento?.value" [ngValue]="documento">
                                         {{ documento }}
@@ -32,7 +32,7 @@
                                         Documento?.touched
                                     "
                                 >
-                                <span *ngIf="Entrega?.errors?.['required']" class="text-invalid">
+                                <span *ngIf="Documento?.errors?.['required']" class="text-invalid">
                                     Este campo es obligatorio
                                 </span>
                                 </div>
@@ -613,14 +613,14 @@
                         <table class="checkout__totals">
                             <thead class="checkout__totals-header">
                             <tr>
-                                <th></th>
+                                <th>Img</th>
                                 <th>Producto</th>
                                 <th>Total</th>
                             </tr>
                             </thead>
                             <tbody class="checkout__totals-products">
                             <tr *ngFor="let item of cart.items$|async">
-                                <td><img [src]="'https://www.service.ulti.cl/repuestos/'+item.product.images[0]+'.jpg'" style="max-height: 4rem;"></td>
+                                <td style="width: 4rem;"><img [src]="'https://www.service.ulti.cl/repuestos/'+item.product.images[0]+'.jpg'" style="max-height: 4rem;"></td>
                                 <td>{{ item.product.name }} × {{ item.quantity }}</td>
                                 <td>{{ item.product.price * item.quantity|currencyCLP }}</td>
                             </tr>
@@ -628,17 +628,17 @@
                             <tbody *ngIf="(cart.totals$|async)?.length" class="checkout__totals-subtotals">
                             <tr>
                                 <th>Subtotal</th>
-                                <td>{{ cart.subtotal$|async|currencyCLP }}</td>
+                                <td colspan="2">{{ cart.subtotal$|async|currencyCLP }}</td>
                             </tr>
                             <tr *ngFor="let total of cart.totals$|async">
                                 <th>{{ total.title }}</th>
-                                <td>{{ total.price|currencyCLP }}</td>
+                                <td colspan="2">{{ total.price|currencyCLP }}</td>
                             </tr>
                             </tbody>
                             <tfoot class="checkout__totals-footer">
                             <tr>
                                 <th>Total</th>
-                                <td>{{ cart.total$|async|currencyCLP }}</td>
+                                <td colspan="2">{{ cart.total$|async|currencyCLP }}</td>
                             </tr>
                             </tfoot>
                         </table>

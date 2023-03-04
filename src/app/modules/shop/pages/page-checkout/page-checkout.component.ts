@@ -46,9 +46,9 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
         {
         _id: 1,
         name: 'Getnet',
-        description: 'Paga seguro todo lo que necesitas con Webpay Plus utilizando tus tarjetas de crédito, débito y prepago, de todos los emisores nacionales e internacionales.',
+        description: 'Paga seguro todo lo que necesitas con Getnet utilizando tus tarjetas de crédito, débito y prepago, de todos los emisores nacionales e internacionales.',
         permission: [null, '', 'Envio a región', 'Delivery Región Metropolitana', 'Retiro en bodega'],
-        img: '',
+        img: 'https://www.service.ulti.cl/etc/getnet-logo-full.png',
         active: true
     },
     {
@@ -122,15 +122,15 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
 
         this.formFacturacion = new FormGroup({
             Documento: new FormControl('Boleta', [Validators.required]),
-            Rut: new FormControl('27218434-8', [Validators.required, Validador.validarRUT ]),
+            Rut: new FormControl('', [Validators.required, Validador.validarRUT ]),
             Nombre: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50) ]),
             Apellido: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50) ]),
-            RazonSocial: new FormControl('Luis Sanchez', [Validators.required, Validators.minLength(3), Validators.maxLength(50) ]),
+            RazonSocial: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50) ]),
             Giro: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50) ]),
             DireccionEmpresa:  new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(130) ]),
-            Correo: new FormControl('luisdavid.uni@hotmail.com', [Validators.required, Validators.email ]),
+            Correo: new FormControl('', [Validators.required, Validators.email ]),
             FechaDespacho: new FormControl( null, [Validators.required ]),
-            Entrega: new FormControl('Retiro en Bodega', [Validators.required ]),
+            Entrega: new FormControl(null, [Validators.required ]),
             Telefono: new FormControl('+56', [Validators.required, Validators.minLength(12)]),
             Contraseña: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]),
             ReContraseña: new FormControl('', [Validators.required])
@@ -156,7 +156,15 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
 
 
         this.formPago = new FormGroup({
-            MetodoPago: new FormControl('Getnet', [Validators.required]),
+            MetodoPago: new FormControl(
+                {
+                _id: 1,
+                name: 'Getnet',
+                description: 'Paga seguro todo lo que necesitas con Getnet utilizando tus tarjetas de crédito, débito y prepago, de todos los emisores nacionales e internacionales.',
+                permission: [null, '', 'Envio a región', 'Delivery Región Metropolitana', 'Retiro en bodega'],
+                img: 'https://www.service.ulti.cl/etc/getnet-logo-full.png',
+                active: true
+            }, [Validators.required]),
         });
 
 
@@ -324,6 +332,14 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
          })
     }
 
+
+    changeDocument(){
+        this.Rut?.setValue('');
+        this.Nombre?.setValue('');
+        this.Apellido?.setValue('');
+        this.RazonSocial?.setValue('');
+    }
+
     changeActivePaiment(id: any){
         let result = this.paimentMethod.filter((e: any) => {
             if(e._id == id){
@@ -345,21 +361,6 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
     }
 
     purchase(){
-
-
-        // this.Contrasenia?.setValue('Ninguna');
-        // this.ReContrasenia?.setValue('Ninguna');
-        // this.Agencia?.setValue('Ninguna');
-        // this.NombreD?.setValue('Ninguna');
-        // this.RutD?.setValue('1.111.111-7');
-        // this.Region?.setValue('Ninguna');
-        // this.Comuna?.setValue('Ninguna');
-        // this.Calle?.setValue('Ninguna');
-        // this.Nombre?.setValue('Luis');
-        // this.Telefono?.setValue('+56941054479');
-        // this.Apellido?.setValue('Sanchez');
-        // this.Numero?.setValue('Ninguna');
-        // entregas: string[] = ['Envio a región', 'Delivery Región Metropolitana', 'Retiro en bodega'];
 
         if(!this.nuevoUsuario){
             this.Contrasenia?.setValue('undefined')
@@ -432,6 +433,7 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
 
         let carro: any = localStorage.getItem('cartItems')
 
+        console.log(this.FechaDespacho?.value)
 
         let datos: any = {
             Nombre: this.Nombre?.value,
@@ -490,7 +492,7 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
                     return
 
                 }else{
-                    this.router.navigate(['../seguimiento/' + x.ordenId ], {relativeTo: this.route}).then()
+                    window.location.href = 'https://ulti.cl/#/shop/cart/checkout/success?reference=' + x.ordenId
                 }
             }
           },
@@ -595,7 +597,7 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
 
     // form Direccion
     get NombreD() {
-        return this.formDireccion.get('Nombre');
+        return this.formDireccion.get('NombreD');
     }
     get RutD() {
         return this.formDireccion.get('Rut');

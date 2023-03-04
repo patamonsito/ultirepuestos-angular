@@ -20,7 +20,7 @@
                 <h1 class="order-success__title" style="color: red">No Pagado</h1>
                 <div class="order-success__subtitle">Tu orden ha sido recibida!</div>
                 <div class="order-success__actions">
-                    <a routerLink="/" class="btn btn btn-info">Reintentar el Pago</a>
+                    <a (click)="retryPayment()" class="btn btn btn-info">Reintentar Pago</a>
                 </div>
             </div>
 
@@ -29,9 +29,21 @@
                 <h1 class="order-success__title" style="color: red">No Pagado</h1>
                 <div class="order-success__subtitle">Puedes reintentar el pago o cambiar el metodo de pago.</div>
                 <div class="order-success__actions">
-                    <a routerLink="/" class="btn btn btn-info">Pagar Ahora</a>
+                    <a (click)="retryPayment()" class="btn btn btn-info">Reintentar Pago</a>
                 </div>
             </div>
+
+
+
+            <div class="order-success__header" *ngIf="!orden.estado && metodoPago == 'Mercadopago'">
+                <img src="https://www.service.ulti.cl/etc/mercadopago-logo.jpg" alt="" style="width: 20rem;">
+                <h1 class="order-success__title" style="color: red">No Pagado</h1>
+                <div class="order-success__subtitle">Puedes reintentar el pago o cambiar el metodo de pago.</div>
+                <div class="order-success__actions">
+                    <a (click)="retryPayment()" class="btn btn btn-info">Reintentar Pago</a>
+                </div>
+            </div>
+
 
             <div class="order-success__header" *ngIf="!orden.estado && metodoPago == 'Transferencia Bancaria'">
                 <img src="https://www.service.ulti.cl/etc/santander-logo.png" alt="" style="width: 20rem;">
@@ -63,7 +75,15 @@
                     </li>
                     <li class="order-success__meta-item">
                         <span class="order-success__meta-title">Metodo de Pago:</span>
-                        <span class="order-success__meta-value">{{ orden.metodoPago }}</span>
+                        
+                        <form [formGroup]="formMetodoP">
+                        <select class="form-control" formControlName="MetodoP" (change)="changeMetodo()">
+                            <option *ngFor="let metodo of metodos" [ngValue]="metodo" [selected]="metodo==metodoPago ? true : null" [attr.selected]="metodo==metodoPago ? true : null">
+                                {{ metodo }}
+                            </option>
+                        </select>
+                        </form>
+                        <span class="order-success__meta-value" *ngIf="orden.status">{{ orden.metodoPago }}</span>
                     </li>
                 </ul>
             </div>
@@ -73,9 +93,10 @@
                     <table>
                         <thead class="order-list__header">
                         <tr>
-                            <th class="order-list__column-label" colspan="2">Producto</th>
-                            <th class="order-list__column-quantity">Cant.</th>
-                            <th class="order-list__column-total">Total</th>
+                            <th class="order-list__column-label" colspan="1">Img</th>
+                            <th class="order-list__column-label" colspan="1">Producto</th>
+                            <th class="order-list__column-quantity" colspan="1">Cant.</th>
+                            <th class="order-list__column-total" colspan="2">Total</th>
                         </tr>
                         </thead>
                         <tbody class="order-list__products">
@@ -83,7 +104,7 @@
                             <td class="order-list__column-image">
                                 <div class="product-image">
                                     <a [routerLink]="root.product(item)" class="product-image__body">
-                                        <img class="product-image__img" src="https://www.service.ulti.cl/repuestos/Z900051.jpg" alt="">
+                                        <img class="product-image__img" [src]="'https://www.service.ulti.cl/repuestos/'+item.images[0]+'.jpg'" alt="">
                                     </a>
                                 </div>
                             </td>
@@ -98,18 +119,18 @@
                                     </ul>
                                 </div>
                             </td>
-                            <td class="order-list__column-quantity" data-title="Qty:">{{ item.cantidad }}</td>
-                            <td class="order-list__column-total">{{ item.price|currencyCLP }}</td>
+                            <td class="order-list__column-quantity" data-title="Cant:">{{ item.cantidad }}</td>
+                            <td class="order-list__column-total" colspan="2" style="width: 8rem;">{{ item.price|currencyCLP }}</td>
                         </tr>
                         </tbody>
                         <tbody *ngIf="orden.additionalLines.length > 0" class="order-list__subtotals">
                         <tr>
-                            <th class="order-list__column-label" colspan="3">Subtotal</th>
-                            <td class="order-list__column-total">{{ orden.subtotal|currencyCLP }}</td>
+                            <th class="order-list__column-label" colspan="2">Subtotal</th>
+                            <td class="order-list__column-total" colspan="2">{{ orden.subtotal|currencyCLP }}</td>
                         </tr>
                         <tr *ngFor="let line of orden.additionalLines">
-                            <th class="order-list__column-label" colspan="3">{{ line.label }}</th>
-                            <td class="order-list__column-total">{{ line.total|currencyCLP }}</td>
+                            <th class="order-list__column-label" colspan="2">{{ line.label }}</th>
+                            <td class="order-list__column-total" colspan="2">{{ line.total|currencyCLP }}</td>
                         </tr>
                         </tbody>
                         <tfoot class="order-list__footer">
@@ -121,24 +142,38 @@
                     </table>
                     <div class="card">
                         <div class="order-list">
+                            
+                        <form [formGroup]="formFacturacion">
                     <table>
                         <tr>
                             <td><strong>Codigo Seguimiento:</strong> {{orden.seguimiento}}</td>
                         </tr>
-                        <tr>
-                            <td><strong>Fecha Despacho:</strong> {{ orden.despacho }}</td>
-                        </tr>
+                            <tr>
+                                <td style="display: flex; align-items: center;" *ngIf="!orden.status"><strong style="margin-right: 1rem;">Fecha Despacho:</strong>  <input type="date" class="form-control" formControlName="FechaDespacho" (click)="openDatepicker()" onkeydown="return false" #dateDespacho style="width: 10rem;"></td>
+                            </tr>
+                            <tr>
+                                <td *ngIf="orden.status"><strong>Fecha Despacho:</strong> {{ orden.despacho.split('-').reverse().join('/') }}</td>
+                            </tr>
                         <tr *ngIf="orden.estado">
                             <td><strong>Detalle Seguimiento:</strong> {{ orden.detalleSeguimiento }}</td>
                         </tr>
+                        <tr *ngIf="orden.observaciones">
+                            <td><strong>Nota del Cliente:</strong> {{ orden.observaciones }}</td>
+                        </tr>
                     </table>
+                </form>
                     </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row mt-3 no-gutters mx-n2" *ngIf="orden.entrega == 'Envio a Región' || orden.entrega == 'Delivery Región Metropolitana'" >
-                <div class="col-sm-6 col-12 px-2">
+            
+            <form method="POST" #f style="display: none;">
+                <input type="text" name="token_ws" [value]="token" #i>
+            </form>
+
+            <div class="row mt-3 no-gutters mx-n2">
+                <div class="col-sm-6 col-12 px-2" *ngIf="orden.entrega == 'Envio a región' || orden.entrega == 'Delivery Región Metropolitana'">
                     <div class="card address-card">
                         <div class="address-card__body">
                             <div class="address-card__badge address-card__badge--muted">Dirección de Envio</div>
@@ -150,11 +185,11 @@
                             </div>
                             <div class="address-card__row">
                                 <div class="address-card__row-title">Entrega</div>
-                                <div class="address-card__row-content">{{ orden?.agencia || orden.entrega }}</div>
+                                <div class="address-card__row-content">{{ orden?.agencia == 'Ninguna'? orden.entrega : orden?.agencia || orden.entrega }}</div>
                             </div>
-                            <div class="address-card__row">
-                                <div class="address-card__row-title">Fecha Despacho</div>
-                                <div class="address-card__row-content">{{ orden.despacho }}</div>
+                            <div class="address-card__row" *ngIf="orden.estado">
+                                <div class="address-card__row-title" >Fecha Despacho</div>
+                                <div class="address-card__row-content">{{ orden.despacho.split('-').reverse().join('/') }}</div>
                             </div>
                         </div>
                     </div>
@@ -168,6 +203,22 @@
                                 {{ orden.giro }}<br>
                                 {{ orden.direccion }}
                             </div>
+                            <div class="address-card__row">
+                                <div class="address-card__row-title">Telefono</div>
+                                <div class="address-card__row-content">{{ orden.telefono }}</div>
+                            </div>
+                            <div class="address-card__row">
+                                <div class="address-card__row-title">Correo</div>
+                                <div class="address-card__row-content">{{ orden.correo }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-12 px-2 mt-sm-0 mt-3" *ngIf="orden.documento == 'Boleta'">
+                    <div class="card address-card">
+                        <div class="address-card__body">
+                            <div class="address-card__badge address-card__badge--muted">Boleta</div>
+                            <div class="address-card__name">{{ orden.razonSocial || orden.nombre + ' ' + orden.apellido }} - {{ orden.rut }}</div>
                             <div class="address-card__row">
                                 <div class="address-card__row-title">Telefono</div>
                                 <div class="address-card__row-content">{{ orden.telefono }}</div>

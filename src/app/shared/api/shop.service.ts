@@ -53,6 +53,10 @@ export class ShopService {
 
         /* 
 router.post('/tack-id', API.POST_TRACK_CODE)*/
+        
+    retryPayment(Seguimiento: any, MetodoPago: any, Token: any, FechaDespacho: any){
+        return this.http.post('http://localhost:3000/api/retry-payment', { Seguimiento, MetodoPago, Token, FechaDespacho });
+    }
 
     getTrackCode(code: any){
         return this.http.post('https://www.service.ulti.cl/api/tack-id', { trackCode: code });

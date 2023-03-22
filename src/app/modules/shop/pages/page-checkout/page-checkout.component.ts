@@ -100,7 +100,7 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
     reContraseniaValid: boolean = false;
     nuevoUsuario: boolean = false;
     isPersona: boolean = false;
-    checkoutTerms: boolean = true;
+    checkoutTerms: boolean = false;
     checkoutTermsError: any;
     isApiError = false;
     apiErrorMsg = '';

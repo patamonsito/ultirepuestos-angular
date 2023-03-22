@@ -177,13 +177,13 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
         let maxDespacho: any;
         let saveMinDespacho: any;
         if(today.getDay() == 5){
-            minDespacho = new Date(today.setDate(today.getDate() + 4)).toISOString().split('T')[0];
+            minDespacho = new Date(today.setDate(today.getDate() + 2)).toISOString().split('T')[0];
             saveMinDespacho = new Date(minDespacho)
         }else if(today.getDay() == 6){
-            minDespacho = new Date(today.setDate(today.getDate() + 3)).toISOString().split('T')[0];
+            minDespacho = new Date(today.setDate(today.getDate() + 1)).toISOString().split('T')[0];
             saveMinDespacho = new Date(minDespacho)
         }else{
-            minDespacho = new Date(today.setDate(today.getDate() + 2)).toISOString().split('T')[0];
+            minDespacho = new Date(today.setDate(today.getDate())).toISOString().split('T')[0];
             saveMinDespacho = new Date(minDespacho)
         }
 

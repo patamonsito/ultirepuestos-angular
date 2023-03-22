@@ -30,9 +30,9 @@
             </div> -->
             <ul>
                 <li class="product__meta-availability">Stock: <span class="text-success">{{ product.availability }}</span></li>
-                <li class="d-flex">Marca: {{ product.fabricante }} <img class="ml-2 fabricante-img" [src]="'https://www.service.ulti.cl/fabricantes/' + product.fabricante + '.png'" ></li>
-                <li class="d-flex">Origen: {{ product.origen }} <img class="ml-2 origen-img" [src]="'https://www.service.ulti.cl/countries/' + product.origen?.replace('Ñ', 'NI')?.replace(' ', '_') + '.jpg'"></li>
-                <li>SKU: {{ product.sku }}</li>
+                <li class="d-flex" *ngIf="product.fabricante">Marca: {{ product.fabricante }} <img class="ml-2 fabricante-img" [src]="'https://www.service.ulti.cl/fabricantes/' + product.fabricante + '-.png'" ></li>
+                <li class="d-flex" *ngIf="product.origen">Origen: {{ product.origen }} <img class="ml-2 origen-img" [src]="'https://www.service.ulti.cl/countries/' + product.origen?.replace('Ñ', 'NI')?.replace(' ', '_') + '.jpg'"></li>
+                <li>OEM: {{ product.oem }}</li>
                 <!-- <li>Tarjetas de crédito
                     <div class="paiment-methods d-block w-100">
                         <img class="mr-2" src="https://www.service.ulti.cl/etc/visa.svg" alt="Visa">

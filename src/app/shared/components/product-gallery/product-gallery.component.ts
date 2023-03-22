@@ -55,7 +55,7 @@ export class ProductGalleryComponent implements OnInit, OnDestroy {
     @Input() productLayout: ProductLayout = 'standard';
 
     @Input() set images(images: string[]) {
-        this.items = images.map((image, index) => ({id: `image-${index}`, image: 'https://www.service.ulti.cl/repuestos/'+image+'.jpg'}));
+        this.items = images.map((image, index) => ({id: `image-${index}`, image: image}));
         this.currentItem = this.items[0] || null;
     }
 

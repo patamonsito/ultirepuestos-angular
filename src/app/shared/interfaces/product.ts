@@ -33,6 +33,7 @@ export interface Product {
     slug: string;
     name: string;
     sku: string;
+    oem?: string;
     price: number;
     compareAtPrice: number|null;
     images: string[];

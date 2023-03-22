@@ -30,6 +30,7 @@ export class AccountMenuComponent {
         this.Usuario$ = sharingService.sharingObservable;
     }
 
+    
     ngOnInit() {
         this.formInit();
         this.logger = this.sharingService.logger;

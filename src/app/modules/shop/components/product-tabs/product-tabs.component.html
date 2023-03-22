@@ -19,16 +19,20 @@
                         <table>
                             <thead>
                             <tr>
-                                <th>Marca</th>
-                                <th>Modelo</th>
-                                <th>Años</th>
+                                <th *ngFor="let keyAplication of keyAplications" style="text-align: center;">{{keyAplication}}</th>
                             </tr>
                             </thead>
                             <tbody class="card-table__body card-table__body--merge-rows">
                             <tr *ngFor="let aplication of aplications">
-                                <td>{{ aplication.marca }}</td>
-                                <td>{{ aplication.modelo }}</td>
-                                <td>{{ aplication.anios }}</td>
+                                <td *ngIf="this.keyAplicationsNames[0]" style="text-align: center;">{{ aplication[this.keyAplicationsNames[0]].toString().toUpperCase() }}</td>
+                                <td *ngIf="this.keyAplicationsNames[1]" style="text-align: center;">{{ aplication[this.keyAplicationsNames[1]].toString().toUpperCase() }}</td>
+                                <td *ngIf="this.keyAplicationsNames[2]" style="text-align: center;">{{ aplication[this.keyAplicationsNames[2]].toString().toUpperCase() }}</td>
+                                <td *ngIf="this.keyAplicationsNames[3]" style="text-align: center;">{{ aplication[this.keyAplicationsNames[3]].toString().toUpperCase() }}</td>
+                                <td *ngIf="this.keyAplicationsNames[4]" style="text-align: center;">{{ aplication[this.keyAplicationsNames[4]].toString().toUpperCase() }}</td>
+                                <td *ngIf="this.keyAplicationsNames[5]" style="text-align: center;">{{ aplication[this.keyAplicationsNames[5]].toString().toUpperCase() }}</td>
+                                <td *ngIf="this.keyAplicationsNames[6]" style="text-align: center;">{{ aplication[this.keyAplicationsNames[6]].toString().toUpperCase() }}</td>
+                                <td *ngIf="this.keyAplicationsNames[7]" style="text-align: center;">{{ aplication[this.keyAplicationsNames[7]].toString().toUpperCase() }}</td>
+                                <td *ngIf="this.keyAplicationsNames[8]" style="text-align: center;">{{ aplication[this.keyAplicationsNames[8]].toString().toUpperCase() }}</td>
                             </tr>
                             </tbody>
                         </table>

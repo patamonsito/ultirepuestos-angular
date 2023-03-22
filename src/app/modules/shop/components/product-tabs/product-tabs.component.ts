@@ -15,7 +15,8 @@ export class ProductTabsComponent {
     @Input() tab: 'aplicaciones'|'descripcion' = 'aplicaciones';
 
     aplications: any = [];
-
+    keyAplications: any = [];
+    keyAplicationsNames: any = [];
     specification: ProductFeaturesSection[] = specification;
     reviews: Review[] = reviews;
 
@@ -25,10 +26,18 @@ export class ProductTabsComponent {
 
     ngOnInit(){
         let code = window.location.href.split('/')[window.location.href.split('/').length - 1];
-        this.shop.getAplications(code).subscribe(e => {
+        this.shop.getAplications(code).subscribe((e: any) => {
+
+            this.keyAplications = Object.keys(e[0]).toString().replace('Años,', '').replace('Años', '').replace('AñoI', 'Año Inicio').replace('AñoT', 'Año Termino').replace('[', '').replace(']', '').split(',');
+            this.keyAplicationsNames = Object.keys(e[0]).toString().replace('Años,', '').replace('[', '').replace(']', '').split(',');
+            JSON.parse(JSON.stringify(e).replace('Años: [],', ''))
             this.aplications = e;
+
+
+
         })
     }
 
+    
 
 }

@@ -40,7 +40,7 @@ export class RootService {
         const basePath = '/shop/products';
 
         if ('slug' in product) {
-            return `${basePath}/${product.slug}`;
+            return `${basePath}/${product.id}`;
         }
         if ('id' in product) {
             return `${basePath}/${product.id}`;

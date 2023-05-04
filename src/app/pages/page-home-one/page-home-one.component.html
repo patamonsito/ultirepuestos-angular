@@ -1,4 +1,11 @@
+
+<div class="mantenimiento">
+    <img src="https://i.imgur.com/UII532Y.jpg" style="text-align: center;">
+</div>
+
+
 <app-block-slideshow></app-block-slideshow>
+
 
 <app-block-features layout="boxed"></app-block-features>
 
@@ -12,6 +19,7 @@
     (groupChange)="groupChange(featuredProducts, $event)"
 ></app-block-products-carousel>
 
+
 <app-block-banner></app-block-banner>
 
 <app-block-products header="Populares" layout="large-last" [products]="(bestsellers$|async) || []"></app-block-products>
@@ -19,7 +27,7 @@
 <!-- <app-block-categories header="Categorías" layout="compact" [categories]="(popularCategories$|async) || []"></app-block-categories> -->
 
 <app-block-products-carousel
-    header="Necesitas aceite motor?"
+    header="Todo es suspensión!"
     layout="grid-5"
     [rows]="1"
     [loading]="latestProducts.loading"

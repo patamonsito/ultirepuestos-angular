@@ -44,7 +44,7 @@ export class PageHomeOneComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit(): void {
-        this.bestsellers$ = this.shop.getFeaturedProducts('AMORTIGUADOR', 10);
+        this.bestsellers$ = this.shop.getFeaturedProducts('TERMINALES', 11);
         this.brands$ = this.shop.getPopularBrands();
         this.popularCategories$ = this.shop.getCategoriesBySlug([
             'power-tools',
@@ -54,9 +54,9 @@ export class PageHomeOneComponent implements OnInit, OnDestroy {
             'measurement',
             'clothes-and-ppe',
         ], 1);
-        this.columnTopRated$ = this.shop.getFeaturedProducts('portalon', 3);
-        this.columnSpecialOffers$ = this.shop.getFeaturedProducts('patines', 3);
-        this.columnBestsellers$ = this.shop.getFeaturedProducts('axial', 3);
+        this.columnTopRated$ = this.shop.getFeaturedProducts('DISCOS DE FRENO', 3);
+        this.columnSpecialOffers$ = this.shop.getFeaturedProducts('TAMBORES DE FRENO', 3);
+        this.columnBestsellers$ = this.shop.getFeaturedProducts('BALATAS DE FRENO', 3);
 
         this.featuredProducts = {
             abort$: new Subject<void>(),
@@ -64,24 +64,24 @@ export class PageHomeOneComponent implements OnInit, OnDestroy {
             products: [],
             groups: [
                 {
-                    name: 'Kits Embrague',
+                    name: 'Amortiguadores',
                     current: true,
-                    products$: this.shop.getFeaturedProducts('KIT EMBRAGUE', 8),
+                    products$: this.shop.getFeaturedProducts('AMORTIGUADORES', 8),
                 },
                 {
-                    name: 'Parachoques Delanteros',
+                    name: 'Axiales',
                     current: false,
-                    products$: this.shop.getFeaturedProducts('parachoque delantero', 8),
+                    products$: this.shop.getFeaturedProducts('AXIALES', 8),
                 },
                 {
-                    name: 'Parachoque Traseros',
+                    name: 'Bandejas de Suspensión',
                     current: false,
-                    products$: this.shop.getFeaturedProducts('parachoque trasero', 8),
+                    products$: this.shop.getFeaturedProducts('BANDEJAS DE SUSPENSIÓN', 8),
                 },
                 {
-                    name: 'Frontales',
+                    name: 'Bieletas',
                     current: false,
-                    products$: this.shop.getFeaturedProducts('frontal', 8),
+                    products$: this.shop.getFeaturedProducts('BIELETAS', 8),
                 },
             ],
         };
@@ -93,24 +93,24 @@ export class PageHomeOneComponent implements OnInit, OnDestroy {
             products: [],
             groups: [
                 {
-                    name: 'All',
+                    name: 'Todo',
                     current: true,
-                    products$: this.shop.getFeaturedProducts('ACEITE MOTOR', 8),
+                    products$: this.shop.getFeaturedProducts('', 8),
                 },
                 {
-                    name: 'Empaquetadura culata',
+                    name: 'Pastillas de Freno',
                     current: false,
-                    products$: this.shop.getFeaturedProducts('EMPAQUETADURA CULATA', 8),
+                    products$: this.shop.getFeaturedProducts('PASTILLAS DE FRENO', 8),
                 },
                 {
-                    name: 'pastillas de freno',
+                    name: 'Balatas de Freno',
                     current: false,
                     products$: this.shop.getFeaturedProducts('PASTILLA', 8),
                 },
                 {
-                    name: 'lubricante',
+                    name: 'Rótulas',
                     current: false,
-                    products$: this.shop.getFeaturedProducts('LUBRICANTE', 8),
+                    products$: this.shop.getFeaturedProducts('RÓTULAS', 8),
                 },
             ],
         };

@@ -55,10 +55,12 @@ export class ProductGalleryComponent implements OnInit, OnDestroy {
     @Input() productLayout: ProductLayout = 'standard';
 
     @Input() set images(images: string[]) {
-        this.items = images.map((image, index) => ({id: `image-${index}`, image: image}));
+        this.items = images.map((image, index) => ({id: `image-${index}`, image: image[0] != 'h' ? 'https://www.service.ulti.cl/'+image+'.jpg' : image}));
         this.currentItem = this.items[0] || null;
     }
 
+
+    
     @HostBinding('class.product-gallery') classProductGallery = true;
 
     @ViewChild('featuredCarousel', { read: CarouselComponent }) featuredCarousel!: CarouselComponent;
@@ -142,8 +144,8 @@ export class ProductGalleryComponent implements OnInit, OnDestroy {
             const height = (tag.dataset['height'] && parseFloat(tag.dataset['height'])) || tag.naturalHeight;
 
             return {
-                src: eachItem.image,
-                msrc: eachItem.image,
+                src: eachItem.image[0] != 'h' ? 'https://www.service.ulti.cl/'+eachItem.image+'.jpg' : eachItem.image,
+                msrc: eachItem.image[0] != 'h' ? 'https://www.service.ulti.cl/'+eachItem.image+'.jpg' : eachItem.image,
                 w: width,
                 h: height,
             };

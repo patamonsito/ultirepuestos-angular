@@ -268,7 +268,7 @@
                                     </div>
                                 </div>
                             </div>
-                                <div class="form-group col-md-6">
+                                <!-- <div class="form-group col-md-6">
                                     <label for="checkout-first-name">Agendar Despacho </label><span class="red"> *</span>
                                     <input type="date" class="form-control" formControlName="FechaDespacho" (click)="openDatepicker()" onkeydown="return false" #dateDespacho>
                                     <div
@@ -281,8 +281,8 @@
                                         Este campo es obligatorio
                                     </span>
                                     </div>
-                                </div>
-                                <div class="form-group col-md-6">
+                                </div> -->
+                                <div class="form-group col-md-12">
                                     <label for="checkout-first-name">Envió </label><span class="red"> *</span>
                                     <select class="form-control" formControlName="Entrega" (change)="setDelivery()" [ngClass]="Entrega?.touched && Entrega?.valid == false ? 'inputError' : ''">
                                         <option [ngValue]="null"  selected selected="true" disabled>Seleccione una opción</option>
@@ -620,7 +620,7 @@
                             </thead>
                             <tbody class="checkout__totals-products">
                             <tr *ngFor="let item of cart.items$|async">
-                                <td style="width: 4rem;"><img [src]="item.product.images[0]" style="max-height: 4rem;"></td>
+                                <td style="width: 4rem;"><img [src]=" item.product.images[0][0] != 'h' ? 'https://www.service.ulti.cl/'+item.product.images[0]+'.jpg' : item.product.images[0]" style="max-height: 4rem;"></td>
                                 <td>{{ item.product.name }} × {{ item.quantity }}</td>
                                 <td>{{ item.product.price * item.quantity|currencyCLP }}</td>
                             </tr>

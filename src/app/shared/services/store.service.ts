@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class StoreService {
-    address = 'Huerfanos 1044, Santiago, RM';
+    address = 'Via Lactea 4097, Macul, RM';
     email = 'ventas@ulti.cl';
     phone = ['+56 9 8687 4327'];
     hours = 'Lun-Vie 9:00 - 18:00';

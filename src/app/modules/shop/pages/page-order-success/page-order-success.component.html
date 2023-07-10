@@ -78,7 +78,7 @@
                         
                         <form [formGroup]="formMetodoP">
                         <select class="form-control" formControlName="MetodoP" (change)="changeMetodo()">
-                            <option *ngFor="let metodo of metodos" [ngValue]="metodo" [selected]="metodo==metodoPago ? true : null" [attr.selected]="metodo==metodoPago ? true : null">
+                            <option *ngFor="let metodo of metodos" [ngValue]="metodo" [selected]="metodo==metodoPago ? true : null" disabled [attr.selected]="metodo==metodoPago ? true : null">
                                 {{ metodo }}
                             </option>
                         </select>
@@ -104,7 +104,7 @@
                             <td class="order-list__column-image">
                                 <div class="product-image">
                                     <a [routerLink]="root.product(item)" class="product-image__body">
-                                        <img class="product-image__img" [src]="'https://www.service.ulti.cl/'+item.images[0]+'.jpg'" alt="">
+                                        <img class="product-image__img" [src]=" item.images[0][0] != 'h' ? 'https://www.service.ulti.cl/'+item.images[0]+'.jpg' : item.images[0]" alt="">
                                     </a>
                                 </div>
                             </td>
@@ -148,9 +148,9 @@
                         <tr>
                             <td><strong>Codigo Seguimiento:</strong> {{orden.seguimiento}}</td>
                         </tr>
-                            <tr>
+                            <!-- <tr>
                                 <td style="display: flex; align-items: center;" *ngIf="!orden.status"><strong style="margin-right: 1rem;">Fecha Despacho:</strong>  <input type="date" class="form-control" formControlName="FechaDespacho" (click)="openDatepicker()" onkeydown="return false" #dateDespacho style="width: 10rem;"></td>
-                            </tr>
+                            </tr> -->
                             <tr>
                                 <td *ngIf="orden.status"><strong>Fecha Despacho:</strong> {{ orden.despacho.split('-').reverse().join('/') }}</td>
                             </tr>
@@ -173,7 +173,7 @@
             </form>
 
             <div class="row mt-3 no-gutters mx-n2">
-                <div class="col-sm-6 col-12 px-2" *ngIf="orden.entrega == 'Envio a región' || orden.entrega == 'Delivery Región Metropolitana'">
+                <!-- <div class="col-sm-6 col-12 px-2" *ngIf="orden.entrega == 'Envio a región' || orden.entrega == 'Delivery Región Metropolitana'">
                     <div class="card address-card">
                         <div class="address-card__body">
                             <div class="address-card__badge address-card__badge--muted">Dirección de Envio</div>
@@ -193,7 +193,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-sm-6 col-12 px-2 mt-sm-0 mt-3" *ngIf="orden.documento == 'Factura'">
                     <div class="card address-card">
                         <div class="address-card__body">

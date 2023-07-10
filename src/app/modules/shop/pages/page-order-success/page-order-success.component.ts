@@ -43,9 +43,9 @@ export class PageOrderSuccessComponent {
     ) { 
 
         
-        this.formFacturacion = new FormGroup({
-            FechaDespacho: new FormControl( null, [Validators.required ])
-        });
+        // this.formFacturacion = new FormGroup({
+        //     FechaDespacho: new FormControl( null, [Validators.required ])
+        // });
         
         
         
@@ -93,48 +93,48 @@ export class PageOrderSuccessComponent {
 
     ngAfterViewInit() {
         //get your element here
-        let today = new Date();
-        let minDespacho: any;
-        let maxDespacho: any;
-        let saveMinDespacho: any;
-        if(today.getDay() == 5){
-            minDespacho = new Date(today.setDate(today.getDate() + 2)).toISOString().split('T')[0];
-            saveMinDespacho = new Date(minDespacho)
-        }else if(today.getDay() == 6){
-            minDespacho = new Date(today.setDate(today.getDate() + 1)).toISOString().split('T')[0];
-            saveMinDespacho = new Date(minDespacho)
-        }else{
-            minDespacho = new Date(today.setDate(today.getDate())).toISOString().split('T')[0];
-            saveMinDespacho = new Date(minDespacho)
-        }
+        // let today = new Date();
+        // let minDespacho: any;
+        // let maxDespacho: any;
+        // let saveMinDespacho: any;
+        // if(today.getDay() == 5){
+        //     minDespacho = new Date(today.setDate(today.getDate() + 2)).toISOString().split('T')[0];
+        //     saveMinDespacho = new Date(minDespacho)
+        // }else if(today.getDay() == 6){
+        //     minDespacho = new Date(today.setDate(today.getDate() + 1)).toISOString().split('T')[0];
+        //     saveMinDespacho = new Date(minDespacho)
+        // }else{
+        //     minDespacho = new Date(today.setDate(today.getDate())).toISOString().split('T')[0];
+        //     saveMinDespacho = new Date(minDespacho)
+        // }
 
-        // Maxima fecha
-        if(saveMinDespacho.getDay() == 1){
-            maxDespacho = new Date(saveMinDespacho.setDate(saveMinDespacho.getDate() + 3)).toISOString().split('T')[0];
-        }else if(saveMinDespacho.getDay() == 2){
-            maxDespacho = new Date(saveMinDespacho.setDate(saveMinDespacho.getDate() + 2)).toISOString().split('T')[0];
-        }else if(saveMinDespacho.getDay() == 3){
-            maxDespacho = new Date(saveMinDespacho.setDate(saveMinDespacho.getDate() + 1)).toISOString().split('T')[0];
-        }else{
-            maxDespacho = new Date(saveMinDespacho.setDate(saveMinDespacho.getDate() + 4)).toISOString().split('T')[0];
-        }
-        this.minDespacho = minDespacho;
-        this.maxDespacho = maxDespacho;
-        this.FechaDespacho?.setValue(minDespacho)
+        // // Maxima fecha
+        // if(saveMinDespacho.getDay() == 1){
+        //     maxDespacho = new Date(saveMinDespacho.setDate(saveMinDespacho.getDate() + 3)).toISOString().split('T')[0];
+        // }else if(saveMinDespacho.getDay() == 2){
+        //     maxDespacho = new Date(saveMinDespacho.setDate(saveMinDespacho.getDate() + 2)).toISOString().split('T')[0];
+        // }else if(saveMinDespacho.getDay() == 3){
+        //     maxDespacho = new Date(saveMinDespacho.setDate(saveMinDespacho.getDate() + 1)).toISOString().split('T')[0];
+        // }else{
+        //     maxDespacho = new Date(saveMinDespacho.setDate(saveMinDespacho.getDate() + 4)).toISOString().split('T')[0];
+        // }
+        // this.minDespacho = minDespacho;
+        // this.maxDespacho = maxDespacho;
+        // this.FechaDespacho?.setValue(minDespacho)
 
-        setTimeout(() => {
-            this.dateDespacho.nativeElement.setAttribute('min', minDespacho)
-            this.dateDespacho.nativeElement.setAttribute('max', maxDespacho)
-            this.dateDespacho.nativeElement.setAttribute('value', minDespacho)
+        // setTimeout(() => {
+        //     this.dateDespacho.nativeElement.setAttribute('min', minDespacho)
+        //     this.dateDespacho.nativeElement.setAttribute('max', maxDespacho)
+        //     this.dateDespacho.nativeElement.setAttribute('value', minDespacho)
             
-        }, 1000);
+        // }, 1000);
         
       }
 
 
     retryPayment(){
-        console.log(this.code, this.metodoPago, this.usuarioId, this.FechaDespacho?.value)
-        this.shopService.retryPayment(this.code, this.metodoPago, this.usuarioId, this.FechaDespacho?.value)
+        console.log(this.code, this.metodoPago, this.usuarioId)
+        this.shopService.retryPayment(this.code, this.metodoPago, this.usuarioId)
         .subscribe({
           next: (x: any) => {
             if(typeof(x) === 'string'){
@@ -189,9 +189,9 @@ Cuenta Corriente
     }
 
 
-    get FechaDespacho(){
-        return this.formFacturacion.get('FechaDespacho');
-    }
+    // get FechaDespacho(){
+    //     return this.formFacturacion.get('FechaDespacho');
+    // }
 
     get MetodoP() {
         return this.formMetodoP.get('MetodoP');

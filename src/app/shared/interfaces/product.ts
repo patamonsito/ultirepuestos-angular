@@ -32,6 +32,10 @@ export interface Product {
     id: number;
     slug: string;
     name: string;
+    name2?: string;
+    marca?: string;
+    modelo?: string;
+    anios?: string;
     sku: string;
     oem?: string;
     price: number;

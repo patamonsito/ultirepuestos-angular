@@ -16,7 +16,7 @@ export const mobileMenu: MobileMenuItem[] = [
     //     ]}
     // ]},
 
-    {type: 'link', label: 'Catalogo', url: '/shop/catalog'},
+    // {type: 'link', label: 'Catalogo', url: '/shop/catalog'},
     
     {type: 'link', label: 'Seguimiento', url: '/shop/track-order' },
 

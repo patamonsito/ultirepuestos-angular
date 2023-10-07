@@ -59,13 +59,25 @@ export class CompareService implements OnDestroy {
     }
 
     private save(): void {
-        localStorage.setItem('compareItems', JSON.stringify(this.data.items));
+        if (typeof localStorage !== 'undefined') {
+            // Accede a localStorage aquí
+            localStorage.setItem('compareItems', JSON.stringify(this.data.items));
+          }
+
 
         this.itemsSubject$.next(this.data.items);
     }
 
     private load(): void {
-        const items = localStorage.getItem('compareItems');
+
+        let items: any;
+
+        if (typeof localStorage !== 'undefined') {
+            // Accede a localStorage aquí
+            localStorage.getItem('compareItems');
+          }else{
+            items = null
+          }
 
         if (items) {
             this.data.items = JSON.parse(items);

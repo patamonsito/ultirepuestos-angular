@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { 
+    ChangeDetectionStrategy, ChangeDetectorRef, Component, 
+    Input, OnChanges, OnDestroy, OnInit, SimpleChanges 
+} from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 import { CartService } from '../../services/cart.service';
 import { Product, ProductAttribute } from '../../interfaces/product';
 import { WishlistService } from '../../services/wishlist.service';
@@ -6,8 +12,6 @@ import { CompareService } from '../../services/compare.service';
 import { QuickviewService } from '../../services/quickview.service';
 import { RootService } from '../../services/root.service';
 import { CurrencyService } from '../../services/currency.service';
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
 
 @Component({
     selector: 'app-product-card',
@@ -38,9 +42,7 @@ export class ProductCardComponent implements OnInit, OnDestroy, OnChanges {
     ) { }
 
     ngOnInit(): void {
-        this.currency.changes$.pipe(takeUntil(this.destroy$)).subscribe(() => {
-            this.cd.markForCheck();
-        });
+        this.currency.changes$.pipe(takeUntil(this.destroy$)).subscribe(() => this.cd.markForCheck());
     }
 
     ngOnDestroy(): void {
@@ -49,66 +51,49 @@ export class ProductCardComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        // if ('product' in changes) {
-        //     this.featuredAttributes = !this.product ? [] : this.product.attributes.filter(x => x.featured);
-        // }
+        if (changes['product'] && changes['product'].currentValue) {
+            this.featuredAttributes = this.product.attributes.filter(x => x.featured);
+        }
+    }
 
-        this.featuredAttributes = [];
+    private toggleStatus(target: 'addingToCart' | 'addingToWishlist' | 'addingToCompare' | 'showingQuickview', status: boolean): void {
+        this[target] = status;
+        this.cd.markForCheck();
     }
 
     addToCart(): void {
-        if (this.addingToCart) {
-            return;
+        if (!this.addingToCart) {
+            this.toggleStatus('addingToCart', true);
+            this.cart.add(this.product, 1).subscribe({
+                complete: () => this.toggleStatus('addingToCart', false)
+            });
         }
-
-        this.addingToCart = true;
-        this.cart.add(this.product, 1).subscribe({
-            complete: () => {
-                this.addingToCart = false;
-                this.cd.markForCheck();
-            }
-        });
     }
 
     addToWishlist(): void {
-        if (this.addingToWishlist) {
-            return;
+        if (!this.addingToWishlist) {
+            this.toggleStatus('addingToWishlist', true);
+            this.wishlist.add(this.product).subscribe({
+                complete: () => this.toggleStatus('addingToWishlist', false)
+            });
         }
-
-        this.addingToWishlist = true;
-        this.wishlist.add(this.product).subscribe({
-            complete: () => {
-                this.addingToWishlist = false;
-                this.cd.markForCheck();
-            }
-        });
     }
 
     addToCompare(): void {
-        if (this.addingToCompare) {
-            return;
+        if (!this.addingToCompare) {
+            this.toggleStatus('addingToCompare', true);
+            this.compare.add(this.product).subscribe({
+                complete: () => this.toggleStatus('addingToCompare', false)
+            });
         }
-
-        this.addingToCompare = true;
-        this.compare.add(this.product).subscribe({
-            complete: () => {
-                this.addingToCompare = false;
-                this.cd.markForCheck();
-            }
-        });
     }
 
     showQuickview(): void {
-        if (this.showingQuickview) {
-            return;
+        if (!this.showingQuickview) {
+            this.toggleStatus('showingQuickview', true);
+            this.quickview.show(this.product).subscribe({
+                complete: () => this.toggleStatus('showingQuickview', false)
+            });
         }
-
-        this.showingQuickview = true;
-        this.quickview.show(this.product).subscribe({
-            complete: () => {
-                this.showingQuickview = false;
-                this.cd.markForCheck();
-            }
-        });
     }
 }

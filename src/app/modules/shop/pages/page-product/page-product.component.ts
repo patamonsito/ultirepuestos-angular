@@ -28,7 +28,7 @@ export class PageProductComponent implements OnInit {
         this.route.data.subscribe(data => {
             this.layout = data['layout'] || this.layout;
             this.sidebarPosition = data['sidebarPosition'] || this.sidebarPosition;
-            let code = window.location.href.split('/')[window.location.href.split('/').length - 1];
+            let code = this.route.snapshot.paramMap.get('productSlug') || '';
 
             this.shop.getProduct(code).subscribe((e: any) =>{
                 this.product = e;

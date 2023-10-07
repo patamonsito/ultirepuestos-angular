@@ -38,7 +38,11 @@ export class SharingService {
             .subscribe({
                 error: (err) => console.log(err),
                 next: (data: any) => {
-                    localStorage.setItem('Usuario', JSON.stringify(data));
+                    if (typeof localStorage !== 'undefined') {
+                        // Accede a localStorage aquí
+                        localStorage.setItem('Usuario', JSON.stringify(data));
+                    }
+
                     if(!data?.id){
                         this.sharingObservablePrivate.next({
                             Apellido: '',
@@ -68,8 +72,12 @@ export class SharingService {
             .subscribe({
                 error: (err) => console.log(err),
                 next: (data: any) => {
-                    localStorage.setItem('Usuario', JSON.stringify(data));
-                    console.log(data)
+
+                    if (typeof localStorage !== 'undefined') {
+                        // Accede a localStorage aquí
+                        localStorage.setItem('Usuario', JSON.stringify(data));
+                        console.log(data)
+                    }
                     if(!data?.id){
                         this.sharingObservablePrivate.next({
                             Apellido: '',
@@ -84,6 +92,7 @@ export class SharingService {
                         this.sharingObservablePrivate.next(data)
                         this.logger = true;
                     }
+
                 },
             });
     }
@@ -91,15 +100,20 @@ export class SharingService {
 
 
     cerrarSesion(){
-        localStorage.removeItem('Usuario');
-        this.sharingObservablePrivate.next({
-            Apellido: '',
-            Contraseña: '',
-            Correo: '',
-            Nombre: '',
-            Rut: '',
-            Telefono: '',
-        });
+
+        if (typeof localStorage !== 'undefined') {
+            // Accede a localStorage aquí
+            localStorage.removeItem('Usuario');
+            this.sharingObservablePrivate.next({
+                Apellido: '',
+                Contraseña: '',
+                Correo: '',
+                Nombre: '',
+                Rut: '',
+                Telefono: '',
+            });
+          }
+
         this.logger = false;
     }
 }

@@ -60,13 +60,25 @@ export class WishlistService implements OnDestroy {
     }
 
     private save(): void {
-        localStorage.setItem('wishlistItems', JSON.stringify(this.data.items));
+        if (typeof localStorage !== 'undefined') {
+            // Accede a localStorage aquí
+            localStorage.setItem('wishlistItems', JSON.stringify(this.data.items));
+        }
+
 
         this.itemsSubject$.next(this.data.items);
     }
 
     private load(): void {
-        const items = localStorage.getItem('wishlistItems');
+
+        let items;
+
+        if (typeof localStorage !== 'undefined') {
+            // Accede a localStorage aquí
+            items = localStorage.getItem('wishlistItems');
+          }else{
+            items = null
+          }
 
         if (items) {
             this.data.items = JSON.parse(items);

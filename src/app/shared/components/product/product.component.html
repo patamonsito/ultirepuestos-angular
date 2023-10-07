@@ -1,100 +1,72 @@
 <div class="product product--layout--{{ layout }}" *ngIf="product">
-    <div class="product__content">
-        <!-- .product__gallery -->
+    <section class="product__content">
+        
+        <!-- Galería del Producto -->
         <div class="product__gallery">
             <app-product-gallery [productLayout]="layout" [images]="product.images"></app-product-gallery>
         </div>
-        <!-- .product__gallery / end -->
-        <!-- .product__info -->
-        <div class="product__info">
+
+        <!-- Información del Producto -->
+        <article class="info">
+            
             <div class="product__wishlist-compare">
-                <button type="button" class="btn btn-sm btn-light btn-svg-icon" data-toggle="tooltip" data-placement="right" title="Wishlist"
+                <button aria-label="Agregar a lista de deseos" type="button" class="btn btn-sm btn-light btn-svg-icon" data-toggle="tooltip" data-placement="right" title="Wishlist"
                         appClick (click)="addToWishlist()"
                         [ngClass]="{'btn-loading': addingToWishlist}">
                     <app-icon name="wishlist-16" size="16"></app-icon>
                 </button>
-                <!-- <button type="button" class="btn btn-sm btn-light btn-svg-icon" data-toggle="tooltip" data-placement="right" title="Compare"
-                        appClick (click)="addToCompare()"
-                        [ngClass]="{'btn-loading': addingToCompare}">
-                    <app-icon name="compare-16" size="16"></app-icon>
-                </button> -->
             </div>
+
+            <!-- Título del Producto -->
             <h1 class="product__name">{{ product.name2 }}</h1>
-            <!-- <div class="product__rating">
-                <div class="product__rating-stars">
-                    <app-rating [value]="product.rating"></app-rating>
+            
+            <!-- Detalles del Producto -->
+            <div class="product-details">
+                <div class="product-detail" *ngIf="product.marca">Marca: {{ product.marca }}</div>
+                <div class="product-detail" *ngIf="product.modelo">Modelo: {{ product.modelo }}</div>
+                <div class="product-detail" *ngIf="product.anios">Años: {{ product.anios }}</div>
+                <div class="product-detail product-detail--availability" *ngIf="product.availability == 'Agotado'">Stock: <span class="availability-out-of-stock">{{ product.availability }}</span></div>
+                <div class="product-detail product-detail--availability" *ngIf="product.availability == 'Disponible'">Stock: <span class="availability-in-stock">{{ product.availability }}</span></div>
+                <div class="product-detail" *ngIf="product.fabricante">Marca: {{ product.fabricante }}</div>
+                <div class="product-detail" *ngIf="product.origen">Origen: {{ product.origen }}</div>
+                <div class="product-detail" *ngIf="product.oem">OEM: {{ product.oem }}</div>
+                <div class="product-detail">
+                    <img class="product-detail__image" src="https://www.service.ulti.cl/etc/envios.jpg" alt="Enviós a todo Chile">
                 </div>
-                <div class="product__rating-legend">
-                    <a href="" appClick>{{ product.reviews }} Reviews</a><span>/</span><a href="" appClick>Write A Review</a>
-                </div>
-            </div> -->
-            <ul>
-                <li *ngIf="product.marca">Marca: {{ product.marca }}</li>
-                <li *ngIf="product.modelo">Modelo: {{ product.modelo }}</li>
-                <li *ngIf="product.anios">Años: {{ product.anios }}</li>
-                <li class="product__meta-availability" *ngIf="product.availability == 'Agotado'">Stock: <span style="color: red">{{ product.availability }}</span></li>
-                <li class="product__meta-availability" *ngIf="product.availability == 'Disponible'">Stock: <span class="text-success">{{ product.availability }}</span></li>
-                <li  *ngIf="product.fabricante">Marca: {{ product.fabricante }}</li>
-                <li *ngIf="product.origen">Origen: {{ product.origen }}</li>
-                <li *ngIf="product.oem">OEM: {{ product.oem }}</li>
-                <!-- <li>Tarjetas de crédito
-                    <div class="paiment-methods d-block w-100">
-                        <img class="mr-2" src="https://www.service.ulti.cl/etc/visa.svg" alt="Visa">
-                        <img class="mr-2" src="https://www.service.ulti.cl/etc/msater-card.svg" alt="master card">
-                        <img class="mr-2" src="https://www.service.ulti.cl/etc/america-express.svg" alt="america express">
-                        <img src="https://www.service.ulti.cl/etc/dinner-club.svg" alt="dinner club">
-                    </div>
-                </li> -->
-                <!-- <li>Metodos de Pago
-                    <div class="paiment-methods d-block w-100">
-                        <img class="mr-2" src="https://www.service.ulti.cl/etc/webpay.svg" alt="webpay plus">
-                        <img src="https://www.service.ulti.cl/etc/visa-debito.svg" alt="visa debito">
-                        </div>
-                    <div class="paiment-methods d-block w-100">
-                        <img class="mr-2" src="https://www.service.ulti.cl/etc/master-card-debito.svg" alt="master card debito">
-                        <img src="https://www.service.ulti.cl/etc/red-compra.svg" alt="red compra">
-                    </div>
-                </li> -->
-                <li>
-                    <div class="paiment-methods d-block w-100">
-                        <img class="mr-2" src="https://www.service.ulti.cl/etc/envios.jpg" alt="Enviós a todo chile" style="max-width: 17rem;">
-                    </div>
-                </li>
-
-            </ul>
-
-        <!-- .product__info / end -->
-        <!-- .product__sidebar -->
-        <div class="product__sidebar">
-            <div class="product__availability">
-                Stock: <span class="text-success" *ngIf="product.availability == 'Agotado'">{{ product.availability}}</span>
-                Stock: <span class="text-success" *ngIf="product.availability == 'Disponible'">{{ product.availability}}</span>
             </div>
+        </article>
 
+        <!-- Barra Lateral del Producto -->
+        <aside class="product__sidebar">
+            <div class="product__availability">
+                Stock: <span class="text-success" *ngIf="product.availability == 'Agotado'">{{ product.availability }}</span>
+                Stock: <span class="text-success" *ngIf="product.availability == 'Disponible'">{{ product.availability }}</span>
+            </div>
+            
             <div class="product__prices">
                 <ng-container *ngIf="product.compareAtPrice">
-                    <span class="product__new-price">{{ product.price|currencyCLP }}</span>{{ ' ' }}
+                    <span class="product__new-price">{{ product.price|currencyCLP }}</span>
                     <span class="product__old-price">{{ product.compareAtPrice|currencyCLP }}</span>
                 </ng-container>
                 <ng-container *ngIf="!product.compareAtPrice">
                     {{ product.price|currencyCLP }}
                 </ng-container>
             </div>
-            <!-- .product__options -->
+
             <form class="product__options" *ngIf="product.availability == 'Disponible'">
                 <div class="form-group product__option">
-                    <label class="product__option-label">Cantidad</label>
+                    <label class="product__option-label" for="product-quantity">Cantidad</label>
                     <div class="product__actions">
                         <div class="product__actions-item">
-                            <app-input-number aria-label="Cantidad" class="product__quantity" size="lg" [min]="1" [formControl]="quantity"></app-input-number>
+                            <app-input-number id="product-quantity" aria-label="Cantidad" class="product__quantity" size="lg" [min]="1" [formControl]="quantity"></app-input-number>
                         </div>
                         <div class="product__actions-item product__actions-item--addtocart">
-                            <button type="button" class="btn btn-primary btn-lg"
+                            <button aria-label="Agregar al carrito" type="button" class="btn btn-primary btn-lg"
                                     [ngClass]="{'btn-loading': addingToCart}"
                                     appClick (click)="addToCart()">Agregar al carro</button>
                         </div>
                         <div class="product__actions-item product__actions-item--wishlist">
-                            <button type="button" class="btn btn-secondary btn-svg-icon btn-lg" data-toggle="tooltip" title="Wishlist"
+                            <button aria-label="Agregar a lista de deseos" type="button" class="btn btn-secondary btn-svg-icon btn-lg" data-toggle="tooltip" title="Wishlist"
                                     [ngClass]="{'btn-loading': addingToWishlist}"
                                     appClick (click)="addToWishlist()">
                                 <app-icon name="wishlist-16" size="16"></app-icon>
@@ -103,39 +75,15 @@
                     </div>
                 </div>
             </form>
-            <form class="product__options" *ngIf="product.availability == 'Agotado'">
-                <div class="form-group product__option">
-                    <label class="product__option-label">Cantidad</label>
-                    <div class="product__actions">
-                        <div class="product__actions-item">
-                            <app-input-number aria-label="Cantidad" class="product__quantity" size="lg" [min]="1" [formControl]="quantity"></app-input-number>
-                        </div>
-                        <div class="product__actions-item product__actions-item--addtocart">
-                            <button type="button" disabled class="btn btn-secondary btn-lg"
-                                    [ngClass]="{'btn-loading': addingToCart}"
-                                    appClick>Producto Agotado</button>
-                        </div>
-                        <div class="product__actions-item product__actions-item--wishlist">
-                            <button type="button" class="btn btn-secondary btn-svg-icon btn-lg" data-toggle="tooltip" title="Wishlist"
-                                    [ngClass]="{'btn-loading': addingToWishlist}"
-                                    appClick (click)="addToWishlist()">
-                                <app-icon name="wishlist-16" size="16"></app-icon>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <!-- .product__options / end -->
-        </div>
-        <!-- .product__end -->
-        <div class="product__footer">
-            <div class="product__tags tags">
+        </aside>
+
+        <!-- Pie de Página del Producto -->
+        <footer class="product__footer">
+            <nav class="product__tags tags">
                 <div class="tags__list">
-                    <!-- <a href="" appClick>Mounts</a>
-                    <a href="" appClick>Electrodes</a>
-                    <a href="" appClick>Chainsaws</a> -->
+                    <!-- Inserta las etiquetas aquí -->
                 </div>
-            </div>
+            </nav>
 
             <app-share-buttons
                 class="product__share-buttons"
@@ -144,6 +92,6 @@
                 [pageTitle]="product.name"
                 [pageImage]="product.images[0]|absoluteUrl:'html'"
             ></app-share-buttons>
-        </div>
-    </div>
+        </footer>
+    </section>
 </div>

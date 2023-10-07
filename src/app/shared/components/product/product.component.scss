@@ -20,3 +20,25 @@
 li{
     margin-bottom: 0.1rem;
 }
+
+.product-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-detail {
+    margin-bottom: 10px;
+}
+
+.product-detail--availability span.availability-out-of-stock {
+    color: red;
+}
+
+.product-detail--availability span.availability-in-stock {
+    color: green;
+}
+
+.product-detail__image {
+    max-width: 17rem;
+    margin-right: 8px;
+}

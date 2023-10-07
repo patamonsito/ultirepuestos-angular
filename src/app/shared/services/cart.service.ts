@@ -164,11 +164,24 @@ export class CartService {
     }
 
     private save(): void {
-        localStorage.setItem('cartItems', JSON.stringify(this.data.items));
+
+        if (typeof localStorage !== 'undefined') {
+            // Accede a localStorage aquí
+            localStorage.setItem('cartItems', JSON.stringify(this.data.items));
+          }
+
     }
 
     private load(): void {
-        const items = localStorage.getItem('cartItems');
+
+        let items;
+
+        if (typeof localStorage !== 'undefined') {
+            // Accede a localStorage aquí
+            items = localStorage.getItem('cartItems');
+        }else{
+            items =  null
+        }
 
         if (items) {
             this.data.items = JSON.parse(items);

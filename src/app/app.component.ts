@@ -27,8 +27,18 @@ export class AppComponent implements OnInit {
         private scroller: ViewportScroller,
         private currency: CurrencyService
     ) {
-       let data: any = localStorage.getItem('Usuario')
-       sharingService.sharingObservableData = JSON.parse(data)
+
+        let data: any;
+
+        if (typeof localStorage !== 'undefined') {
+            // Accede a localStorage aquí
+            data = localStorage.getItem('Usuario')
+        }else{
+            data = '{}'
+        }
+        
+        sharingService.sharingObservableData = JSON.parse(data)
+
         
         if (isPlatformBrowser(this.platformId)) {
             this.zone.runOutsideAngular(() => {

@@ -431,7 +431,13 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
             return;
         }
 
-        let carro: any = localStorage.getItem('cartItems')
+        let carro: any = [];
+
+        if (typeof localStorage !== 'undefined') {
+            // Accede a localStorage aquí
+            carro = localStorage.getItem('cartItems')
+          }
+
 
         console.log(this.FechaDespacho?.value)
 

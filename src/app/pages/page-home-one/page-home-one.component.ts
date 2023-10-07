@@ -44,7 +44,7 @@ export class PageHomeOneComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit(): void {
-        this.bestsellers$ = this.shop.getFeaturedProducts('TERMINALES', 11);
+        this.bestsellers$ = this.shop.getFeaturedProducts(' ', 11);
         this.brands$ = this.shop.getPopularBrands();
         this.popularCategories$ = this.shop.getCategoriesBySlug([
             'power-tools',
@@ -54,9 +54,9 @@ export class PageHomeOneComponent implements OnInit, OnDestroy {
             'measurement',
             'clothes-and-ppe',
         ], 1);
-        this.columnTopRated$ = this.shop.getFeaturedProducts('DISCOS DE FRENO', 3);
-        this.columnSpecialOffers$ = this.shop.getFeaturedProducts('TAMBORES DE FRENO', 3);
-        this.columnBestsellers$ = this.shop.getFeaturedProducts('BALATAS DE FRENO', 3);
+        this.columnTopRated$ = this.shop.getFeaturedProducts('MASCARA', 3);
+        this.columnSpecialOffers$ = this.shop.getFeaturedProducts('RADIADOR', 3);
+        this.columnBestsellers$ = this.shop.getFeaturedProducts('REJILLA', 3);
 
         this.featuredProducts = {
             abort$: new Subject<void>(),
@@ -64,19 +64,19 @@ export class PageHomeOneComponent implements OnInit, OnDestroy {
             products: [],
             groups: [
                 {
-                    name: 'Amortiguadores',
+                    name: 'Kits',
                     current: true,
-                    products$: this.shop.getFeaturedProducts('AMORTIGUADORES', 8),
+                    products$: this.shop.getFeaturedProducts('KIT', 8),
                 },
                 {
-                    name: 'Axiales',
+                    name: 'Frontales',
                     current: false,
-                    products$: this.shop.getFeaturedProducts('AXIALES', 8),
+                    products$: this.shop.getFeaturedProducts('FRONTAL', 8),
                 },
                 {
-                    name: 'Bandejas de Suspensión',
+                    name: 'Cazoletas',
                     current: false,
-                    products$: this.shop.getFeaturedProducts('BANDEJAS DE SUSPENSIÓN', 8),
+                    products$: this.shop.getFeaturedProducts('CAZOLETA', 8),
                 },
                 {
                     name: 'Bieletas',
@@ -93,24 +93,24 @@ export class PageHomeOneComponent implements OnInit, OnDestroy {
             products: [],
             groups: [
                 {
-                    name: 'Todo',
+                    name: 'Amortiguadores',
                     current: true,
-                    products$: this.shop.getFeaturedProducts('', 8),
+                    products$: this.shop.getFeaturedProducts('AMORTIGUADOR', 8),
                 },
                 {
                     name: 'Pastillas de Freno',
                     current: false,
-                    products$: this.shop.getFeaturedProducts('PASTILLAS DE FRENO', 8),
+                    products$: this.shop.getFeaturedProducts('PASTILLAS', 8),
                 },
                 {
                     name: 'Balatas de Freno',
                     current: false,
-                    products$: this.shop.getFeaturedProducts('PASTILLA', 8),
+                    products$: this.shop.getFeaturedProducts('BALATA', 8),
                 },
                 {
                     name: 'Rótulas',
                     current: false,
-                    products$: this.shop.getFeaturedProducts('RÓTULAS', 8),
+                    products$: this.shop.getFeaturedProducts('ROTULA', 8),
                 },
             ],
         };

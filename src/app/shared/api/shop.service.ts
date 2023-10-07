@@ -7,6 +7,7 @@ import { Product } from '../interfaces/product';
 import { Usuario } from '../interfaces/usuario';
 import { Direcciones } from '../interfaces/direcciones';
 import { Regiones } from '../interfaces/regiones';
+import { environment } from 'src/environments/environment';
 import { ProductsList } from '../interfaces/list';
 import { SerializedFilterValues } from '../interfaces/filter';
 import {
@@ -42,8 +43,8 @@ export interface Correo {
 
 
 
-
 export class ShopService {
+    private apiUrl = environment.apiUrl;
     // noinspection JSUnusedLocalSymbols
     constructor(
         private http: HttpClient,
@@ -56,77 +57,77 @@ export class ShopService {
      */
 
         /* 
-router.post('/tack-id', API.POST_TRACK_CODE)*/
+router.post('/tack-id`, API.POST_TRACK_CODE)*/
         
     retryPayment(Seguimiento: any, MetodoPago: any, Token: any){
-        return this.http.post('https://www.service.ulti.cl/api/retry-payment', { Seguimiento, MetodoPago, Token });
+        return this.http.post(`${this.apiUrl}retry-payment`, { Seguimiento, MetodoPago, Token });
     }
 
     getTrackCode(code: any){
-        return this.http.post('https://www.service.ulti.cl/api/tack-id', { trackCode: code });
+        return this.http.post(`${this.apiUrl}tack-id`, { trackCode: code });
     }
 
     getFacturacion(id: any){
-        return this.http.post('https://www.service.ulti.cl/api/get-orden', { id: id });
+        return this.http.post(`${this.apiUrl}get-orden`, { id: id });
     }
     searchProductFast(id: any){
-        return this.http.post('https://www.service.ulti.cl/api/get-products-fast', { Buscar: id });
+        return this.http.post(`${this.apiUrl}get-products-fast`, { Buscar: id });
     }
 
     getAplications(id: any){
-        return this.http.post('https://www.service.ulti.cl/api/get-aplications', { id }); 
+        return this.http.post(`${this.apiUrl}get-aplications`, { id }); 
     }
 
 
     searchProductsByCodeModel(Page: any, CodigoModelo: any, Key: any = ''){
 
-        return this.http.post('https://www.service.ulti.cl/api/products/model', { Page, CodigoModelo, Key });
+        return this.http.post(`${this.apiUrl}products/model`, { Page, CodigoModelo, Key });
     }
 
     searchProducts(key: any, options: any){
-        return this.http.post('https://www.service.ulti.cl/api/get-products', { ...key, ...options});
+        return this.http.post(`${this.apiUrl}get-products`, { ...key, ...options});
     }
 
     getMarcas(){
-        return this.http.get('https://www.service.ulti.cl/api/marcas-vehiculos');
+        return this.http.get(`${this.apiUrl}marcas-vehiculos`); 
     }
 
     buscarModelos(nombre: any){
-        return this.http.post('https://www.service.ulti.cl/api/models', {nombre: nombre});
+        return this.http.post(`${this.apiUrl}models`, {nombre: nombre});
     }
 
     generarOrdenCompra(body: any){
-        return this.http.post('https://www.service.ulti.cl/api/generar-orden', body);
-        // return this.http.post('https://www.service.ulti.cl/api/generar-orden', body);
+        return this.http.post(`${this.apiUrl}generar-orden`, body);
+        // return this.http.post(`${this.apiUrl}generar-orden`, body);
     }
 
     actualizarUsuario(body: any, id: string){
-        return this.http.patch('https://www.service.ulti.cl/api/user/'+id, body);
+        return this.http.patch(`${this.apiUrl}user/`+id, body);
     }
 
     registrarUsuario(body: Usuario){
-        return this.http.post('https://www.service.ulti.cl/api/crear-usuario', body);
+        return this.http.post(`${this.apiUrl}crear-usuario`, body);
     }
 
     changePassword(body: any){
-        return this.http.post('https://www.service.ulti.cl/api/change-password', body);
+        return this.http.post(`${this.apiUrl}change-password`, body);
     }
 
     getRegiones(){
-        return this.http.get<Regiones[]>('https://www.service.ulti.cl/api/get-regiones');
+        return this.http.get<Regiones[]>(`${this.apiUrl}get-regiones`); 
     }
 
 
     añadirDireccion(body: Direcciones){
-        return this.http.post('https://www.service.ulti.cl/api/add-direccion', body);
+        return this.http.post(`${this.apiUrl}add-direccion`, body);
     }
 
     actualizarDireccion(body: Direcciones){
-        return this.http.post('https://www.service.ulti.cl/api/update-direccion', body);
+        return this.http.post(`${this.apiUrl}update-direccion`, body);
     }
 
     eliminarDireccion(id: string){
-        return this.http.delete('https://www.service.ulti.cl/api/eliminar-direccion/'+id);
+        return this.http.delete(`${this.apiUrl}eliminar-direccion/`+id);
     }
 
     getCategory(slug: string): Observable<Category> {
@@ -146,7 +147,7 @@ router.post('/tack-id', API.POST_TRACK_CODE)*/
 
 
     suscribirCorreo(correo: string){
-        return this.http.post('https://www.service.ulti.cl/api/suscribir', {Correo: correo});
+        return this.http.post(`${this.apiUrl}suscribir`, {Correo: correo});
     }
 
     /**
@@ -170,7 +171,7 @@ router.post('/tack-id', API.POST_TRACK_CODE)*/
         //     depth: depth.toString(),
         // };
         //
-        return this.http.post<Category[]>('https://www.service.ulti.cl/api/categorias', {});
+        return this.http.post<Category[]>(`${this.apiUrl}categorias`, {});
 
         // This is for demonstration purposes only. Remove it and use the code above.
         // return getShopCategoriesTree(parent ? parent.slug : null, depth);
@@ -197,10 +198,10 @@ router.post('/tack-id', API.POST_TRACK_CODE)*/
         //     depth: depth.toString(),
         // };
         //
-        // return this.http.get<Category[]>('https://example.com/api/shop/categories.json', {params});
+        // return this.http.get<Category[]>('https://example.com/api/shop/categories.json`, {params});
 
         // This is for demonstration purposes only. Remove it and use the code above.
-        return this.http.post<Category[]>('https://www.service.ulti.cl/api/categorias', {});
+        return this.http.post<Category[]>(`${this.apiUrl}categorias`, {});
         // return getShopCategoriesBySlugs(slugs, depth);
     }
 
@@ -246,7 +247,7 @@ router.post('/tack-id', API.POST_TRACK_CODE)*/
         //     Object.keys(options.filterValues).forEach(slug => params[`filter_${slug}`] = options.filterValues[slug]);
         // }
         //
-        // return this.http.get<ProductsList>('https://example.com/api/products.json', {params});
+        // return this.http.get<ProductsList>('https://example.com/api/products.json`, {params});
 
         // This is for demonstration purposes only. Remove it and use the code above.
         return getProductsList(categorySlug, options);
@@ -266,7 +267,7 @@ router.post('/tack-id', API.POST_TRACK_CODE)*/
         // This is for demonstration purposes only. Remove it and use the code above.
 
 
-        return this.http.post('https://www.service.ulti.cl/api/product', {id: id});
+        return this.http.post(`${this.apiUrl}product`, {id: id});
     }
 
     /**
@@ -278,7 +279,7 @@ router.post('/tack-id', API.POST_TRACK_CODE)*/
          *
          * https://example.com/api/shop/brands/popular.json
          */
-        // return this.http.get<Brand[]>('https://example.com/api/shop/brands/popular.json');
+        // return this.http.get<Brand[]>('https://example.com/api/shop/brands/popular.json`); 
 
         // This is for demonstration purposes only. Remove it and use the code above.
         return getBrands();
@@ -299,9 +300,9 @@ router.post('/tack-id', API.POST_TRACK_CODE)*/
         //     params.limit = limit.toString();
         // }
         //
-        // return this.http.get<Product[]>('https://example.com/api/shop/products/bestsellers.json', {params});
+        // return this.http.get<Product[]>('https://example.com/api/shop/products/bestsellers.json`, {params});
 
-        return this.http.post<Product[]>('https://www.service.ulti.cl/api/productos-populares', {});
+        return this.http.post<Product[]>(`${this.apiUrl}productos-populares`, {});
         // This is for demonstration purposes only. Remove it and use the code above.
         // return getBestsellers(limit);
     }
@@ -322,9 +323,9 @@ router.post('/tack-id', API.POST_TRACK_CODE)*/
         //     params.limit = limit.toString();
         // }
         //
-        // return this.http.get<Product[]>('https://example.com/api/shop/products/bestsellers.json', {params});
+        // return this.http.get<Product[]>('https://example.com/api/shop/products/bestsellers.json`, {params});
 
-        return this.http.post<Product[]>('https://www.service.ulti.cl/api/productos-populares', { Repuesto: repuesto});
+        return this.http.post<Product[]>(`${this.apiUrl}productos-populares`, { Repuesto: repuesto});
         // This is for demonstration purposes only. Remove it and use the code above.
         // return getBestsellers(limit);
     }
@@ -345,7 +346,7 @@ router.post('/tack-id', API.POST_TRACK_CODE)*/
         //     params.limit = limit.toString();
         // }
         //
-        // return this.http.get<Product[]>('https://example.com/api/shop/products/top-rated.json', {params});
+        // return this.http.get<Product[]>('https://example.com/api/shop/products/top-rated.json`, {params});
 
         // This is for demonstration purposes only. Remove it and use the code above.
         return getTopRated(limit);
@@ -366,7 +367,7 @@ router.post('/tack-id', API.POST_TRACK_CODE)*/
         //     params.limit = limit.toString();
         // }
         //
-        // return this.http.get<Product[]>('https://example.com/api/shop/products/special-offers.json', {params});
+        // return this.http.get<Product[]>('https://example.com/api/shop/products/special-offers.json`, {params});
 
         // This is for demonstration purposes only. Remove it and use the code above.
         return getSpecialOffers(limit);
@@ -392,7 +393,7 @@ router.post('/tack-id', API.POST_TRACK_CODE)*/
         // }
         //
 
-        return this.http.post<Product[]>('https://www.service.ulti.cl/api/ofertas', { Repuesto: categorySlug, limit: limit, Public: true });
+        return this.http.post<Product[]>(`${this.apiUrl}ofertas`, { Repuesto: categorySlug, limit: limit, Public: true });
 
         // This is for demonstration purposes only. Remove it and use the code above. 
         // return getFeatured(categorySlug, limit);
@@ -417,9 +418,9 @@ router.post('/tack-id', API.POST_TRACK_CODE)*/
         //     params.limit = limit.toString();
         // }
         //
-        // return this.http.get<Product[]>('https://example.com/api/shop/products/latest.json', {params});
+        // return this.http.get<Product[]>('https://example.com/api/shop/products/latest.json`, {params});
 
-        return this.http.post<Product[]>('https://www.service.ulti.cl/api/productos-relacionados', { Repuesto: categorySlug });
+        return this.http.post<Product[]>(`${this.apiUrl}productos-relacionados`, { Repuesto: categorySlug });
         // This is for demonstration purposes only. Remove it and use the code above.
         return getLatestProducts(categorySlug, limit);
     }
@@ -437,7 +438,7 @@ router.post('/tack-id', API.POST_TRACK_CODE)*/
         //     for: product.slug,
         // };
         //
-        // return this.http.get<Product[]>('https://example.com/api/shop/products/related.json', {params});
+        // return this.http.get<Product[]>('https://example.com/api/shop/products/related.json`, {params});
 
         // This is for demonstration purposes only. Remove it and use the code above.
         return getRelatedProducts(product);
@@ -460,7 +461,7 @@ router.post('/tack-id', API.POST_TRACK_CODE)*/
         //     params.category = categorySlug;
         // }
         //
-        // return this.http.get<Product[]>('https://example.com/api/search/suggestions.json', {params});
+        // return this.http.get<Product[]>('https://example.com/api/search/suggestions.json`, {params});
 
         // This is for demonstration purposes only. Remove it and use the code above.
         return getSuggestions(query, limit, categorySlug);
@@ -468,6 +469,6 @@ router.post('/tack-id', API.POST_TRACK_CODE)*/
 
 
     // getUser(query: string): Observable<Product[]> {
-    //     // return this.http.post<Product[]>('https://example.com/api/search/suggestions.json', {params});
+    //     // return this.http.post<Product[]>('https://example.com/api/search/suggestions.json`, {params});
     // }
 }

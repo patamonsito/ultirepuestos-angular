@@ -21,6 +21,7 @@ import { Category } from '../../interfaces/category';
 import { DOCUMENT } from '@angular/common';
 import { CartService } from '../../services/cart.service';
 
+
 export type SearchLocation = 'header' | 'indicator' | 'mobile-header';
 
 export type CategoryWithDepth = Category & {depth: number};
@@ -93,7 +94,7 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy {
         });
 
         this.form.get('query')?.valueChanges.pipe(
-            throttleTime(500, asyncScheduler, {leading: true, trailing: true}),
+            debounceTime(500),
             takeUntil(this.destroy$),
         ).subscribe(e => {
 

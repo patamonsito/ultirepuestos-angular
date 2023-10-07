@@ -40,7 +40,6 @@ export class TopbarComponent {
     ngOnInit() {
         this.Usuario$.subscribe({
             next: (e) => {
-                console.log(e, 'eee??')
                 if(e){
                     this.Logger = true;
                 }

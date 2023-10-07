@@ -3,7 +3,6 @@ import { Product } from '../../../../shared/interfaces/product';
 import { ActivatedRoute } from '@angular/router';
 import { ShopService } from '../../../../shared/api/shop.service';
 import { Observable } from 'rxjs';
-import { Params } from '@angular/router';
 
 @Component({
     selector: 'app-page-product',
@@ -28,12 +27,11 @@ export class PageProductComponent implements OnInit {
         this.route.data.subscribe(data => {
             this.layout = data['layout'] || this.layout;
             this.sidebarPosition = data['sidebarPosition'] || this.sidebarPosition;
-            let code = this.route.snapshot.paramMap.get('productSlug') || '';
 
-            this.shop.getProduct(code).subscribe((e: any) =>{
-                this.product = e;
-            }
-            )
+
+            console.log(this.route.snapshot.data)
+
+            this.product = this.route.snapshot.data["datos"];
 
             this.shop.getFeaturedProducts().subscribe((e: any) => {
                 this.products = e;

@@ -22,9 +22,15 @@ export class ProductResolverService implements Resolve<Product> {
 
         console.log(productSlug);
         // Hacer el request !
-        return this.shop.getProduct(productSlug).subscribe((e: any) => {
-            return e;
-        })
+        return this.shop.getProduct(productSlug).pipe(
+            catchError(error => {
+                if (error instanceof HttpErrorResponse && error.status === 404) {
+                    this.router.navigate([this.root.notFound()]).then();
+                }
+
+                return EMPTY;
+            })
+        );
 
         return this.shop.getProduct(productSlug).pipe(
             catchError(error => {

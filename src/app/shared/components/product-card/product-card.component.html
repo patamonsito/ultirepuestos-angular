@@ -26,10 +26,12 @@
             <a appClick [routerLink]="root.product(product)">{{ product.name }}</a>
         </div>
         <div class="product-card__fabricante">
-            <img class="fabricante-img" [src]="'https://www.service.ulti.cl/fabricantes/' + product.fabricante + '-.png'" style="max-width: 6rem;">
+            <img class="fabricante-img" (error)="onError($event)" [src]="'https://www.service.ulti.cl/fabricantes/' + product.fabricante + '-.png'" style="max-width: 6rem;">
+            <span style="display:none;">{{product.fabricante}}</span>
         </div>
         <div class="product-card__origen" *ngIf="product.origen">
-            <img class="origen-img" [src]="'https://www.service.ulti.cl/countries/' + product.origen?.replace('Ñ', 'NI')?.replace(' ', '_') + '.jpg'" style="max-width: 8rem;">
+            <img class="origen-img" (error)="onError($event)" [src]="'https://www.service.ulti.cl/countries/' + product.origen?.replace('Ñ', 'NI')?.replace(' ', '_') + '.jpg'" style="max-width: 8rem;">
+            <span style="display:none;">{{product.origen}}</span>
         </div>
         <!-- <div class="product-card__rating">
             <app-rating [value]="product.rating"></app-rating>

@@ -51,7 +51,7 @@ export class ProductCardComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes['product'] && changes['product'].currentValue) {
+        if (changes['product'] && changes['product'].currentValue && changes['product'].currentValue.attributes) {
             this.featuredAttributes = this.product.attributes.filter(x => x.featured);
         }
     }
@@ -96,4 +96,10 @@ export class ProductCardComponent implements OnInit, OnDestroy, OnChanges {
             });
         }
     }
+
+    onError(event: any) {
+        event.target.setAttribute('style', 'display: none !important'); // Ocultar la imagen
+        event.target.nextElementSibling.style.display = 'block'; // Mostrar el span con el texto alt
+      }
+
 }

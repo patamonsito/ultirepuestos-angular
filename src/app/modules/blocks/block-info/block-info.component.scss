@@ -1,0 +1,24 @@
+.block-split {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    &__item-content,
+    &__item-image {
+        flex: 1;
+        min-width: calc(50% - 10px);
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .block-split__item-content,
+    .block-split__item-image {
+        min-width: 100%;
+    }
+}

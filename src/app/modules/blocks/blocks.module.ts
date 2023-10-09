@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 
+// modules custom
+import { BlockInfoComponent } from './block-info/block-info.component';
 // modules (angular)
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -29,6 +31,7 @@ import { BlockHeaderComponent } from './components/block-header/block-header.com
 @NgModule({
     declarations: [
         // blocks
+        BlockInfoComponent,
         BlockBannerComponent,
         BlockBrandsComponent,
         BlockCategoriesComponent,
@@ -54,6 +57,7 @@ import { BlockHeaderComponent } from './components/block-header/block-header.com
     ],
     exports: [
         // blocks
+        BlockInfoComponent,
         BlockBannerComponent,
         BlockBrandsComponent,
         BlockCategoriesComponent,

@@ -7,6 +7,8 @@ import { Product } from '../../shared/interfaces/product';
 import { Category } from '../../shared/interfaces/category';
 import { BlockHeaderGroup } from '../../shared/interfaces/block-header-group';
 import { takeUntil, tap } from 'rxjs/operators';
+import { Title } from '@angular/platform-browser';
+import { Meta } from '@angular/platform-browser';
 
 interface ProductsCarouselGroup extends BlockHeaderGroup {
     products$: Observable<Product[]>;
@@ -40,10 +42,20 @@ export class PageHomeOneComponent implements OnInit, OnDestroy {
     latestProducts!: ProductsCarouselData;
 
     constructor(
+        private titleService: Title,
+        private metaService: Meta,
         private shop: ShopService,
     ) { }
 
     ngOnInit(): void {
+
+        this.titleService.setTitle('ULTI | Repuestos Chile');
+        this.metaService.addTag({ 
+            name: 'description', 
+            content: `En Chile somos líderes en repuestos para autos de marcas como Chevrolet, Nissan, Hyundai y más. Calidad y experiencia en el mercado automotriz.` 
+          });
+
+
         this.bestsellers$ = this.shop.getFeaturedProducts(' ', 11);
         this.brands$ = this.shop.getPopularBrands();
         this.popularCategories$ = this.shop.getCategoriesBySlug([

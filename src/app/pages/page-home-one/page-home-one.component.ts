@@ -81,7 +81,7 @@ export class PageHomeOneComponent implements OnInit, OnDestroy {
                 {
                     name: 'Bieletas',
                     current: false,
-                    products$: this.shop.getFeaturedProducts('BIELETAS', 8),
+                    products$: this.shop.getFeaturedProducts('BIELETA', 8),
                 },
             ],
         };

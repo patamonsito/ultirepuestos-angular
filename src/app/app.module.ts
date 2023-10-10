@@ -35,7 +35,7 @@ import { CoreModule } from './core/core.module';
 
 import { SharingService } from 'src/app/core/services/sharing.services'
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 @NgModule({
     declarations: [
@@ -68,7 +68,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
         CoreModule
     ],
     providers: [
-        {provide: LocationStrategy, useClass: HashLocationStrategy},
+        {provide: LocationStrategy, useClass: PathLocationStrategy},
         SharingService
         // { provide: LOCALE_ID, useValue: 'it' }
     ],

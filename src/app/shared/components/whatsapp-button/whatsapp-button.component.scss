@@ -48,20 +48,20 @@
 }
 
 
-.particle {
-    position: absolute;
-    width: 40px; /* Tamaño de la partícula, ajústalo según tu necesidad */
-    height: 40px;
-    background-image: url('https://cdn-icons-png.flaticon.com/256/6535/6535045.png'); /* Reemplaza esto con la ruta de tu imagen */
-    background-size: cover;
-    animation: rotateAround 5s linear infinite;
-    top: 50%;
-    left: 50%;
-    transform-origin: 50% -70px;
-}
+// .particle {
+//     position: absolute;
+//     width: 40px; /* Tamaño de la partícula, ajústalo según tu necesidad */
+//     height: 40px;
+//     background-image: url('https://cdn-icons-png.flaticon.com/256/6535/6535045.png'); /* Reemplaza esto con la ruta de tu imagen */
+//     background-size: cover;
+//     animation: rotateAround 5s linear infinite;
+//     top: 50%;
+//     left: 50%;
+//     transform-origin: 50% -70px;
+// }
 
-@keyframes rotateAround {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
+// @keyframes rotateAround {
+//     0% { transform: rotate(0deg); }
+//     100% { transform: rotate(360deg); }
+// }
 

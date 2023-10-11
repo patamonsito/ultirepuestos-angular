@@ -48,7 +48,7 @@
                         <label>Foto de perfil</label>
                         <input type="file" name="Avatar" class="form-control" enctype="multipart/form-data" formControlName="img" (change)="onImageChangeFromFile($event)" [ngClass]="img?.touched && img?.valid == false ? 'inputError' : ''">
                         <div>
-                            <img [src]="'https://www.service.ulti.cl/'+(Usuario$|async)?.Avatar" alt="Imagen de perfil" style="max-width: 10rem;max-height: 10rem">
+                            <img [src]="'https://service.ulti.cl/'+(Usuario$|async)?.Avatar" alt="Imagen de perfil" style="max-width: 10rem;max-height: 10rem">
                         </div>
                     </div>
 

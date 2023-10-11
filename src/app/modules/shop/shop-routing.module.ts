@@ -45,11 +45,7 @@ const routes: Routes = [
         path: 'products/:productSlug',
         component: PageProductComponent,
         data: {
-            // Product page layout. Possible values: 'standard', 'columnar', 'sidebar'.
             layout: 'standard',
-            // Sidebar position. Possible values: 'start', 'end'.
-            // It does not matter if the value of the 'layout' parameter is not 'sidebar'.
-            // For LTR scripts "start" is "left" and "end" is "right".
             sidebarPosition: 'start'
         },
         resolve: {

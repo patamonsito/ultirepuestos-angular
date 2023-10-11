@@ -47,6 +47,12 @@ import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
 import { ProductGalleryComponent } from './components/product-gallery/product-gallery.component';
 import { currencyCLP } from './pipes/currency-clp.pipe'
 import { telefono } from './pipes/telefono-format.pipe';
+
+
+//Custom
+//Componentes
+import { WhatsappButtonComponent } from './components/whatsapp-button/whatsapp-button.component';
+
 @NgModule({
     declarations: [
         // directives
@@ -64,6 +70,7 @@ import { telefono } from './pipes/telefono-format.pipe';
         AppFormatRut,
         AppFormatTelefono,
         // components
+        WhatsappButtonComponent,
         AlertComponent,
         IconComponent,
         InputNumberComponent,
@@ -118,6 +125,7 @@ import { telefono } from './pipes/telefono-format.pipe';
         AppFormatRut,
         AppFormatTelefono,
         // components
+        WhatsappButtonComponent,
         AlertComponent,
         IconComponent,
         InputNumberComponent,

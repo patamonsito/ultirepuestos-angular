@@ -1,15 +1,16 @@
-<app-page-header [header]="'Inicar Sesión - Registro'" [breadcrumbs]="[
+<app-page-header [header]="'Iniciar Sesion | Registrarse'" [breadcrumbs]="[
     {label: 'Inicio',       url: '/'},
-    {label: 'Inicar Sesión', url: ''}
+    {label: 'Iniciar Sesion | Registrarse', url: ''}
 ]"></app-page-header>
 
-<div class="block" *ngIf="!registed">
-    <div class="container">
+<div class="block">
+    <div class="container" >
         <div class="row">
-            <div class="col-md-6 d-flex" *ngIf="register == false">
+            <!-- Login Section -->
+            <div class="col-md-6 d-flex" *ngIf="registed"> 
                 <div class="card flex-grow-1 mb-md-0">
                     <div class="card-body">
-                        <h3 class="card-title">Inicar Sesión</h3>
+                        <h3 class="card-title">Iniciar Sesion</h3>
                         <form (ngSubmit)="verificarUsuario()" [formGroup]="formLogin">
                             <div class="form-group">
                                 <label>Correo</label>
@@ -34,9 +35,6 @@
                                 <small class="form-text text-muted">
                                     <a href="javascript:void(0)">Olvide mi Contraseña</a>
                                 </small>
-                                <small class="form-text text-muted">
-                                    <a href="javascript:void(0)" (click)="register = true">No tienes cuenta? Registrate.</a>
-                                </small>
                             </div>
                             <div class="form-group">
                                 <div class="form-check">
@@ -53,15 +51,16 @@
                             <span *ngIf="loginError" class="text-invalid">
                                 {{loginError}}
                             </span>
-                            <button type="submit" class="btn btn-primary mt-2 mt-md-3 mt-lg-4">Iniciar Sesión</button>
+                            <button type="submit" class="btn btn-primary mt-2 mt-md-3 mt-lg-4">Login</button>
                         </form>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 d-flex mt-4 mt-md-0" *ngIf="register == true">
+            <!-- Register Section -->
+            <div class="col-md-6 d-flex mt-4 mt-md-0" *ngIf="registed">
                 <div class="card flex-grow-1 mb-0">
                     <div class="card-body">
-                        <h3 class="card-title">Registrarse</h3>
+                        <h3 class="card-title">Register</h3>
                         <form (ngSubmit)="crearUsuario()" [formGroup]="formRegistro">
                             <div class="form-group">
                                 <label>Nombre</label>
@@ -138,21 +137,27 @@
                                     La Contraseñas no son iguales
                                 </span>
                             </div>
+                            <small class="form-text text-muted">
+                                <a href="javascript:void(0)" (click)="register = true">Ya tienes cuenta? Iniciar Sesion.</a>
+                            </small>
 
                             
                             <div *ngIf="mensaje" class="text-invalid">
                                 {{mensaje}}
                             </div>
-
-                            <button type="submit" class="btn btn-primary mt-2 mt-md-3 mt-lg-4">Registrarse</button>
+                            <button type="submit" class="btn btn-primary mt-2 mt-md-3 mt-lg-4">Register</button>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div class="col-md-12 d-flex" *ngIf="!registed"> 
+                <div class="confirmation-card flex-grow-1 mb-md-0">
+                    <img src="https://i.imgur.com/nFw9FRh.jpeg" alt="Confirmation Image">
+                    <h3 class="card-title">Registro Exitoso !</h3>
+                    <p>Te has registrado con exito por favor <strong style="color:green">Verifica tu correo para activar tu cuenta</strong>, si no lo encuentras recuerda tambien verificar en <strong>correo no deseado</strong>.</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div *ngIf="registed">
-<p>Te has registrado con exito !</p>
-</div>

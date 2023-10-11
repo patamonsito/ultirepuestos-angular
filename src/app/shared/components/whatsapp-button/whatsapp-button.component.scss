@@ -1,0 +1,67 @@
+.whatsapp-container {
+    position: fixed;
+    bottom: 3%;
+    left: 3%; /* Movido hacia la izquierda */
+    z-index: 9999;
+}
+
+  .whatsapp-floating-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #25D366;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+  }
+  
+  .whatsapp-floating-btn:hover {
+    transform: scale(1.1);
+  }
+  
+  .whatsapp-message {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    max-width: 200px; /* O lo que prefieras */
+    text-align: center;
+    animation-name: fadeIn;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  
+.fa-whatsapp:before {
+    content: "\f232";
+    font-size: 2.6rem;
+    position: absolute;
+    color: white;
+}
+
+
+.particle {
+    position: absolute;
+    width: 40px; /* Tamaño de la partícula, ajústalo según tu necesidad */
+    height: 40px;
+    background-image: url('https://cdn-icons-png.flaticon.com/256/6535/6535045.png'); /* Reemplaza esto con la ruta de tu imagen */
+    background-size: cover;
+    animation: rotateAround 5s linear infinite;
+    top: 50%;
+    left: 50%;
+    transform-origin: 50% -70px;
+}
+
+@keyframes rotateAround {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+

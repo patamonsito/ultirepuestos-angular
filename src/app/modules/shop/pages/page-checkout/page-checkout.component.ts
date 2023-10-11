@@ -48,7 +48,7 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
         name: 'Getnet',
         description: 'Paga seguro todo lo que necesitas con Getnet utilizando tus tarjetas de crédito, débito y prepago, de todos los emisores nacionales e internacionales.',
         permission: [null, '', 'Envio a región', 'Delivery Región Metropolitana', 'Retiro en bodega'],
-        img: 'https://www.service.ulti.cl/etc/getnet-logo-full.png',
+        img: 'https://service.ulti.cl/etc/getnet-logo-full.png',
         active: true
     },
     {
@@ -56,7 +56,7 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
         name: 'WebPay Plus',
         description: 'Paga seguro todo lo que necesitas con Webpay Plus utilizando tus tarjetas de crédito, débito y prepago, de todos los emisores nacionales e internacionales.',
         permission: [null, '', 'Envio a región', 'Delivery Región Metropolitana', 'Retiro en bodega'],
-        img: 'https://www.service.ulti.cl/etc/webpay-plus-full.png',
+        img: 'https://service.ulti.cl/etc/webpay-plus-full.png',
         active: false
     },
     {
@@ -64,7 +64,7 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
         name: 'Mercadopago',
         description: 'Utiliza tu cuenta de Mercadopago o tarjetas de crédito, débito y prepago, de todos los emisores nacionales e internacionales.',
         permission: [null, '', 'Envio a región', 'Delivery Región Metropolitana', 'Retiro en bodega'],
-        img: 'https://www.service.ulti.cl/etc/mercadopago-logo.jpg',
+        img: 'https://service.ulti.cl/etc/mercadopago-logo.jpg',
         active: false
     },
     {
@@ -72,7 +72,7 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
         name: 'Transferencia Bancaria',
         description: 'Realiza una transferencia electrónica a nuestra cuenta bancaria Ulti SPA 77612907-0.',
         permission: [null, '', 'Envio a región', 'Delivery Región Metropolitana', 'Retiro en bodega'],
-        img: 'https://www.service.ulti.cl/etc/santander-logo.png',
+        img: 'https://service.ulti.cl/etc/santander-logo.png',
         active: false
     },
     // {
@@ -162,7 +162,7 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
                 name: 'Getnet',
                 description: 'Paga seguro todo lo que necesitas con Getnet utilizando tus tarjetas de crédito, débito y prepago, de todos los emisores nacionales e internacionales.',
                 permission: [null, '', 'Envio a región', 'Delivery Región Metropolitana', 'Retiro en bodega'],
-                img: 'https://www.service.ulti.cl/etc/getnet-logo-full.png',
+                img: 'https://service.ulti.cl/etc/getnet-logo-full.png',
                 active: true
             }, [Validators.required]),
         });

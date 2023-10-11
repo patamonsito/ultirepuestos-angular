@@ -6,6 +6,8 @@ import { Validador } from 'src/app/shared/utils/validador.utils'
 import { SharingService } from 'src/app/core/services/sharing.services';
 import { Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-login',
@@ -33,6 +35,8 @@ export class PageLoginComponent implements OnInit{
     Usuario$: Observable<Usuario>;
 
     constructor(private shopService: ShopService,
+         private titleService: Title,
+         private metaService: Meta,
          private sharingService: SharingService,
          private router: Router,
          private route: ActivatedRoute) {
@@ -49,6 +53,12 @@ export class PageLoginComponent implements OnInit{
             }
         })
         this.formInit();
+        this.titleService.setTitle('Iniciar Sesion | Registrarse');
+        this.metaService.addTag({ 
+          name: 'description', 
+          content: `Registrate en Ulti Repuestos.` 
+        });
+
     }
 
     formInit(){

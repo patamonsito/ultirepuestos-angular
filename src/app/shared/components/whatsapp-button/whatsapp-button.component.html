@@ -1,0 +1,14 @@
+<div class="whatsapp-container">
+    <span 
+        class="whatsapp-message" 
+        *ngIf="showMessage" 
+        [@fadeInOutAnimation]>
+        ¿No encuentras el repuesto? ¡Contáctanos! 
+        <img src="https://www.emojiall.com/images/60/blobmoji/emoji_u1f60e.png" alt="icono-carita" style="width: 1.5rem;">
+    </span>
+    <!-- Añade las partículas aquí -->
+    <div class="particle" *ngFor="let i of particles"></div>
+    <a href="https://api.whatsapp.com/send/?phone=56986874327" target="_blank" class="whatsapp-floating-btn whatsapp fab fa-whatsapp" title="¡Hablemos en WhatsApp!">
+        <i class="fa fa-whatsapp whatsapp-icon"></i>
+    </a>
+</div>

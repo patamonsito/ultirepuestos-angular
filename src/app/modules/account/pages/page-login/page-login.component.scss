@@ -9,3 +9,40 @@
     margin-top: 0.3rem;
     width: 100%;
 }
+.block-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    flex-direction: column; 
+}
+
+.container-centered {
+    width: 100%;
+    max-width: 1200px; /* Puedes ajustar este valor según lo que necesites */
+}
+
+
+.confirmation-card {
+    background-color: #f7f8fa;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+.confirmation-card img {
+    max-width: 100px;
+    display: block;
+    margin: 0 auto;
+}
+
+.confirmation-card h3 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.confirmation-card p {
+    text-align: center;
+    font-size: 16px;
+}

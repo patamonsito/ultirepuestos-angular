@@ -4,10 +4,10 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class StoreService {
-    address = 'Via Lactea 4097, Macul, RM';
+    address = 'Vía Lactea 4097, Macul, RM';
     email = 'ventas@ulti.cl';
     phone = ['+56 9 8687 4327'];
-    hours = 'Lun-Vie 9:00 - 18:00';
+    hours = 'Lun-Vie 9:30 - 18:30';
 
     get primaryPhone(): string|null {
         return this.phone.length > 0 ? this.phone[0] : null;

@@ -86,5 +86,5 @@ const routes: Routes = [
     relativeLinkResolution: 'legacy'
 })],
     exports: [RouterModule]
-})
+}) 
 export class AppRoutingModule { }

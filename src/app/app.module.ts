@@ -1,8 +1,4 @@
-import { /*LOCALE_ID, */NgModule } from '@angular/core';
-// import { registerLocaleData } from '@angular/common';
-// import localeIt from '@angular/common/locales/it';
-//
-// registerLocaleData(localeIt, 'it');
+import { NgModule } from '@angular/core';
 
 // modules (angular)
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -28,14 +24,11 @@ import { RootComponent } from './components/root/root.component';
 
 // pages
 import { PageHomeOneComponent } from './pages/page-home-one/page-home-one.component';
-import { PageHomeTwoComponent } from './pages/page-home-two/page-home-two.component';
-import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { PageOffcanvasCartComponent } from './pages/page-offcanvas-cart/page-offcanvas-cart.component';
 import { CoreModule } from './core/core.module';
 
 import { SharingService } from 'src/app/core/services/sharing.services'
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 @NgModule({
     declarations: [
@@ -44,8 +37,6 @@ import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@a
         RootComponent,
         // pages
         PageHomeOneComponent,
-        PageHomeTwoComponent,
-        PageNotFoundComponent,
         PageOffcanvasCartComponent
     ],
     imports: [
@@ -54,7 +45,7 @@ import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@a
         BrowserAnimationsModule,
         ReactiveFormsModule,
         FormsModule,
-        // modules (third-party)
+        // modules
         CarouselModule,
         ToastrModule.forRoot(),
         // modules
@@ -70,7 +61,6 @@ import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@a
     providers: [
         {provide: LocationStrategy, useClass: PathLocationStrategy},
         SharingService
-        // { provide: LOCALE_ID, useValue: 'it' }
     ],
     bootstrap: [AppComponent]
 })

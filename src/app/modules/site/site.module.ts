@@ -13,23 +13,13 @@ import { SiteRoutingModule } from './site-routing.module';
 
 // pages
 import { PageAboutUsComponent } from './pages/page-about-us/page-about-us.component';
-import { PageComponentsComponent } from './pages/page-components/page-components.component';
-import { PageContactUsAltComponent } from './pages/page-contact-us-alt/page-contact-us-alt.component';
-import { PageContactUsComponent } from './pages/page-contact-us/page-contact-us.component';
-import { PageFaqComponent } from './pages/page-faq/page-faq.component';
 import { PageTermsComponent } from './pages/page-terms/page-terms.component';
-import { PageTypographyComponent } from './pages/page-typography/page-typography.component';
 
 @NgModule({
     declarations: [
         // pages
         PageAboutUsComponent,
-        PageComponentsComponent,
-        PageContactUsAltComponent,
-        PageContactUsComponent,
-        PageFaqComponent,
-        PageTermsComponent,
-        PageTypographyComponent
+        PageTermsComponent
     ],
     imports: [
         // modules (angular)

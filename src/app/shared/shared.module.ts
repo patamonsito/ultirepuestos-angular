@@ -30,12 +30,10 @@ import { IconComponent } from './components/icon/icon.component';
 import { InputNumberComponent } from './components/input-number/input-number.component';
 import { LoadingBarComponent } from './components/loading-bar/loading-bar.component';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
-import { PaginationComponent } from './components/pagination/pagination.component';
 import { PostCardComponent } from './components/post-card/post-card.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductComponent } from './components/product/product.component';
 import { QuickviewComponent } from './components/quickview/quickview.component';
-import { RatingComponent } from './components/rating/rating.component';
 import { SearchComponent } from './components/search/search.component';
 import { ShareButtonsComponent } from './components/share-buttons/share-buttons.component';
 import { SocialLinksComponent } from './components/social-links/social-links.component';
@@ -76,12 +74,10 @@ import { WhatsappButtonComponent } from './components/whatsapp-button/whatsapp-b
         InputNumberComponent,
         LoadingBarComponent,
         PageHeaderComponent,
-        PaginationComponent,
         PostCardComponent,
         ProductCardComponent,
         ProductComponent,
         QuickviewComponent,
-        RatingComponent,
         SearchComponent,
         ShareButtonsComponent,
         SocialLinksComponent,
@@ -131,12 +127,10 @@ import { WhatsappButtonComponent } from './components/whatsapp-button/whatsapp-b
         InputNumberComponent,
         LoadingBarComponent,
         PageHeaderComponent,
-        PaginationComponent,
         PostCardComponent,
         ProductCardComponent,
         ProductComponent,
         QuickviewComponent,
-        RatingComponent,
         SearchComponent,
         SocialLinksComponent,
         IconLogoPc,

@@ -4,7 +4,6 @@ import { PageCategoryComponent } from './pages/page-category/page-category.compo
 import { PageCartComponent } from './pages/page-cart/page-cart.component';
 import { PageWishlistComponent } from './pages/page-wishlist/page-wishlist.component';
 import { PageCheckoutComponent } from './pages/page-checkout/page-checkout.component';
-import { PageCompareComponent } from './pages/page-compare/page-compare.component';
 import { PageTrackOrderComponent } from './pages/page-track-order/page-track-order.component';
 import { CheckoutGuard } from './guards/checkout.guard';
 import { PageProductComponent } from './pages/page-product/page-product.component';
@@ -69,10 +68,6 @@ const routes: Routes = [
     {
         path: 'wishlist',
         component: PageWishlistComponent
-    },
-    {
-        path: 'compare',
-        component: PageCompareComponent
     },
     {
         path: 'track-order',

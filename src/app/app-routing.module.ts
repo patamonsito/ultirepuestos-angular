@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { PageHomeOneComponent } from './pages/page-home-one/page-home-one.component';
 import { PageHomeTwoComponent } from './pages/page-home-two/page-home-two.component';
@@ -81,7 +81,6 @@ const routes: Routes = [
     imports: [RouterModule.forRoot(routes, {
     scrollPositionRestoration: 'enabled',
     anchorScrolling: 'enabled',
-    preloadingStrategy: PreloadAllModules,
     initialNavigation: 'enabled',
     relativeLinkResolution: 'legacy'
 })],
